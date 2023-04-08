@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Biryani:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  background-color:transparent;
+}
+.Encabezado{
+  background-color: #004854;
+  width: 100%;
+  height: 111px;
+}
+footer{
+  background-color: #004854;
+  
+  width: 100%;
+  height: 100px;
+  margin-top: 0;
+  margin-left: 0;
+  bottom: 0;
+  position: absolute;
+}
+footer p{
+  color:white;
+}
+#cont {
+  background-color: #004854;
+  text-align: center;
+  padding-top: 40px;
+}
+
+.image{
+  height: 100px;
+  width: 170px;
+  padding: 15px;
+  background-color: #004854;
+}
+.title{
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 25px;
+    font-size: 45px;
+    font-family: 'Biryani', sans-serif;
+}
+.Columnas{
+    margin:auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.botones1{
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    color: #00B9BC;
+}
+
+.botones1 .btn{
+    margin-top: 50px;
+    width: 114px;
+    height: 44px;
+    /*color: white;*/
+
+    background-color: #00B9BC;
+    color: white;
+    border-radius: 20px;
+    border-color:  #00B9BC;
+}
+
+.botones1 .btn:hover{
+  background-color:#F63700;
+  border-color: #F63700;
+}
+
+.botones2 .btn {
+padding-left: 48.5%;
+color:  #00B9BC;
+}
+.botones2 .btn:hover {
+ 
+  color:  #F63700;
+  }
+/*navegacion de */
+.btndesplegable {
+  background-color: #004854 !important;
+  border-color: #004854;
+}
+.navegar{
+  display: flex;
+}
+.inicio{
+  text-decoration: none;
+
+  color: white;
+}
+header a:hover{
+  color:#F63700;
+}

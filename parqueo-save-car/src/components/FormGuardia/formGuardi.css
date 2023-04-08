@@ -1,0 +1,25 @@
+.datos{
+    float: left;
+    font-weight: bold;    
+    width: 50%;
+    padding: 10%;
+}
+
+
+.datosIzq{
+    padding: 10%;
+    font-weight: bold;    
+    float: left;
+    width: 50%;
+}
+
+
+.titulo{
+    padding-top: 3%;
+    text-align: center;
+}
+
+
+.botenes{
+    text-align: center;
+}
