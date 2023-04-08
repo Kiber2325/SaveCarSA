@@ -1,0 +1,106 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Biryani:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
+
+.Encabezado{
+  background-color: #004854;
+  width: 100%;
+  height: 111px;
+}
+.footerReg{
+  background-color: #004854;
+  width: 100%;
+  height: 111px;
+}
+#cont{
+  background-color: #004854;
+  color: white;
+  text-align: center;
+  padding-top: 40px;
+}
+.title{
+  text-align: center;
+  font-size: 45px;
+  font-family: 'Biryani', sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+.tit{
+  font-family: 'Montserrat', sans-serif;
+}
+.Columnas{
+  margin:auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.Columnasx3{
+  width: 33,333%;
+ float: left;
+ margin: 0 50px;
+
+}
+.botones{
+  display: flex;
+  justify-content: center;
+}
+.re{
+  margin: 50px;
+  width: 114px;
+  height: 44px;
+  color: white;
+  background-color: #00B9BC;
+  border-radius: 20px;
+}
+.can{
+  margin: 50px;
+  width: 114px;
+  height: 44px;
+  color: white;
+  background-color: #FC6901;
+  border-radius: 20px;
+}
+.botonAgregarVehiculo{
+  display: flex;
+  justify-content: center;
+}
+.agregarVehiculo{
+  
+  width: 130px;
+  height: 44px;
+  color: white;
+  background-color: #00B9BC;
+  border-radius: 20px;
+  margin: 5px 0;
+}
+/*modales*/
+.headerModal{
+  display: flex;
+  justify-content: center;
+}
+.tituloModal{
+  font-size: 35px;
+}
+.buttonModal{
+  text-align: center;
+  width: 117px;
+  height: 44px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  margin: 25px;
+  
+}
+.footerModal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
