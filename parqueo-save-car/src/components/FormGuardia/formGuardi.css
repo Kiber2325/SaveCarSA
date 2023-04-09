@@ -28,5 +28,16 @@
     color: red;
 }
 
+#cont{
+    background-color: #004854;
+    color: white;
+    text-align: center;
+    padding-top: px;
+  }
+  .footerReg{
+    background-color: #004854;
+    margin-top: 2rem;
+  }
+
 
 

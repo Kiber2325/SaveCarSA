@@ -1,21 +1,34 @@
 
- import React, {useState}  from 'react'
- import "./formGuardi.css"
+import React, {useState}  from 'react'
+import "./formGuardi.css"
 import { Formik, Field } from 'formik';
 
-import Navlogin from "../Login/Navlogin";
- 
+import logo from '../../Images/logo.png';
+import FotoGuardia from '../FotoGuardia/FotoGuardia';
  
  const FormGuardia = () => {
   const [FormularioEnviado, cambiarFormularioEnviado ] = useState(false)
+
    return (
-    
-    <>
-    <Navlogin/>
+   <>    
+   {/* navar */}
+    <header className="Encabezado">    
+      <section>
+          <div>
+          <a href='/'>
+              <img className="image" src={logo} alt="logo"></img>
+          </a>
+          </div>
+      </section>   
+    </header>
+
+    {/* titulo */}
        <div>
          <h1 className='titulo'>Registrar Guardias</h1> 
        </div>
        <div className='container'>
+
+    {/*formulario  */}
       <Formik
         initialValues={{
           ci:'',
@@ -28,8 +41,9 @@ import Navlogin from "../Login/Navlogin";
           mes:''
         }} 
 
-       validate={(valores)=>{
-          let errores = {};
+         validate={(valores)=>{
+           let errores = {};
+
           //validacion ci
             if (!valores.ci) {             
                errores.ci = "Por favor ingrese su CI"
@@ -70,9 +84,23 @@ import Navlogin from "../Login/Navlogin";
               errores.direccion = "Por favor ingrese su direccion"
            }else if (/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.direccion)) {
               errores.direccion = 'EL direccion solo puede contener letras y espacios'
-           }         
+           } 
+           
+            //validacion turno
+            if (!valores.turno) {             
+              errores.turno = "Seleccione un turno"
+            }
+
+            //validacion direccion
+            if (!valores.mes) {             
+              errores.mes = "ingrese los meses"
+           }else if (!/^([0-12])*$/.test(valores.mes)) {
+              errores.mes= 'solo numeros'
+           }
+
           return errores;
       }}
+
       onSubmit={(valores, {resetForm})=>{
         resetForm()
         console.log("formulario enviado");
@@ -155,15 +183,15 @@ import Navlogin from "../Login/Navlogin";
 
                 <div class="col hw2">
                   <h5 className='titulo'>Registrar datos respecto a la reserva</h5>
-                    <br/>
+                  <label>Turno</label> <br/><br/>
                        <select class="form-select" aria-label="Default select example">
                         <option selected>Seleccione turno</option>
                         <option value="1">Mañana</option>
                         <option value="2">Tarde</option>
                         <option value="3">Noche</option>
                        </select>
-                           
-
+                       <br/><br/>
+                       
                         <label htmlFor='nombre'>Cantidad de meses</label>
                         <Field type="text" 
                         class="form-control"  
@@ -172,6 +200,7 @@ import Navlogin from "../Login/Navlogin";
                         placeholder="Escriba aqui el Nombre del cleinte"
                        />
                         {touched.mes && errors.mes && <div className="error" >{errors.mes}</div>}
+                       <FotoGuardia/>
 
                     </div>
                    </div>
@@ -191,7 +220,7 @@ import Navlogin from "../Login/Navlogin";
       
     </Formik> 
     </div>
-   
+    <div className='footerReg'><p id='cont'>Contactos</p></div>
     </> 
 
     );
