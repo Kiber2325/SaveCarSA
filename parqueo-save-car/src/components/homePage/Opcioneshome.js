@@ -36,7 +36,9 @@ const Opcioneshome = () => {
                             </div>
                             <div className="card-footer">
                             <div className="d-grid gap-2">
-                                <button className="btn btn-primary" type="button">Acceder</button>
+
+                            <a className="btn btn-primary" href='/RegistrarCliente'>Acceder</a>
+
                                 </div>
                             </div>
                     </div>
@@ -51,12 +53,10 @@ const Opcioneshome = () => {
                             <div className="card-footer">
                             <div className="d-grid gap-2">
                                
+
                                     <a className="btn btn-primary" href='/FormGuardia'>Acceder</a>
                                    
-                                 
 
-                            
-                               
                             </div>
                             </div>
                     </div>
