@@ -15,6 +15,7 @@ const Navegacion = () => {
   );
 }
 
+
 /*<nav className="navbar nabar-expand -lg" style="background-color: #004854;">
         <div className="container-fluid">
           <Link to='/'>
@@ -38,5 +39,6 @@ const Navegacion = () => {
           </div>
         </div>
       </nav> */
+
 
 export default Navegacion;

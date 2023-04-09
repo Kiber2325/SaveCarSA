@@ -8,8 +8,6 @@ function Home(){
         <div>
             <Navlogin/>
             <Opcioneshome/>
-
-
             <Footers/>
         </div>
         
