@@ -2,6 +2,14 @@
 .titulo{
     padding-top: 1%;
     text-align: center;
+    font-size: 45px;
+    font-family: 'Biryani', sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+
+.tituloguardias{
+    font-size: 16;
 }
 
 .hw{ 
@@ -39,5 +47,41 @@
     margin-top: 2rem;
   }
 
+.container{
+    
+    align-items: center;
+    justify-content: center;
+}
 
+button{
+    width: 117px;
+    height: 44px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    margin: 25px;
+  }
 
+  .form-label{
+    font-size: 16px;
+    font-weight: 500;
+    margin-block-end: 0%;
+  }
+
+  .flabel{
+    font-size: 16px;
+    font-weight: 500;
+    margin-block-end: 2%;
+  }
+
+  .fflabel{
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 3%;
+  }

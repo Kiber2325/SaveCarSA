@@ -24,7 +24,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
 
     {/* titulo */}
        <div>
-         <h1 className='titulo'>Registrar Guardias</h1> 
+         <h1 className='titulo'>Registrar Guardia</h1> 
        </div>
        <div className='container'>
 
@@ -114,67 +114,67 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
         <div class="container">
           <div class="row">
             <div class="col hw">
-               <h5 className='titulo'>Registro datos del cliente</h5>
+               <h5 className='tituloguardias'>Registro datos del guardia</h5>
                    
-                 <label htmlFor='CI' class="form-label"  >CI</label>
+                 <label htmlFor='CI' class="form-label">CI</label>
                  <Field 
                   type="text"
                   class="form-control"  
                   id='CI' name='ci' 
-                  placeholder="Escriba aqui el CI del cleinte"
+                  placeholder="Escriba aqui el CI del guardia"
                  
                   />
                   {touched.ci && errors.ci && <div className="error" >{errors.ci}</div>}
 
                                       
-                 <label htmlFor='nombre'>Nombre</label>
+                 <label htmlFor='nombre' class="form-label">Nombre</label>
                  <Field type="text"
                   class="form-control"  
                   id='nombre' 
                   name='nombre'  
-                  placeholder="Escriba aqui el Nombre del cleinte"
+                  placeholder="Escriba aqui el Nombre del guardia"
                   />
                   {touched.nombre && errors.nombre && <div className="error" >{errors.nombre}</div>}
 
                 
 
-                 <label htmlFor='apellidos'>Apellidos</label>
+                 <label htmlFor='apellidos' class="form-label">Apellidos</label>
                  <Field type="text" 
                  class="form-control"  
                  id='apellidos' 
                  name='apellido'  
-                 placeholder="Escriba aqui los apellidos del cleinte"  
+                 placeholder="Escriba aqui los apellidos del guardia"  
                  />
                  {touched.apellido && errors.apellido && <div className="error" >{errors.apellido}</div>}
                 
 
-                 <label htmlFor='email'>Email</label>
+                 <label htmlFor='email' class="form-label">Email</label>
                  <Field type="text"
                   class="form-control"  
                   id='email' 
                   name='email'  
-                  placeholder="Escriba aqui el email del cleinte"  
+                  placeholder="Escriba aqui el email del guardia"  
                  />
                   {touched.email && errors.email && <div className="error" >{errors.email}</div>}
 
                 
 
-                 <label htmlFor='celular'>Celular</label>
+                 <label htmlFor='celular' class="form-label">Celular</label>
                  <Field type="text" 
                  class="form-control"  
                  id='celular' name='celular'  
-                 placeholder="Escriba aqui el celular del cleinte"  
+                 placeholder="Escriba aqui el celular del guardia"  
                 />
                  {touched.celular && errors.celular && <div className="error" >{errors.celular}</div>}
 
                 
 
-                 <label htmlFor='direccion'>Direccion</label>
+                 <label htmlFor='direccion' class="form-label">Direccion</label>
                  <Field type="text" 
                  class="form-control"  
                  id='direccion' 
                  name='direccion'  
-                 placeholder="Escriba aqui la dirección del cleinte" 
+                 placeholder="Escriba aqui la dirección del guardia" 
                 />
                  {touched.direccion && errors.direccion && <div className="error" >{errors.direccion}</div>}
 
@@ -182,22 +182,22 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
 
 
                 <div class="col hw2">
-                  <h5 className='titulo'>Registrar datos respecto a la reserva</h5>
-                  <label>Turno</label> <br/><br/>
+                  <h5 className='tituloguardias'>Registrar datos respecto a la reserva</h5>
+                  <label class="flabel">Turno</label>
                        <select class="form-select" aria-label="Default select example">
                         <option selected>Seleccione turno</option>
                         <option value="1">Mañana</option>
                         <option value="2">Tarde</option>
                         <option value="3">Noche</option>
                        </select>
-                       <br/><br/>
                        
-                        <label htmlFor='nombre'>Cantidad de meses</label>
+                       
+                        <label htmlFor='nombre' class="fflabel">Cantidad de meses</label>
                         <Field type="text" 
                         class="form-control"  
                         id='nombre' 
                         name='mes'  
-                        placeholder="Escriba aqui el Nombre del cleinte"
+                        placeholder="Contrato por el tiempo de:"
                        />
                         {touched.mes && errors.mes && <div className="error" >{errors.mes}</div>}
                        <FotoGuardia/>
@@ -207,9 +207,22 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
 
               <div class="row">
                 <div class='text-center botones' >
-                  <button type='submit'  class="btn btn-secondary">Registrar</button> 
-                  <a className="btn btn-primary" href='/Home'>volver</a>       
                   
+
+                  <button
+                    style={{
+                      ...StyleSheet.button,
+                      backgroundColor:"#00B9BC"
+                    }} tipe='submit'
+                  >Registrar</button>      
+                  
+                  <button
+                    style={{
+                      ...StyleSheet.button,
+                      backgroundColor:"#F46D21",
+                    }} href='/home'
+                  >Volver</button>
+
                   {FormularioEnviado && <p className='exito'>Enviado con exito</p>}              
                 </div>
               </div>
