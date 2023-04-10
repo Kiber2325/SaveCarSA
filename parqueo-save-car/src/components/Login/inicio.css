@@ -52,20 +52,20 @@ footer p{
 .botones1{
     display: flex;
     justify-content: center;
-    background: transparent;
-    color: #00B9BC;
+    align-items: center;
+    
 }
 
 .botones1 .btn{
-    margin-top: 50px;
-    width: 114px;
+    font-size: 20px;
+    margin-top: 45px;
+    width: 144px;
     height: 44px;
-    /*color: white;*/
-
     background-color: #00B9BC;
     color: white;
     border-radius: 20px;
     border-color:  #00B9BC;
+    align-items: center;
 }
 
 .botones1 .btn:hover{
@@ -76,11 +76,11 @@ footer p{
 .botones2 .btn {
 padding-left: 48.5%;
 color:  #00B9BC;
+margin-top: 0px;
 }
 .botones2 .btn:hover {
- 
   color:  #F63700;
-  }
+}
 /*navegacion de */
 .btndesplegable {
   background-color: #004854 !important;

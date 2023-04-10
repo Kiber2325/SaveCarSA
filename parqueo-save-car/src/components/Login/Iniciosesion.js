@@ -33,9 +33,8 @@ const Iniciosesion = () => {
             <a href="/Home">
             <button className="btn btn-primary" type="submit">Iniciar</button>
             </a>
-            
             </div >
-            <br></br>
+            
             <div className='botones2'>
             <a href="/">
             <button type="button" class="btn btn-link" >Volver</button>
