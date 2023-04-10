@@ -56,7 +56,7 @@ footer p{
     text-decoration: none;
     color: white;
     /*background-color: #004854;*/
-    padding-right: 2em;
+    padding-right: 2px;
     /*padding-top:  60px ;
     padding-right: 100px;*/
 
@@ -81,18 +81,17 @@ footer p{
     background-color: #017E80;
     
  }
- .op1 {
+ .op {
   color: white;
  }
- .op2 {
-  color: white;
- }
- .op1:hover{
+
+ .op:hover{
   background-color:#017E80;
+  width: 110px;
  }
- .op2:hover{
-  background-color:#017E80;
- }
+
+
+
 
 
 

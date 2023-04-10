@@ -6,6 +6,7 @@ import logo from '../../Images/logo.png';
 import{Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 
 import '../landingPage/lading.css'
+
 const Navlading = () => {
     const [dropdown, setDropdown] = useState (false);
     
@@ -41,8 +42,8 @@ const Navlading = () => {
                     Reserva
                     </DropdownToggle>
                     <DropdownMenu className="menuops">
-                        <DropdownItem className="op1">POR HORA</DropdownItem>
-                        <DropdownItem className="op2">MENSUAL</DropdownItem>
+                        <DropdownItem className="op">POR HORA</DropdownItem>
+                        <DropdownItem className="op">MENSUAL</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </div>
