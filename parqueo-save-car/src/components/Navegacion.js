@@ -7,7 +7,7 @@ const Navegacion = () => {
     <div>
       <header className="Encabezado">
         <a href="/">
-            <img className="image" src={'../Images/logo.png'} alt="logo"/>
+            <img className="image" src={'../Images/logo.png'} alt="logo"></img>
         </a>
         
         </header>

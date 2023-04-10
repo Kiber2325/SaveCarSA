@@ -2,7 +2,7 @@
 import React, {useState}  from 'react'
 import "./formGuardi.css"
 import { Formik, Field } from 'formik';
-
+import { Link } from "react-router-dom";
 import logo from '../../Images/logo.png';
 import FotoGuardia from '../FotoGuardia/FotoGuardia';
  
@@ -15,9 +15,9 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
     <header className="Encabezado">    
       <section>
           <div>
-          <a href='/'>
+          <Link to='/'>
               <img className="image" src={logo} alt="logo"></img>
-          </a>
+          </Link>
           </div>
       </section>   
     </header>
@@ -208,7 +208,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
               <div class="row">
                 <div class='text-center botones' >
                   <button type='submit'  class="btn btn-secondary">Registrar</button> 
-                  <a className="btn btn-primary" href='/Home'>volver</a>       
+                  <Link className="btn btn-primary" to='/Home'>volver</Link>       
                   
                   {FormularioEnviado && <p className='exito'>Enviado con exito</p>}              
                 </div>

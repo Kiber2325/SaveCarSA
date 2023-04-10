@@ -23,11 +23,11 @@ const Navlogin = () => {
         <section className="navegarnav">
             <div>
             <div className="navcli">
-                <a clasName= "cliente" href="/" >Clientes </a>
+                {/* <a clasName= "cliente" href="/" >Clientes </a> */}
                 </div>
 
                 <div className="sesion">
-                <a className="Cerrar" href="/">Cerrar Sesion</a>
+                <Link className="Cerrar" to="/">Cerrar Sesion</Link>
                 </div>
             </div>
             
