@@ -29,9 +29,9 @@ const Navlading = () => {
         <section className="navegar">
             <div className="d-flex justify-content-end">
             <div>
-            <a href="/Iniciosesion">
+            <Link to="/Iniciosesion">
             <button type="button" class="btn btn-link" >Iniciar Sesión</button>
-            </a>
+            </Link>
 
             </div>
 
