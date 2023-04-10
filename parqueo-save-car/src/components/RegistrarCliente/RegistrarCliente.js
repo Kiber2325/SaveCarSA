@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import FormInput from './InputFormAgregarVehiculo/FormInput';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import logo from '../../Images/logo.png';
 const conexionCliente='http://127.0.0.1:8000/api/cliente';
 const RegistrarCliente = () => {
   //constante para navegar
@@ -491,6 +492,13 @@ verificacion  de errores  */
   return (
     <div className='registrarCliente'>
       <header className="Encabezado">
+      <section>
+          <div>
+          <a href='/'>
+              <img className="image" src={logo} alt="logo"></img>
+          </a>
+          </div>
+      </section>
     </header>
     <h1 className='title'><b>Registrar cliente</b></h1>
     <form className='container'>
