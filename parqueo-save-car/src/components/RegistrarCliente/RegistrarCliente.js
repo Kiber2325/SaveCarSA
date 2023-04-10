@@ -5,6 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label} from 'reactstrap';
+import { Link } from "react-router-dom";
 import FormInput from './InputFormAgregarVehiculo/FormInput';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -606,7 +607,11 @@ verificacion  de errores  */
     <div className='row'>
       <div className='botones'>
       <button className='re' type='submit' onClick={registrarCliente}>Registrar</button>
-      <button className='can' onClick={(e)=>cancelarRegistroCliente(e)}>Cancelar</button>
+      <Link to="/Home">
+        <button className='can' onClick={(e)=>cancelarRegistroCliente(e)}>Cancelar</button>
+      </Link>
+      
+
       </div>
     </div>
     <div className='footerReg'><p id='cont'>Contactos</p></div>
