@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {BrowserRouter, Route, Routes  } from "react-router-dom";
 import LadingPage from "../components/landingPage/LadingPage";
 import Iniciosesion from "../components/Login/Iniciosesion";
 import Home from "../components/homePage/Home";
@@ -10,17 +10,17 @@ import RegistrarCliente from "../components/RegistrarCliente/RegistrarCliente";
 
 const Redipath =() =>{
     return(
-    <Router>
-        <Switch>
-            <Route exact path="/" component={LadingPage}/>
-            <Route exact path="/Iniciosesion" component={Iniciosesion}/>
-            <Route exact path="/Home*" component={Home}/>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<LadingPage/>}/>
+            <Route path="/Iniciosesion" element={<Iniciosesion/>}/>
+            <Route path="/Home*" element={<Home/>}/>
 
-            <Route exact path="/FormGuardia" component={FormGuardia}/>
-            <Route exact path="/RegistrarCliente" component={RegistrarCliente}/>
+            <Route path="/FormGuardia" element={<FormGuardia/>}/>
+            <Route path="/RegistrarCliente" element={<RegistrarCliente/>}/>
 
-        </Switch>
-    </Router>
+        </Routes>
+    </BrowserRouter>
     );
 };
 export default Redipath;

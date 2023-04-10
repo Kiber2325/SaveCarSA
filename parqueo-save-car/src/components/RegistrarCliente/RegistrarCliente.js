@@ -3,15 +3,15 @@ import Entrada from './Entrada/Entrada';
 import './RegistrarCliente.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useHistory } from 'react-router-dom';
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label} from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import FormInput from './InputFormAgregarVehiculo/FormInput';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 const conexionCliente='http://127.0.0.1:8000/api/cliente';
 const RegistrarCliente = () => {
   //constante para navegar
-  const navigate=useHistory();
+  const navigate=useNavigate();
   //guardar estado de inputs 
   const [ci,setCi]=useState('');
   const [nombre,setNombre]=useState('');
@@ -354,7 +354,7 @@ verificacion  de errores  */
       celular:celular,
       cantidad_meses:cantidadMeses});
       //redireccion
-      navigate.push('/Home');
+      navigate('/Home');
       window.location.reload();
     }
   }
@@ -370,7 +370,7 @@ verificacion  de errores  */
       
     }).then(response=>{
       if(response.isConfirmed){
-        navigate.push('/Home');
+        navigate('/Home');
         window.location.reload();
       }
     })
@@ -470,14 +470,21 @@ verificacion  de errores  */
   }
   const editar=()=>{
     var dataNueva=data;
-    dataNueva.map(auto=>{
+    /*dataNueva.map(auto=>{
       if(auto.id===values.id){
         auto.matricula=values.matricula;
         auto.tipo=values.tipo;
         auto.marca=values.marca;
         auto.soat=values.soat;
       }
-    });
+    });*/
+    for(let i=0;i<dataNueva.length;i++){
+      let auto=dataNueva[i];
+      auto.matricula=values.matricula;
+      auto.tipo=values.tipo;
+      auto.marca=values.marca;
+      auto.soat=values.soat;
+    }
     setData(dataNueva);
     setModalEditar(false);
   }
