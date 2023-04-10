@@ -96,9 +96,34 @@
   margin-top: 15px;
   margin-bottom: 30px;
   margin: 25px;
-  
 }
-.footerModal{
+
+button{
+  width: 117px;
+  height: 44px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  margin: 25px;
+}
+
+h1{
+  text-align: center;
+}
+
+.foModal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.botonesModalAlinear{
   display: flex;
   justify-content: center;
   align-items: center;

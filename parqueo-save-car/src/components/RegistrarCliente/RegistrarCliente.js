@@ -583,7 +583,7 @@ verificacion  de errores  */
     <div className='col'>
     <label className='tit'> <b>Registro vehiculos del cliente</b></label> <br/>
     <div className='botonAgregarVehiculo'>
-    <button className='agregarVehiculo' onClick={(e)=>abrirModal(e)}>Añadir Vehiculo</button>
+    <button className='agregarVehiculo' onClick={(e)=>abrirModal(e)}>Añadir Auto</button>
     </div>
     
     <table className='table table-bordered'>
@@ -620,35 +620,30 @@ verificacion  de errores  */
     <div className='footerReg'><p id='cont'>Contactos</p></div>
     <Modal isOpen={stateInsertar} >
         <div className='headerModal'>
-        <ModalHeader>
-          <p  className='tituloModal'>Registro de vehículos</p>
-        </ModalHeader>
+        
         </div>
         <form>
         <ModalBody>
-        
+        <h1>Registro de vehículos</h1>
           {inputs.map((input) => (
             <FormInput key={input.id} 
             {...input} value={values[input.name]} 
             onChange={onChange} />
           ))}
           
-        </ModalBody>
-        <div className='footerModal'>
-        <ModalFooter>
           <div className='botonesModalAlinear'>
-            <Button onClick={insertarVehiculo} style={{
+            <button onClick={insertarVehiculo} style={{
               ...StyleSheet.buttonModal,
               backgroundColor:"#00B9BC"
-            }}>Registrar</Button>
-            </div>
-            <Button onClick={
+            }}>Registrar</button>
+            
+            <button onClick={
               ()=>setStateInsertar(!stateInsertar)} style={{
               ...StyleSheet.buttonModal,
               backgroundColor:"#F46D21",
-            }}>Cancelar</Button>
-        </ModalFooter>
-        </div>
+            }}>Cancelar</button>
+            </div>
+        </ModalBody>
         </form>
       </Modal>
       <Modal isOpen={modalEditar} >
@@ -670,16 +665,16 @@ verificacion  de errores  */
         <div className='footerModal'>
         <ModalFooter>
           <div className='botonesModalAlinear'>
-            <Button onClick={editar} style={{
+            <button onClick={editar} style={{
               ...StyleSheet.buttonModal,
               backgroundColor:"#00B9BC"
-            }}>Registrar</Button>
+            }}>Registrar</button>
             </div>
-            <Button onClick={
+            <button onClick={
               ()=>setModalEditar(!modalEditar)} style={{
               ...StyleSheet.buttonModal,
               backgroundColor:"#F46D21",
-            }}>Cancelar</Button>
+            }}>Cancelar</button>
         </ModalFooter>
         </div>
         </form>
