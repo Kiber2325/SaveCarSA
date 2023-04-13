@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import img1 from '../../Images/estacionamiento1.jpg'
 import img2 from '../../Images/estacionamiento2.png'
 import img3 from '../../Images/estacionamiento3.jpg'
@@ -22,7 +22,7 @@ const Opcioneshome = () => {
                             </div>
                             <div className="card-footer">
                             <div className="d-grid gap-2">
-                                <button className="btn btn-primary" type="button">Acceder</button>
+                                {/* <button className="btn btn-primary" type="button">Acceder</button> */}
                                 </div>
                             </div>
                     </div>
@@ -37,7 +37,7 @@ const Opcioneshome = () => {
                             <div className="card-footer">
                             <div className="d-grid gap-2">
 
-                            <a className="btn btn-primary" href='/RegistrarCliente'>Acceder</a>
+                            <Link className="btn btn-primary" to='/RegistrarCliente'>Acceder</Link>
 
                                 </div>
                             </div>
@@ -54,7 +54,7 @@ const Opcioneshome = () => {
                             <div className="d-grid gap-2">
                                
 
-                                    <a className="btn btn-primary" href='/FormGuardia'>Acceder</a>
+                                    <Link className="btn btn-primary" to='/FormGuardia'>Acceder</Link>
                                    
 
                             </div>

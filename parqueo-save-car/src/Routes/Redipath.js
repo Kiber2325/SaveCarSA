@@ -14,7 +14,7 @@ const Redipath =() =>{
         <Switch>
             <Route exact path="/" component={LadingPage}/>
             <Route exact path="/Iniciosesion" component={Iniciosesion}/>
-            <Route exact path="/Home*" component={Home}/>
+            <Route exact path="/Home" component={Home}/>
 
             <Route exact path="/FormGuardia" component={FormGuardia}/>
             <Route exact path="/RegistrarCliente" component={RegistrarCliente}/>

@@ -3,7 +3,7 @@ import Entrada from '../Entrada';
 import '../Login/inicio.css'
 import Navegacion from '../Navegacion';
 import Footers from '../Footer/Footer';
-
+import { Link } from "react-router-dom";
 
 const Iniciosesion = () => {
     return(
@@ -30,15 +30,15 @@ const Iniciosesion = () => {
         </section >
         <div >
             <div className='botones1'>
-            <a href="/Home">
+            <Link to="/Home">
             <button className="btn btn-primary" type="submit">Iniciar</button>
-            </a>
+            </Link>
             </div >
             
             <div className='botones2'>
-            <a href="/">
+            <Link to="/">
             <button type="button" class="btn btn-link" >Volver</button>
-            </a>
+            </Link>
             
             
             
