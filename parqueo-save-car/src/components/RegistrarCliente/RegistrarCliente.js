@@ -344,7 +344,7 @@ verificacion  de errores  */
   }
   //registra cliente/ redireccionar
   const registrarCliente=async(e)=>{
-    //e.preventDefault();
+    e.preventDefault();
     if(comprobarCampos()===false){
       //console.log(ci+'\n'+nombre+'\n'+apellido+'\n'+correo+'\n'+celular+'\n'+lugar+'\n'+cantidadMeses);
       /*await axios.post(conexionCliente,{CI:ci,
