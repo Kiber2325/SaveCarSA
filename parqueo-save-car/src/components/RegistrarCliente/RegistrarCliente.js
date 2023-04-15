@@ -165,7 +165,7 @@ verificacion  de errores  */
     } else if(!regexEmail.test(correoCapturado)){
       setErrorCorreo(true);
       errorCorreo2=true;
-      setMensajeErrorCorreo('El campo "Correo" solo acepta letras.');
+      setMensajeErrorCorreo('El formato del campo "Correo" es: ejemplo1@gmail.com');
     }else{
       setErrorCorreo(false);
       errorCorreo2=false;
