@@ -347,15 +347,15 @@ verificacion  de errores  */
     //e.preventDefault();
     if(comprobarCampos()===false){
       //console.log(ci+'\n'+nombre+'\n'+apellido+'\n'+correo+'\n'+celular+'\n'+lugar+'\n'+cantidadMeses);
-      await axios.post(conexionCliente,{CI:ci,
+      /*await axios.post(conexionCliente,{CI:ci,
       nombre:nombre,
       apellido:apellido,
       correo:correo,
       celular:celular,
-      cantidad_meses:cantidadMeses});
+      cantidad_meses:cantidadMeses});*/
       //redireccion
       navigate('/Home');
-      window.location.reload();
+      //window.location.reload();
     }
   }
   //cancelar con sweet alert
@@ -371,7 +371,7 @@ verificacion  de errores  */
     }).then(response=>{
       if(response.isConfirmed){
         navigate('/Home');
-        window.location.reload();
+        //window.location.reload();
       }
     })
   }
