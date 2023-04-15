@@ -1,14 +1,14 @@
 import React,{useState} from 'react'
 import Entrada from './Entrada/Entrada';
 import './RegistrarCliente.css';
-import axios from 'axios';
+//import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import FormInput from './InputFormAgregarVehiculo/FormInput';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-const conexionCliente='http://127.0.0.1:8000/api/cliente';
+//const conexionCliente='http://127.0.0.1:8000/api/cliente';
 const RegistrarCliente = () => {
   //constante para navegar
   const navigate=useNavigate();
