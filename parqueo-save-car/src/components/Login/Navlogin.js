@@ -15,7 +15,7 @@ const Navlogin = () => {
       <section>
             <div>
             <Link to="/">
-                <img className="image" src={logo} alt="logo"/>
+                <img className="image" src={logo} alt="log"/>
             </Link>
             </div>
         </section>

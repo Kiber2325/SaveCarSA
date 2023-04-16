@@ -57,7 +57,8 @@ footer p{
 }
 
 .botones1 .btn{
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 0;
     width: 114px;
     height: 44px;
     /*color: white;*/
@@ -74,6 +75,7 @@ footer p{
 }
 
 .botones2 .btn {
+  margin-top: 0;
 padding-left: 48.5%;
 color:  #00B9BC;
 }
@@ -96,4 +98,9 @@ color:  #00B9BC;
 }
 header a:hover{
   color:#F63700;
+}
+.mensajeErrorLogin{
+  color: #F63700;
+  text-align: center;
+  font-weight: bold;
 }

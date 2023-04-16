@@ -3,10 +3,28 @@ import Entrada from '../Entrada';
 import '../Login/inicio.css'
 import Navegacion from '../Navegacion';
 import Footers from '../Footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 const Iniciosesion = () => {
+    const [usuario,setUsuario]=useState('');
+    const [password,setPassword]=useState('');
+    const [errorLogin,setErrorLogin]=useState(false)
+    const [mensajeErrorLogin,setMensajeErrorLogin]=useState('');
+    const navigate=useNavigate();
+    const iniciarSesion=e=>{
+        if(usuario==='Admin123@gmail.com' && password==='12345678'){
+            navigate('/Home')
+        }else{
+            setErrorLogin(true);
+            if(usuario===''||password===''){
+                setMensajeErrorLogin('No puedes dejar el usuario o contraseña vacío')
+            }else{
+            setMensajeErrorLogin('El usuario o contraseña es incorrecto')
+            }
+        }
+    }
     return(
         <div>
         <Navegacion/>
@@ -17,6 +35,8 @@ const Iniciosesion = () => {
              tituloEntrada='Usuario' 
              tipo='text'
              contenido='Escriba aqui su usuario'
+             valor={usuario}
+             cambio={e=>setUsuario(e.target.value)}
         />
 
         
@@ -25,13 +45,15 @@ const Iniciosesion = () => {
         tituloEntrada='Contraseña'
         tipo='password'
         contenido='Escriba aqui su contraseña'
+        valor={password}
+        cambio={e=>setPassword(e.target.value)}
         />
-        
+        {errorLogin && <div className='mensajeErrorLogin'>{mensajeErrorLogin}</div>}
         </div>
         </section >
         <div >
             <div className='botones1'>
-            <Link to='/Home' className="btn btn-primary">Iniciar</Link>
+            <button className="btn btn-primary" onClick={iniciarSesion}>Iniciar</button>
             </div >
             <br></br>
             <div className='botones2'>
