@@ -1,3 +1,4 @@
+import './Carrusel.css'
 import React, { Component } from 'react';
 import {
   Carousel,
@@ -71,9 +72,9 @@ const items = [
             onExited={this.onExited}
             key={item.src}
           >
-            <center>
+            <center >
             <img src={item.src} alt={item.altText} width="50%" height="20%"/>
-            <CarouselCaption /*captionText={item.caption}*/ captionHeader={item.caption} />
+            <CarouselCaption className='my-caption' /*captionText={item.caption}*/ captionText={item.caption}/>
             
             </center>
  </CarouselItem>
