@@ -14,12 +14,12 @@ const items = [
       caption: 'Haz tu reserva'
     },
     {
-     src: require ('../../Images/estacionamiento2.png'),
+     src: require ('../../Images/estacionamiento2.jpeg'),
       altText: 'Imagen 2',
       caption: 'No busques mas aqui esta tu estacionamiento SaveCar'
     },
     {
-        src:require('../../Images/estacionamiento3.jpg'),
+        src:require('../../Images/estacionamiento3.jpeg'),
         altText: 'Imagen 3',
       caption: 'Atencion para todo tipo de movilidad'
     }

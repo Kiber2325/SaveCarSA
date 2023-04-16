@@ -1,8 +1,8 @@
 import React from "react";
 
 import img1 from '../../Images/estacionamiento1.jpg'
-import img2 from '../../Images/estacionamiento2.png'
-import img3 from '../../Images/estacionamiento3.jpg'
+import img2 from '../../Images/estacionamiento2.jpeg'
+import img3 from '../../Images/estacionamiento3.jpeg'
 import '../homePage/home.css'
 import { Link } from "react-router-dom";
 
