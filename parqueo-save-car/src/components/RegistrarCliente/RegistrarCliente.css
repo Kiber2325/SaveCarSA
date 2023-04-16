@@ -46,27 +46,33 @@
   justify-content: center;
 }
 .re{
-  margin: 50px;
+  
   width: 114px;
   height: 44px;
+  padding: 10px;
+  margin: 15px 25px 30px 25px;
   color: white;
   background-color: #00B9BC;
   border-radius: 20px;
+  border: none;
 }
 .can{
-  margin: 50px;
+  
   width: 114px;
   height: 44px;
+  padding: 10px;
+  margin: 15px 25px 30px 25px;
   color: white;
   background-color: #FC6901;
   border-radius: 20px;
+  border: none;
 }
 .botonAgregarVehiculo{
   display: flex;
   justify-content: center;
 }
 .agregarVehiculo{
-  
+  border: none;
   width: 130px;
   height: 44px;
   color: white;

@@ -449,6 +449,7 @@ verificacion  de errores  */
   }
   const insertarVehiculo=(e)=>{
     e.preventDefault();
+    if(values.matricula!==''&&values.tipo!==''&&values.marca!==''&&values.soat!==''){
     listaAutoEstaVacio=false;
       setListaAuto(false)
       setMensajeListaAuto(null)
@@ -466,7 +467,8 @@ verificacion  de errores  */
       soat:"",
     };
     setValues(valoresCero)
-    
+
+  }
   }
   const editar=()=>{
     var dataNueva=data;

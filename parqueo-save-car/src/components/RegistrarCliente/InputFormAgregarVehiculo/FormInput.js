@@ -18,7 +18,8 @@ const FormInput = (props) => {
                     {...inputProps} 
                     onChange={onChange} 
                     onBlur={handleFocus} 
-                    focused={focused.toString()}
+                    focused={focused.toString()
+                    }
                 />
                 <span>{errorMessage}</span>
                 
