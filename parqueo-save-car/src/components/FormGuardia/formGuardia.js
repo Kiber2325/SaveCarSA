@@ -5,6 +5,7 @@ import { Formik, Field } from 'formik';
 
 import logo from '../../Images/logo.png';
 import FotoGuardia from '../FotoGuardia/FotoGuardia';
+import { Link } from 'react-router-dom';
  
  const FormGuardia = () => {
   const [FormularioEnviado, cambiarFormularioEnviado ] = useState(false)
@@ -114,14 +115,14 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
         <div class="container">
           <div class="row">
             <div class="col hw">
-               <h5 className='titulo'>Registro datos del cliente</h5>
+               <h5 className='titulo'>Registro datos del guardia</h5>
                    
                  <label htmlFor='CI' class="form-label"  >CI</label>
                  <Field 
                   type="text"
                   class="form-control"  
                   id='CI' name='ci' 
-                  placeholder="Escriba aqui el CI del cleinte"
+                  placeholder="Escriba aqui el CI del guardia"
                  
                   />
                   {touched.ci && errors.ci && <div className="error" >{errors.ci}</div>}
@@ -132,7 +133,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                   class="form-control"  
                   id='nombre' 
                   name='nombre'  
-                  placeholder="Escriba aqui el Nombre del cleinte"
+                  placeholder="Escriba aqui el Nombre del guardia"
                   />
                   {touched.nombre && errors.nombre && <div className="error" >{errors.nombre}</div>}
 
@@ -143,7 +144,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                  class="form-control"  
                  id='apellidos' 
                  name='apellido'  
-                 placeholder="Escriba aqui los apellidos del cleinte"  
+                 placeholder="Escriba aqui los apellidos del guardia"  
                  />
                  {touched.apellido && errors.apellido && <div className="error" >{errors.apellido}</div>}
                 
@@ -153,7 +154,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                   class="form-control"  
                   id='email' 
                   name='email'  
-                  placeholder="Escriba aqui el email del cleinte"  
+                  placeholder="Escriba aqui el email del guardia"  
                  />
                   {touched.email && errors.email && <div className="error" >{errors.email}</div>}
 
@@ -163,7 +164,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                  <Field type="text" 
                  class="form-control"  
                  id='celular' name='celular'  
-                 placeholder="Escriba aqui el celular del cleinte"  
+                 placeholder="Escriba aqui el celular del guardia"  
                 />
                  {touched.celular && errors.celular && <div className="error" >{errors.celular}</div>}
 
@@ -174,7 +175,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                  class="form-control"  
                  id='direccion' 
                  name='direccion'  
-                 placeholder="Escriba aqui la dirección del cleinte" 
+                 placeholder="Escriba aqui la dirección del guardia" 
                 />
                  {touched.direccion && errors.direccion && <div className="error" >{errors.direccion}</div>}
 
@@ -182,7 +183,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
 
 
                 <div class="col hw2">
-                  <h5 className='titulo'>Registrar datos respecto a la reserva</h5>
+                  <h5 className='titulo'>Registrar datos respecto al trabajo</h5>
                   <label>Turno</label> <br/><br/>
                        <select class="form-select" aria-label="Default select example">
                         <option selected>Seleccione turno</option>
@@ -193,11 +194,11 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                        <br/><br/>
                        
                         <label htmlFor='nombre'>Cantidad de meses</label>
-                        <Field type="text" 
+                        <Field type="number" 
                         class="form-control"  
                         id='nombre' 
                         name='mes'  
-                        placeholder="Escriba aqui el Nombre del cleinte"
+                        placeholder="Contrato por el tiempo de:"
                        />
                         {touched.mes && errors.mes && <div className="error" >{errors.mes}</div>}
                        <FotoGuardia/>
@@ -207,8 +208,8 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
 
               <div class="row">
                 <div class='text-center botones' >
-                  <button type='submit'  class="btn btn-secondary">Registrar</button> 
-                  <a className="btn btn-primary" href='/Home'>volver</a>       
+                  <button style={{...StyleSheet.button,backgroundColor:"#00B9BC",}} type='submit'  class="btn btn-secondary">Registrar</button> 
+                  <Link style={{...StyleSheet.button,backgroundColor:"#F46D21",}} className="btn btn-primary" to='/Home'>volver</Link>       
                   
                   {FormularioEnviado && <p className='exito'>Enviado con exito</p>}              
                 </div>
