@@ -447,8 +447,16 @@ verificacion  de errores  */
     e.preventDefault();
     setStateInsertar(!stateInsertar);
   }
+  const [typeOp, setTypeOp] = React.useState('');
+  const captureType = (e) => {
+    setTypeOp(e.target.value);
+  }
   const insertarVehiculo=(e)=>{
     e.preventDefault();
+    
+    if(typeOp!==''){
+      values.tipo=typeOp;
+    }
     if(values.matricula!==''&&values.tipo!==''&&values.marca!==''&&values.soat!==''){
     listaAutoEstaVacio=false;
       setListaAuto(false)
@@ -466,6 +474,7 @@ verificacion  de errores  */
       marca:"",
       soat:"",
     };
+    console.log(values)
     setValues(valoresCero)
 
     }
@@ -630,11 +639,24 @@ verificacion  de errores  */
         <form>
         <ModalBody>
         
-          {inputs.map((input) => (
-            <FormInput key={input.id} 
-            {...input} value={values[input.name]} 
+          
+            <FormInput key={inputs[0].id} 
+            {...inputs[0]} value={values[inputs[0].name]} 
             onChange={onChange} />
-          ))}
+            <label>{inputs[1].label}</label><br/>
+            <div className='select'>
+              <select name='tipo' id='format' onChange={captureType}>
+                <option selected disabled value=''>Seleccione el tipo de vehículo</option>
+                <option value="Auto">Auto</option>
+                <option value="Moto">Moto</option>
+              </select>
+            </div>
+            <FormInput key={inputs[2].id} 
+            {...inputs[2]} value={values[inputs[2].name]} 
+            onChange={onChange} />
+            <FormInput key={inputs[3].id} 
+            {...inputs[3]} value={values[inputs[3].name]} 
+            onChange={onChange} />
           
         </ModalBody>
         <div className='footerModal'>
