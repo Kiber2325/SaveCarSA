@@ -5,11 +5,12 @@ import { Formik, Field } from 'formik';
 
 import logo from '../../Images/logo.png';
 import FotoGuardia from '../FotoGuardia/FotoGuardia';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
  
  const FormGuardia = () => {
   const [FormularioEnviado, cambiarFormularioEnviado ] = useState(false)
-
+  const navigate=useNavigate();
+  
    return (
    <>    
    {/* navar */}
@@ -56,14 +57,14 @@ import { Link } from 'react-router-dom';
            if (!valores.nombre) {             
               errores.nombre = "Por favor ingrese nombre"
            }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.nombre)) {
-              errores.nombre = 'EL nombre solo puede contener letras y espacios'
+              errores.nombre = 'El nombre solo puede contener letras, números y espacios'
            }
 
           //validacion apellido
              if (!valores.apellido) {             
               errores.apellido = "Por favor ingrese su apellido"
            }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.apellido)) {
-              errores.apellido = 'EL apellido solo puede contener letras y espacios'
+              errores.apellido = 'El apellido solo puede contener letras y espacios'
            }
 
             //validacion email
@@ -107,6 +108,7 @@ import { Link } from 'react-router-dom';
         console.log("formulario enviado");
         cambiarFormularioEnviado(true)
         setTimeout(()=> cambiarFormularioEnviado(false),4000)
+        navigate('/Home')
       }}> 
       
        {({ values, errors, touched, handleSubmit, handleChange, handleBlur })=>(
@@ -185,12 +187,13 @@ import { Link } from 'react-router-dom';
                 <div class="col hw2">
                   <h5 className='titulo'>Registrar datos respecto al trabajo</h5>
                   <label>Turno</label> <br/><br/>
-                       <select class="form-select" aria-label="Default select example">
+                       <Field as='select' class="form-select" aria-label="Default select example" name='turno'>
                         <option selected>Seleccione turno</option>
-                        <option value="1">Mañana</option>
+                        <option value="2">Mañana</option>
                         <option value="2">Tarde</option>
                         <option value="3">Noche</option>
-                       </select>
+                       </Field>
+                       {touched.turno && errors.turno && <div className="error" >{errors.turno}</div>}
                        <br/><br/>
                        
                         <label htmlFor='nombre'>Cantidad de meses</label>
@@ -208,7 +211,7 @@ import { Link } from 'react-router-dom';
 
               <div class="row">
                 <div class='text-center botones' >
-                  <button style={{...StyleSheet.button,backgroundColor:"#00B9BC",}} type='submit'  class="btn btn-secondary">Registrar</button> 
+                  <button style={{...StyleSheet.button,backgroundColor:"#00B9BC",}} type='submit'  class="btn btn-secondary" >Registrar</button> 
                   <Link style={{...StyleSheet.button,backgroundColor:"#F46D21",}} className="btn btn-primary" to='/Home'>volver</Link>       
                   
                   {FormularioEnviado && <p className='exito'>Enviado con exito</p>}              
