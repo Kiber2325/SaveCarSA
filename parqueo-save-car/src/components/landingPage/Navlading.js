@@ -33,6 +33,15 @@ const Navlading = () => {
             <Link to='/Iniciosesion' class="btn btn-link">Iniciar Sesión</Link>
             </div>
 
+            
+            </div>
+
+        </section>        
+        </header>
+    </div>
+  );
+}
+/*Menú de reserva
             <div>
                 <Dropdown isOpen ={dropdown} toggle={abrirCerrarDropdown}>
                     <DropdownToggle caret className="btndesplegable">
@@ -43,13 +52,6 @@ const Navlading = () => {
                         <DropdownItem className="op2">MENSUAL</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-            </div>
-            </div>
-
-        </section>        
-        </header>
-    </div>
-  );
-}
+            </div>*/
 /*<a className="inicio" href="/iniciosesion">Iniciar Sesión</a> */
 export default Navlading;

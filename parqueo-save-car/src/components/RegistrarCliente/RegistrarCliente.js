@@ -468,9 +468,10 @@ verificacion  de errores  */
     };
     setValues(valoresCero)
 
-  }
+    }
   }
   const editar=()=>{
+    if(values.matricula!==''&&values.tipo!==''&&values.marca!==''&&values.soat!==''){
     var dataNueva=data;
     /*dataNueva.map(auto=>{
       if(auto.id===values.id){
@@ -489,6 +490,7 @@ verificacion  de errores  */
     }
     setData(dataNueva);
     setModalEditar(false);
+  }
   }
   const eliminar=(e)=>{
     
