@@ -442,7 +442,17 @@ verificacion  de errores  */
   const [stateInsertar,setStateInsertar]= useState(false);
   const [modalEditar, setModalEditar]=useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
-
+  const cerrarModalEditarCancelar=()=>{
+    setModalEditar(!modalEditar);
+    let valoresCero={
+      id:'',
+      matricula:"",
+      tipo:"",
+      marca:"",
+      soat:"",
+    };
+    setValues(valoresCero)
+  }
   const abrirModal=(e)=>{
     e.preventDefault();
     setStateInsertar(!stateInsertar);
@@ -474,12 +484,13 @@ verificacion  de errores  */
       marca:"",
       soat:"",
     };
-    console.log(values)
     setValues(valoresCero)
 
     }
   }
   const editar=()=>{
+    values.tipo=typeOp;
+    console.log(values)
     if(values.matricula!==''&&values.tipo!==''&&values.marca!==''&&values.soat!==''){
     var dataNueva=data;
     /*dataNueva.map(auto=>{
@@ -499,6 +510,15 @@ verificacion  de errores  */
     }
     setData(dataNueva);
     setModalEditar(false);
+    let valoresCero={
+      id:'',
+      matricula:"",
+      tipo:"",
+      marca:"",
+      soat:"",
+    };
+    setValues(valoresCero)
+    console.log(values)
   }
   }
   const eliminar=(e)=>{
@@ -684,13 +704,23 @@ verificacion  de errores  */
         </div>
         <form>
         <ModalBody>
-        
-          {inputs.map((input) => (
-            <FormInput key={input.id} 
-            {...input} value={values[input.name]} 
+          <FormInput key={inputs[0].id} 
+            {...inputs[0]} name="matricula" value={values&&values.matricula} 
             onChange={onChange} />
-          ))}
-          
+          <label>{inputs[1].label}</label><br/>
+          <div className='select'>
+              <select name='tipo' id='format' onChange={captureType}>
+                <option selected disabled value={values&&values.tipo}>{values&&values.tipo}</option>
+                <option value="Auto">Auto</option>
+                <option value="Moto">Moto</option>
+              </select>
+            </div>
+          <FormInput key={inputs[2].id} 
+            {...inputs[2]} name="marca" value={values&&values.marca} 
+            onChange={onChange} />
+          <FormInput key={inputs[3].id} 
+            {...inputs[3]} value={values&&values.soat} 
+            onChange={onChange} />
         </ModalBody>
         <div className='footerModal'>
         <ModalFooter>
@@ -701,7 +731,7 @@ verificacion  de errores  */
             }}>Registrar</Button>
             </div>
             <Button onClick={
-              ()=>setModalEditar(!modalEditar)} style={{
+              ()=>cerrarModalEditarCancelar()} style={{
               ...StyleSheet.buttonModal,
               backgroundColor:"#F46D21",
             }}>Cancelar</Button>
