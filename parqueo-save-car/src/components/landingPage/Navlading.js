@@ -1,17 +1,17 @@
-import React, {useState}  from "react";
+//import React, {useState}  from "react";
 import { Link } from "react-router-dom";
 import logo from '../../Images/logo.png';
 
 
-import{Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
+//import{Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 
 import '../landingPage/lading.css'
 const Navlading = () => {
-    const [dropdown, setDropdown] = useState (false);
+    /*const [dropdown, setDropdown] = useState (false);
     
     const abrirCerrarDropdown=()=>{
         setDropdown(!dropdown);
-    }
+    }*/
 
   return (
     <div>
