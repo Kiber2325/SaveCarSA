@@ -57,7 +57,7 @@ import { Link, useNavigate } from 'react-router-dom';
            if (!valores.nombre) {             
               errores.nombre = "Por favor ingrese nombre"
            }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.nombre)) {
-              errores.nombre = 'El nombre solo puede contener letras, números y espacios'
+              errores.nombre = 'El nombre solo puede contener letras y espacios'
            }
 
           //validacion apellido
@@ -71,7 +71,7 @@ import { Link, useNavigate } from 'react-router-dom';
             if (!valores.email) {             
               errores.email = "Por favor ingrese su email"
            }else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.email)) {
-              errores.email = 'EL email solo puede contener caracteres especiales'
+              errores.email = 'EL email solo puede contener letras, números y caracteres especiales'
            }
 
             //validacion celular
@@ -85,7 +85,7 @@ import { Link, useNavigate } from 'react-router-dom';
             if (!valores.direccion) {             
               errores.direccion = "Por favor ingrese su direccion"
            }else if (/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.direccion)) {
-              errores.direccion = 'EL direccion solo puede contener letras y espacios'
+              errores.direccion = 'La direccion solo puede contener letras y espacios'
            } 
            
             //validacion turno
