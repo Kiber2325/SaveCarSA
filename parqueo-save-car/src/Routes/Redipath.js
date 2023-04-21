@@ -5,6 +5,9 @@ import Home from "../components/homePage/Home";
 
 import FormGuardia from "../components/FormGuardia/formGuardia";
 import RegistrarCliente from "../components/RegistrarCliente/RegistrarCliente";
+import ConfiguracionEstacionamiento from "../components/ConfiguracionParqueo/ConfiguracionEstacionamiento";
+import ConfiguracionAuto from "../components/ConfiguracionParqueo/ConfiguracionAutos/ConfiguracionAuto";
+import ConfiguracionMoto from "../components/ConfiguracionParqueo/ConfiguracionMotos/ConfiguracionMoto";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -19,6 +22,9 @@ const Redipath =() =>{
             <Route path="/FormGuardia" element={<FormGuardia/>}/>
             <Route path="/RegistrarCliente" element={<RegistrarCliente/>}/>
 
+            <Route path="/ConfigurarEstacionamiento" element={<ConfiguracionEstacionamiento/>}/>
+            <Route path="/ConfigurarAuto" element={<ConfiguracionAuto/>}/>
+            <Route path="/ConfigurarMoto" element={<ConfiguracionMoto/>}/>
         </Routes>
     </BrowserRouter>
     );

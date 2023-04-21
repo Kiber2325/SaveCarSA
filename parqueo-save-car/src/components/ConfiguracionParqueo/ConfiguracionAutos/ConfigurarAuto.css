@@ -1,0 +1,34 @@
+.sitiosGenerados{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 371px;
+}
+.entradaCant{
+    height: 9px;
+    padding: 15px;
+    margin: 0 15px;
+}
+.guardarSitiosAutos, .cancelarSitiosAutos{
+    width: 114px;
+  height: 44px;
+  padding: 10px;
+  margin: 15px 25px 10px 25px;
+  color: white;
+  background-color: #00B9BC;
+  border-radius: 20px;
+  border: none;
+}
+.cancelarSitiosAutos{
+    background-color: #FC6901;
+}
+.guardarSitiosAutos:hover{
+    color: red;
+}
+.cancelarSitiosAutos:hover{
+    color: red;
+}
+.botonesAccionConfigurarAuto{
+    display: flex;
+    justify-content: center;
+}
