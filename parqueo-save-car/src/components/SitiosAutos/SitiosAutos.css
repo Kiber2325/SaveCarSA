@@ -5,10 +5,11 @@
   .cuerpo{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
   }
-  .header, .footer{
+  .header, .footerSitio{
     background-color: #004854;
-  height: 124px;
+  height: 111px;
   width: 100%;
   }
   
@@ -17,4 +18,11 @@
     text-align: center;
     margin: 200px 1em 0 auto;
   }
+  .header{
+    display: flex;
+    align-items: center;
+  }
+.medio{
+    width: 950px;
+}
   

@@ -14,10 +14,10 @@ const Sitio = (props) => {
   const [modalHabilitar,setModalHabilitar]= useState(false);
   //colores
   const cardColors ={
-    active: 'green',
-    inactive: 'red',
-    pending: 'orange',
-    completed: 'blue'
+    active: '#00FF38',
+    inactive: '#BC0000',
+    pending: '#FC6901',
+    completed: '#0050C8'
   };
   const [cardColor,setCardColor] = useState(cardColors.active);
   //const [color, setColor] = useState('#00FF38');
@@ -172,7 +172,7 @@ const Sitio = (props) => {
     }
   }
   //Temporizador
- 
+  
   
   return (
     

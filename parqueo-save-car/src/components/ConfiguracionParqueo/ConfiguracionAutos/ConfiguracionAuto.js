@@ -3,6 +3,7 @@ import './ConfigurarAuto.css'
 import '../SitioConfiguracion/SitioConfiguracion'
 import SitioConfiguracion from '../SitioConfiguracion/SitioConfiguracion';
 import { useNavigate } from 'react-router-dom';
+
 const ConfiguracionAuto = () => {
   const navigate=useNavigate()
   const dataSitios=[]
@@ -31,6 +32,14 @@ const ConfiguracionAuto = () => {
     navigate('/ConfigurarEstacionamiento')
     console.log('cancelar')
   }
+
+  /*const peticionPost=()=>{
+    firebase.child("sitios").push(this.state.form,
+      error=>{
+        if(error)console.log(error)
+      });
+      //this.setState({modalInsertar: false});
+  }*/
   return (
     <div>
       <header className="Encabezado"></header>
