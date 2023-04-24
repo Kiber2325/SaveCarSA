@@ -1,0 +1,22 @@
+.sitio{
+    width: 150px;
+    height: 300px;
+    cursor: pointer;
+    margin: 10px;
+    
+}
+.modalHeader{
+    display: flex;
+    justify-content: center;
+}
+.asig{
+    text-align: center;
+}
+.modalFooter{
+    display: flex;
+    justify-content: center;
+}
+
+.sitio h2{
+    text-align: center;
+}

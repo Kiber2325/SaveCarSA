@@ -16,6 +16,8 @@ const Iniciosesion = () => {
     const iniciarSesion=e=>{
         if(usuario==='Admin123@gmail.com' && password==='12345678'){
             navigate('/Home')
+        }else if(usuario==='guardia@gmail.com' && password==='alice789'){
+            navigate('/SitiosAutos')
         }else{
             setErrorLogin(true);
             if(usuario===''||password===''){
