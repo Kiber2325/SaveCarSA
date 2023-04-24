@@ -9,3 +9,21 @@
     padding: 15px;
     margin: 0 15px;
 }
+.divGenerarMotos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+.generarMotos{
+    background-color: #00B9BC;
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 10px 50px;
+  border-radius: 10px;
+}
+.generarMotos:hover{
+    background-color: #F63700;
+  color: black;
+}

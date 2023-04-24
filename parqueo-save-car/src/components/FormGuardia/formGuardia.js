@@ -211,8 +211,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
               <div class="row">
                 <div class='text-center botones' >
-                  <button style={{...StyleSheet.button,backgroundColor:"#00B9BC",}} type='submit'  class="btn btn-secondary" >Registrar</button> 
-                  <Link style={{...StyleSheet.button,backgroundColor:"#F46D21",}} className="btn btn-primary" to='/Home'>volver</Link>       
+                  <button style={{...StyleSheet.button,border:'none'}} type='submit'  class="btn btn-secondary registrarGuardia" >Registrar</button> 
+                  <Link style={{...StyleSheet.button,backgroundColor:"#F46D21",border:'none'}} className="btn btn-primary" to='/Home'>volver</Link>       
                   
                   {FormularioEnviado && <p className='exito'>Enviado con exito</p>}              
                 </div>

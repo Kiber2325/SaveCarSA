@@ -10,10 +10,10 @@ const ConfiguracionEstacionamiento = () => {
         <div classname='container'>
         <div className='configuraciones row'>
           <div className='contLink'>
-            <Link className='btn btn-primary' to='/ConfigurarAuto'>Sitios Autos</Link>
+            <Link className='botonConfigurar' to='/ConfigurarAuto'>Sitios Autos</Link>
           </div>
           <div className='contLink'>
-            <Link className='btn btn-primary' to='/ConfigurarMoto'>Sitios Motos</Link>
+            <Link className='botonConfigurar' to='/ConfigurarMoto'>Sitios Motos</Link>
           </div>
           <div className='contLink'>
             <Link className='volverHome' to='/Home'>Volver</Link>

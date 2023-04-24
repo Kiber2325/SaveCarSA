@@ -22,10 +22,24 @@
   margin-top: 50px;
 }
 .volverHome{
-  color: #004854;
+  color: #00B9BC;
   text-decoration: underline;
   text-align: center;
+  padding: 10px 73px;
 }
 .volverHome:hover{
-  color: red;
+  color: #F63700;
+}
+.botonConfigurar{
+  background-color: #00B9BC;
+  border: none;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  padding: 10px 50px;
+  border-radius: 10px;
+}
+.botonConfigurar:hover{
+  background-color: #F63700;
+  color: black;
 }

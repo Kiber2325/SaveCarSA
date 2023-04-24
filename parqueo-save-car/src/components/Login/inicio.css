@@ -53,6 +53,7 @@ footer p{
     display: flex;
     justify-content: center;
     background: transparent;
+    
     color: #00B9BC;
 }
 
@@ -62,16 +63,17 @@ footer p{
     width: 114px;
     height: 44px;
     /*color: white;*/
-
+    padding: 0 30px;
     background-color: #00B9BC;
     color: white;
-    border-radius: 20px;
+    border-radius: 10px;
     border-color:  #00B9BC;
 }
 
 .botones1 .btn:hover{
   background-color:#F63700;
   border-color: #F63700;
+  color: black;
 }
 
 .botones2 .btn {
@@ -80,7 +82,6 @@ padding-left: 48.5%;
 color:  #00B9BC;
 }
 .botones2 .btn:hover {
- 
   color:  #F63700;
   }
 /*navegacion de */

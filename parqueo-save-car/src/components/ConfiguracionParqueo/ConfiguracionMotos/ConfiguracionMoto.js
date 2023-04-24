@@ -35,10 +35,10 @@ const ConfiguracionMoto = () => {
   return (
     <div>
       <header className="Encabezado"></header>
-      <div>
+      <div className='divGenerarMotos'>
         <label>Cantidad</label>
         <input className='entradaCant' type='number' value={cantidad} onChange={(e)=>setCantidad(e.target.value)}/>
-        <button onClick={generarSitio}>Generar</button>
+        <button className='generarMotos' onClick={generarSitio}>Generar</button>
        </div>
        <div className='sitiosGenerados'>
         {
