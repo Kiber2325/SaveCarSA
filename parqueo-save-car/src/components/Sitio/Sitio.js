@@ -261,11 +261,7 @@ const Sitio = (props) => {
         <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: cardColor}}>
             <h2>{props.nombre}</h2>
         </div>
-        <div>{updatedTM}:{updatedTS}</div>
-        <button onClick={startTemp}>Iniciar</button>
-        <button onClick={stopTemp}>Parar</button>
-        <button onClick={resumeTemp}>Continuar</button>
-        <button onClick={resetTemp}>Reset</button>
+        
         <Modal isOpen={modalEstado} centered={true}>
           <div className='modalHeader'>
           <ModalHeader >
