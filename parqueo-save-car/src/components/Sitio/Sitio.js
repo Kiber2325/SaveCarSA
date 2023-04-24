@@ -12,6 +12,7 @@ const Sitio = (props) => {
   const [modalEstado,setModalEstado]= useState(false);
   const [modalTerminar,setModalTerminar]= useState(false);
   const [modalHabilitar,setModalHabilitar]= useState(false);
+  const [modalReserva,setModalReserva]= useState(false);
   //colores
   const cardColors ={
     active: '#00FF38',
@@ -33,7 +34,7 @@ const Sitio = (props) => {
   //Tiempo
   
   const cambiarEstado=()=>{
-    console.log(estado)
+    //console.log(estado)
     if(estado==='disponible'){
       setPlaca(true)
       setCi(true)
@@ -47,6 +48,9 @@ const Sitio = (props) => {
       calcularMonto()
     }else if(estado==='deshabilitado'){
       setModalHabilitar(!modalHabilitar)
+    }else if(estado==='reservar'){
+      setModalReserva(!modalReserva)
+      stopTemp()
     }
   }
   const ejecutarAccion=()=>{
@@ -63,15 +67,23 @@ const Sitio = (props) => {
     }else if(accSel==='reservar'){
       //cambiarColor('#BC0000')
       setModalEstado(false)
-      setEstado('reservado')
+      setEstado('reservar')
       setCardColor(cardColors.pending)
+      //stopTemp()
+      //resetTemp()
+      
+      clearInterval(intert);
+      updatedS=10;updatedTM=0;
+    setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
+    startTemp()
+    
     }else if(accSel==='deshabilitar'){
       //cambiarColor('#BC0000')
       setModalEstado(false)
       setEstado('deshabilitado')
       setCardColor(cardColors.inactive)
     }
-    console.log(estado)
+    //console.log(estado)
   }
   const cancelarAccion=()=>{
     
@@ -109,6 +121,7 @@ const Sitio = (props) => {
       setCelular(true)
       setMotivo(false)
     }else if(e.target.value==='reservar'){
+      resetTemp()
       setPlaca(true)
       setCi(true)
       setCelular(true)
@@ -119,6 +132,23 @@ const Sitio = (props) => {
       setCelular(false)
       setMotivo(true)
     }
+  }
+  //Reservar
+  const ocuparSitio=()=>{
+    //setModalHabilitar(!modalHabilitar)
+    resetTemp()
+    setModalReserva(!modalReserva)
+    setEstado('ocupado')
+    setCardColor(cardColors.completed)
+
+  }
+  const cancelarReserva=()=>{
+    resumeTemp()
+    setModalReserva(!modalReserva)
+  }
+  const terminarReserva=()=>{
+    setEstado('disponible')
+    setCardColor(cardColors.active)
   }
   //cronometro
   const [time, setTime] = useState({ms:0, s:0, m:0, h:0});
@@ -172,7 +202,58 @@ const Sitio = (props) => {
     }
   }
   //Temporizador
+  const [timeTemp, setTimeTemp] = useState({tms:0, ts:10, tm:0, th:0});
+  const [intert, setIntert] = useState();
+  const startTemp = () => {
+    //updatedTS = timeTemp.ts; updatedTM = timeTemp.tm;
+    if(updatedTM === 0 && updatedTS === 0){
+      console.log('verde')
+      
+      setIntert(clearInterval(intert));
+      //console.log('verde')
+    }else{
+      runTemp();
+      setIntert(setInterval(runTemp, 1000));
+    }
+   // let interval=setInterval()
+  };
+  var updatedTS = timeTemp.ts, updatedTM = timeTemp.tm;
+
+  const runTemp = () => {
+    //let continuar=true;
+    if(updatedTM === 0 && updatedTS === 0){
+      //clearInterval(intert);
+      //setTimeTemp({ ts:0, tm:1});
+      //continuar=false;
+      stopTemp()
+      resetTemp()
+      
+      console.log('verde')
+      terminarReserva()
+      setTimeTemp({ ts:10, tm:0});
+      //stopTemp()
+      clearInterval(intert)
+    }else if(updatedTS === 0){
+      updatedTM--;
+      updatedTS = 60;
+    }
+    if(updatedTM >= 0 && updatedTS >= 0){
+    updatedTS--;
+  }
+    return setTimeTemp({ ts:updatedTS, tm:updatedTM});
   
+  };
+  const stopTemp = () => {
+    clearInterval(intert);
+    setTimeTemp({tms:0, ts:updatedTS, tm:updatedTM, th:0})
+  };
+
+  const resetTemp = () => {
+    clearInterval(intert);
+    setTimeTemp({tms:0, ts:10, tm:0, th:0})
+  };
+
+  const resumeTemp = () => startTemp();
   
   return (
     
@@ -180,7 +261,11 @@ const Sitio = (props) => {
         <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: cardColor}}>
             <h2>{props.nombre}</h2>
         </div>
-        
+        <div>{updatedTM}:{updatedTS}</div>
+        <button onClick={startTemp}>Iniciar</button>
+        <button onClick={stopTemp}>Parar</button>
+        <button onClick={resumeTemp}>Continuar</button>
+        <button onClick={resetTemp}>Reset</button>
         <Modal isOpen={modalEstado} centered={true}>
           <div className='modalHeader'>
           <ModalHeader >
@@ -255,6 +340,24 @@ const Sitio = (props) => {
               backgroundColor:"#00B9BC"
             }}>Aplicar</Button>
             <Button onClick={cancelarHabilitar} style={{
+              ...StyleSheet.buttonModal,
+              backgroundColor:"#F46D21",
+            }}>Cancelar</Button>
+          </ModalFooter>
+        </Modal>
+        <Modal isOpen={modalReserva} >
+          <ModalHeader>
+            <h2>Ocupar</h2>
+          </ModalHeader>
+          <ModalBody>
+            <h3>A3</h3>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={ocuparSitio} style={{
+              ...StyleSheet.buttonModal,
+              backgroundColor:"#00B9BC"
+            }}>Aplicar</Button>
+            <Button onClick={cancelarReserva} style={{
               ...StyleSheet.buttonModal,
               backgroundColor:"#F46D21",
             }}>Cancelar</Button>
