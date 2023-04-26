@@ -45,22 +45,22 @@
   display: flex;
   justify-content: center;
 }
-.re{
+.re, .can{
   
   width: 114px;
-  height: 44px;
-  padding: 10px;
+  /*height: 44px;*/
+  padding: 8px;
   margin: 15px 25px 30px 25px;
   color: white;
   background-color: #00B9BC;
   border-radius: 10px;
   border: none;
 }
-.re:hover{
+.re:hover, .can:hover{
   background-color: #F63700;
   color: black;
 }
-.can{
+/*.can{
   
   width: 114px;
   height: 44px;
@@ -73,7 +73,7 @@
 }
 .can:hover{
   color: red;
-}
+}*/
 .botonAgregarVehiculo{
   display: flex;
   justify-content: center;
@@ -81,7 +81,7 @@
 .agregarVehiculo{
   border: none;
   width: 130px;
-  height: 44px;
+  padding: 8px;
   color: white;
   background-color: #00B9BC;
   border-radius: 10px;
@@ -169,4 +169,21 @@ background-color: #F63700;
 }
 .select:hover::after {
   color: #23b499;
+}
+.botonesModal, .botonModalEliminar{
+  border: none;
+  width: 130px;
+  padding: 8px;
+  color: white;
+  background-color: #00B9BC;
+  border-radius: 10px;
+  margin: 5px 0;
+}
+.botonesModal:hover, .botonModalEliminar:hover{
+  background-color: #F63700;
+  color: black;
+}
+.botonModalEliminar{
+  width: 60px;
+  margin: 0 10px;
 }

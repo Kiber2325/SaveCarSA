@@ -11,24 +11,22 @@
 }
 .guardarSitiosAutos, .cancelarSitiosAutos{
     width: 114px;
-  height: 44px;
-  padding: 10px;
+  /*height: 34px;*/
+  padding: 7px;
   margin: 15px 25px 10px 25px;
   color: white;
   background-color: #00B9BC;
   border-radius: 10px;
   border: none;
 }
-.cancelarSitiosAutos{
+/*.cancelarSitiosAutos{
     background-color: #FC6901;
-}
-.guardarSitiosAutos:hover{
+}*/
+.guardarSitiosAutos:hover, .cancelarSitiosAutos:hover{
     background-color: #F63700;
   color: black;
 }
-.cancelarSitiosAutos:hover{
-    color: red;
-}
+
 .botonesAccionConfigurarAuto{
     display: flex;
     justify-content: center;

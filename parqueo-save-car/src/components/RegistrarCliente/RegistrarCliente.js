@@ -631,8 +631,8 @@ verificacion  de errores  */
           <tr>
             <td>{elemento.marca}</td>
             <td>{elemento.matricula}</td>
-            <td><button className="btn btn-warning" onClick={(e)=>seleccionarAuto(e,elemento, 'Editar')}><i className="bi bi-pencil-fill"></i></button> {"   "} 
-              <button className="btn btn-danger" onClick={(e)=>seleccionarAuto(e,elemento, 'Eliminar')}><i className="bi bi-trash-fill"></i></button></td>
+            <td><button className="btn btn-warning botonModalEliminar" onClick={(e)=>seleccionarAuto(e,elemento, 'Editar')}><i className="bi bi-pencil-fill"></i></button> {"   "} 
+              <button className="btn btn-danger botonModalEliminar" onClick={(e)=>seleccionarAuto(e,elemento, 'Eliminar')}><i className="bi bi-trash-fill"></i></button></td>
           </tr>
         ))}
       </tbody>
@@ -681,16 +681,16 @@ verificacion  de errores  */
         </ModalBody>
         <div className='footerModal'>
         <ModalFooter>
-          <div className='botonesModalAlinear'>
-            <Button onClick={insertarVehiculo} style={{
+          <div>
+            <Button className='botonesModal' botonModal onClick={insertarVehiculo} style={{
               ...StyleSheet.buttonModal,
-              backgroundColor:"#00B9BC"
+              boder:'none'
             }}>Registrar</Button>
             </div>
-            <Button onClick={
+            <Button className='botonesModal' botonModal onClick={
               ()=>setStateInsertar(!stateInsertar)} style={{
               ...StyleSheet.buttonModal,
-              backgroundColor:"#F46D21",
+              boder:'none'
             }}>Cancelar</Button>
         </ModalFooter>
         </div>
@@ -725,15 +725,15 @@ verificacion  de errores  */
         <div className='footerModal'>
         <ModalFooter>
           <div className='botonesModalAlinear'>
-            <Button onClick={editar} style={{
+            <Button className='botonesModal' onClick={editar} style={{
               ...StyleSheet.buttonModal,
-              backgroundColor:"#00B9BC"
+              border:'none',
             }}>Registrar</Button>
             </div>
-            <Button onClick={
+            <Button className='botonesModal' onClick={
               ()=>cerrarModalEditarCancelar()} style={{
               ...StyleSheet.buttonModal,
-              backgroundColor:"#F46D21",
+              border:'none',
             }}>Cancelar</Button>
         </ModalFooter>
         </div>
@@ -744,11 +744,11 @@ verificacion  de errores  */
         ¿Estás Seguro que deseas eliminar el auto?
         </ModalBody>
         <ModalFooter>
-          <button className="btn btn-danger" onClick={eliminar}>
+          <button className="btn btn-danger botonModalEliminar" onClick={eliminar}>
             Sí
           </button>
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary botonModalEliminar"
             onClick={()=>setModalEliminar(!modalEliminar)}
           >
             No
