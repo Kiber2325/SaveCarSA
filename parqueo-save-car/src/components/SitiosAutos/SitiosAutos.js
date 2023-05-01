@@ -1,13 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './SitiosAutos.css';
 import Sitio from '../Sitio/Sitio';
 import logo from '../../Images/logo.png'
 import { Link } from 'react-router-dom';
+import {  ref, onValue } from "firebase/database";
+import { database } from '../../firebase';
 //import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 //import ShowSitios from './componentes/ShowSitios';
 
 const SitiosAutos = () => {
+  const tableRef = ref(database, "sitiosAutos");
+  const dataSitios=[]
+  const [dataRecuperados,setDataRecuperados]=useState(dataSitios)
+  
+  useEffect(()=>{
+    obtenerSitios();
+  },[]);
+  
+  const obtenerSitios=()=>{
+    onValue(tableRef, (snapshot) => {
+      const data = snapshot.val();
+      setDataRecuperados(data)
+     // console.log(data); // Aquí puedes hacer algo con los datos obtenidos
+    });
+  }
+  
   return (
     <div>
 <header className='header'>
@@ -59,6 +77,13 @@ const SitiosAutos = () => {
 <Sitio
   nombre='A8'
 />
+</div>
+<div className='sitiosRecuperados'>
+  {dataRecuperados.map((sitio)=>(
+    <Sitio
+      nombre={sitio.nombre}
+    />
+  ))}
 </div>
 <div className='footerSitio'>
 

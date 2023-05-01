@@ -3,7 +3,10 @@ import './ConfigurarAuto.css'
 import '../SitioConfiguracion/SitioConfiguracion'
 import SitioConfiguracion from '../SitioConfiguracion/SitioConfiguracion';
 import { useNavigate } from 'react-router-dom';
-
+//import firebase from 'firebase/app';
+import { ref, set, remove } from "firebase/database";
+import { database } from '../../.././firebase';
+//import "firebase/database";
 const ConfiguracionAuto = () => {
   const navigate=useNavigate()
   const dataSitios=[]
@@ -24,9 +27,19 @@ const ConfiguracionAuto = () => {
     setData(nuevaData);
     console.log(data)
   }
-  const guardarSitiosAutos=()=>{
-    navigate('/ConfigurarEstacionamiento')
-    console.log(data)
+  const guardarSitiosAutos=(e)=>{
+    e.preventDefault();
+    //navigate('/ConfigurarEstacionamiento')
+    remove(ref(database, `sitiosAutos`));
+    for(let i=0;i<data.length;i++){
+      console.log(data[i].nombre)
+      let agregarNuevoSitio={nombre:data[i].nombre,estado:'disponible'}
+      
+      set(ref(database, "sitiosAutos/"+(i+1)), agregarNuevoSitio);
+      //console.log(agregarNuevoSitio)
+    }
+    //let agregarNuevoSitio={nombre:data[0].nombre,estado:'disponible'}
+    //const dbRef = ref(database);
   }
   const cancelarSitiosAutos=()=>{
     navigate('/ConfigurarEstacionamiento')
@@ -50,7 +63,9 @@ const ConfiguracionAuto = () => {
        </div>
        <div className='sitiosGenerados'>
         {
-          data.map(datSitio=><SitioConfiguracion 
+          data.map(datSitio=>
+          <SitioConfiguracion 
+            idSitio={datSitio.nombre}
             nombre={datSitio.nombre}/>)
         }
        </div>
