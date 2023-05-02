@@ -4,8 +4,6 @@ import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import EntradaInput from './EntradasModal/EntradaInput';
 import DisplayComponent from './DisplayComponent';
 //import BtnComponent from './BtnComponent';
-
-
 const Sitio = (props) => {
   const [estado,setEstado]=useState('disponible')
 
@@ -13,6 +11,25 @@ const Sitio = (props) => {
   const [modalTerminar,setModalTerminar]= useState(false);
   const [modalHabilitar,setModalHabilitar]= useState(false);
   const [modalReserva,setModalReserva]= useState(false);
+  //mensajes
+  const [mostrarMensajePlaca,setMostrarMensajePlaca]=useState(false);
+  const [mostrarMensajeCi,setMostrarMensajeCi]=useState(false);
+  const [mostrarMensajeCelular,setMostrarMensajeCelular]=useState(false);
+  const [mostrarMensajeMotivo,setMostrarMensajeMotivo]=useState(false);
+  const [mensajePlaca,setMensajePlaca]=useState('');
+  const [mensajeCi,setMensajeCi]=useState('');
+  const [mensajeCelular,setMensajeCelular]=useState('');
+  const [mensajeMotivo,setMensajeMotivo]=useState('');
+  //valores de los inputs
+  const [values, setValues] = useState({
+    placa:'',
+    ci:'',
+    celular:'',
+    motivo:''
+  });
+  const onChange = (e)=>{
+    setValues({ ...values, [e.target.name]: e.target.value });
+  }
   //colores
   const cardColors ={
     active: '#00FF38',
@@ -34,14 +51,12 @@ const Sitio = (props) => {
   //Tiempo
   
   const cambiarEstado=()=>{
-    //console.log(estado)
     if(estado==='disponible'){
       setPlaca(true)
       setCi(true)
       setCelular(true)
       setMotivo(false)
       setModalEstado(true)
-      
     }else if(estado==='ocupado'){
       stop()
       setModalTerminar(!modalTerminar)
@@ -53,37 +68,130 @@ const Sitio = (props) => {
       stopTemp()
     }
   }
-  const ejecutarAccion=()=>{
-    //console.log(accionSeleccionada)
-    
-    
-    if(accSel==='ocupar'){
-      //cambiarColor('#0050C8')
-      setModalEstado(false)
-      setEstado('ocupado')
-      setCardColor(cardColors.completed)
-      start()
-      
-    }else if(accSel==='reservar'){
-      //cambiarColor('#BC0000')
-      setModalEstado(false)
-      setEstado('reservar')
-      setCardColor(cardColors.pending)
-      //stopTemp()
-      //resetTemp()
-      
-      clearInterval(intert);
-      updatedS=10;updatedTM=0;
-    setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
-    startTemp()
-    
-    }else if(accSel==='deshabilitar'){
-      //cambiarColor('#BC0000')
-      setModalEstado(false)
-      setEstado('deshabilitado')
-      setCardColor(cardColors.inactive)
+  const validarInputPlaca=(contenido,mostrar,mensajeAlerta,regla,min,max)=>{
+    let esInvalido=false;
+    let tam=contenido.length
+      if(!contenido.trim()){
+        setMostrarMensajePlaca(mostrar)
+        setMensajePlaca('El campo no puede estar vacío')
+        esInvalido=true
+      }else if(tam<min||tam>max){
+        setMostrarMensajePlaca(mostrar)
+        setMensajePlaca('El campo tiene límite mínimo de '+min+' carácteres y un máximo de '+max+' carácteres')
+        esInvalido=true
+      }else if(!regla.test(contenido)){
+        setMostrarMensajePlaca(mostrar)
+        setMensajePlaca(mensajeAlerta)
+        esInvalido=true
+      }else{
+        setMostrarMensajePlaca(false)
+        //setMensajePlaca(null)
+      }
+      return esInvalido;}
+  const validarInputCi=(contenido,mostrar,mensajeAlerta,regla,min,max)=>{
+    let esInvalido=false;
+    let tam=contenido.length
+      if(!contenido.trim()){
+        setMostrarMensajeCi(mostrar)
+        setMensajeCi('El campo no puede estar vacío')
+        esInvalido=true
+      }else if(tam<min||tam>max){
+        setMostrarMensajeCi(mostrar)
+        setMensajeCi('El campo tiene límite mínimo de '+min+' carácteres y un máximo de '+max+' carácteres')
+        esInvalido=true
+      }else if(!regla.test(contenido)){
+        setMostrarMensajeCi(mostrar)
+        setMensajeCi(mensajeAlerta)
+        esInvalido=true
+      }else{
+        setMostrarMensajeCi(false)
+        //setMensajeCi(null)
+      }
+      return esInvalido;}
+  const validarInputCelular=(contenido,mostrar,mensajeAlerta,regla,min,max)=>{
+    let esInvalido=false;
+    let tam=contenido.length
+      if(!contenido.trim()){
+        setMostrarMensajeCelular(mostrar)
+        setMensajeCelular('El campo no puede estar vacío')
+        esInvalido=true
+      }else if(tam<min||tam>max){
+        setMostrarMensajeCelular(mostrar)
+        setMensajeCelular('El campo tiene límite mínimo de '+min+' carácteres y un máximo de '+max+' carácteres')
+        esInvalido=true
+      }else if(!regla.test(contenido)){
+        setMostrarMensajeCelular(mostrar)
+        setMensajeCelular(mensajeAlerta)
+        esInvalido=true
+      }else{
+        setMostrarMensajeCelular(false)
+        //setMensajeCelular(null)
+      }
+      return esInvalido;
     }
-    //console.log(estado)
+  const validarInputMotivo=(contenido,mostrar,mensajeAlerta,regla,min,max)=>{
+    let esInvalido=false;
+    let tam=contenido.length
+      if(!contenido.trim()){
+        setMostrarMensajeMotivo(mostrar)
+        setMensajeMotivo('El campo no puede estar vacío')
+        esInvalido=true
+      }else if(tam<min||tam>max){
+        setMostrarMensajeMotivo(mostrar)
+        setMensajeMotivo('El campo tiene límite mínimo de '+min+' carácteres y un máximo de '+max+ 'carácteres')
+        esInvalido=true
+      }else if(!regla.test(contenido)){
+        setMostrarMensajeMotivo(mostrar)
+        setMensajeMotivo(mensajeAlerta)
+        esInvalido=true
+      }else{
+        setMostrarMensajeMotivo(false)
+        //setMensajeMotivo(null)
+      }
+    return esInvalido;
+  }
+  const ejecutarAccion=()=>{
+    //formato
+    const regexAll = /^[0-9A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    const regexNumber = /^[0-9]+$/;
+    const regexPlaca = /^[0-9A-ZÑÁÉÍÓÚÜ\s]+$/;
+    //mensajes alertas
+    let alertaPlaca='Solo se permiten carácteres alfanuméricos y mayúsculas'
+    let alertaCi='Solo se permiten carácteres numéricos'
+    let alertaCelular='Solo se permiten carácteres numéricos'
+    let alertaMotivo='Solo se permiten carácteres alfanuméricos'
+    if(accSel==='ocupar'){
+      let validarPlaca=!validarInputPlaca(values.placa,true,alertaPlaca,regexPlaca,6,8)
+      let validarCi=!validarInputCi(values.ci,true,alertaCi,regexNumber,6,9)
+      let validarCelular=!validarInputCelular(values.celular,true,alertaCelular,regexNumber,7,8)
+      let validar=validarPlaca&&validarCi&&validarCelular
+      if(validar===true){
+        setModalEstado(false)
+        setEstado('ocupado')
+        setCardColor(cardColors.completed)
+        start()
+      }
+    }else if(accSel==='reservar'){
+      let validarPlaca=!validarInputPlaca(values.placa,true,alertaPlaca,regexPlaca)
+      let validarCi=!validarInputCi(values.ci,true,alertaCi,regexNumber)
+      let validarCelular=!validarInputCelular(values.celular,true,alertaCelular,regexNumber)
+      let validar=validarPlaca&&validarCi&&validarCelular
+      if(validar===true){
+        setModalEstado(false)
+        setEstado('reservar')
+        setCardColor(cardColors.pending)
+        clearInterval(intert);
+        updatedS=10;updatedTM=0;
+        setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
+        startTemp()
+      }
+    }else if(accSel==='deshabilitar'){
+      if(!validarInputMotivo(values.motivo,true,alertaMotivo,regexAll,3,50)){
+        setModalEstado(false)
+        setEstado('deshabilitado')
+        setCardColor(cardColors.inactive)
+      }
+    }
   }
   const cancelarAccion=()=>{
     
@@ -112,8 +220,16 @@ const Sitio = (props) => {
   }
   //let accionSeleccionada='ocupar'
   const [accSel,setAccSel]=useState('ocupar')
+  //quitar mensajes error
+  const quitarMensajesError=()=>{
+    setMostrarMensajePlaca(false)
+    setMostrarMensajeCi(false)
+    setMostrarMensajeCelular(false)
+    setMostrarMensajeMotivo(false)
+  }
   const registrarCambio=(e)=>{
     //accionSeleccionada=e.target.value;
+    quitarMensajesError()
     setAccSel(e.target.value)
     if(e.target.value==='ocupar'){
       setPlaca(true)
@@ -276,16 +392,32 @@ const Sitio = (props) => {
               <option value='deshabilitar'>DESHABILITAR</option>
             </select>
             {placa&&<EntradaInput
-              titulo="Placa" 
+              titulo="Placa"
+              nombre='placa'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajePlaca} 
+              mensaje={mensajePlaca}
             /> }
               {ci&&<EntradaInput
-              titulo="CI" 
+              titulo="CI"
+              nombre='ci'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajeCi} 
+              mensaje={mensajeCi}
             />}
               {celular&&<EntradaInput
-              titulo="Celular" 
+              titulo="Celular"
+              nombre='celular'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajeCelular}
+              mensaje={mensajeCelular} 
             />}
             {motivo&&<EntradaInput
-              titulo="Motivo" 
+              titulo="Motivo"
+              nombre='motivo'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajeMotivo}
+              mensaje={mensajeMotivo}
             />}
           </ModalBody>
           <div className='modalFooter'>
