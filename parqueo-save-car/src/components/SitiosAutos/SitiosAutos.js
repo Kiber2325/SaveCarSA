@@ -85,11 +85,7 @@ const SitiosAutos = () => {
     />
   ))}
 </div>
-<div className='footerSitio'>
-
-<p className='contactos'>Contactos</p>
-
-</div>
+<div className='footerReg'><p id='cont'>Contactos</p></div>
     </div>
   )
 }

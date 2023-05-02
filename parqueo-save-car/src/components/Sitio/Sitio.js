@@ -13,6 +13,25 @@ const Sitio = (props) => {
   const [modalTerminar,setModalTerminar]= useState(false);
   const [modalHabilitar,setModalHabilitar]= useState(false);
   const [modalReserva,setModalReserva]= useState(false);
+  //mensajes
+  const [mostrarMensajePlaca,setMostrarMensajePlaca]=useState(false);
+  const [mostrarMensajeCi,setMostrarMensajeCi]=useState(false);
+  const [mostrarMensajeCelular,setMostrarMensajeCelular]=useState(false);
+  const [mostrarMensajeMotivo,setMostrarMensajeMotivo]=useState(false);
+  const [mensajePlaca,setMensajePlaca]=useState('');
+  const [mensajeCi,setMensajeCi]=useState('');
+  const [mensajeCelular,setMensajeCelular]=useState('');
+  const [mensajeMotivo,setMensajeMotivo]=useState('');
+  //valores de los inputs
+  const [values, setValues] = useState({
+    placa:'',
+    ci:'',
+    celular:'',
+    motivo:''
+  });
+  const onChange = (e)=>{
+    setValues({ ...values, [e.target.name]: e.target.value });
+  }
   //colores
   const cardColors ={
     active: '#00FF38',
@@ -21,18 +40,11 @@ const Sitio = (props) => {
     completed: '#0050C8'
   };
   const [cardColor,setCardColor] = useState(cardColors.active);
-  //const [color, setColor] = useState('#00FF38');
-  //mostrarInputs
   const [placa,setPlaca]=useState(true)
   const [ci,setCi]=useState(true)
   const [celular,setCelular]=useState(true)
   const [motivo,setMotivo]=useState(true)
-  
-  /*const cambiarColor = (newColor) => {
-    setColor(newColor);
-  };  */
   //Tiempo
-  
   const cambiarEstado=()=>{
     //console.log(estado)
     if(estado==='disponible'){
@@ -53,40 +65,49 @@ const Sitio = (props) => {
       stopTemp()
     }
   }
+  const validarInput=(contenido,mostrar,mensajeAlerta,regla)=>{
+    let esInvalido=false;
+    console.log(contenido)
+    if(!contenido.trim()){
+      setMostrarMensajeMotivo(mostrar)
+      setMensajeMotivo('El campo no puede estar vacío')
+      esInvalido=true
+    }else if(!regla.test(contenido)){
+      setMostrarMensajeMotivo(mostrar)
+      setMensajeMotivo(mensajeAlerta)
+      esInvalido=true
+    }
+    console.log(esInvalido)
+    return esInvalido;
+  }
   const ejecutarAccion=()=>{
-    //console.log(accionSeleccionada)
-    
-    
+    //formatos
+    const regexAll = /^[0-9A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     if(accSel==='ocupar'){
-      //cambiarColor('#0050C8')
       setModalEstado(false)
       setEstado('ocupado')
       setCardColor(cardColors.completed)
       start()
-      
     }else if(accSel==='reservar'){
-      //cambiarColor('#BC0000')
       setModalEstado(false)
       setEstado('reservar')
       setCardColor(cardColors.pending)
-      //stopTemp()
-      //resetTemp()
-      
       clearInterval(intert);
       updatedS=10;updatedTM=0;
-    setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
-    startTemp()
-    
+      setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
+      startTemp()
     }else if(accSel==='deshabilitar'){
-      //cambiarColor('#BC0000')
-      setModalEstado(false)
-      setEstado('deshabilitado')
-      setCardColor(cardColors.inactive)
+      if(!validarInput(values.motivo,true,'Solo se permiten carácteres alfanuméricos',regexAll)){
+        setModalEstado(false)
+        setEstado('deshabilitado')
+        setCardColor(cardColors.inactive)
+        console.log(values.motivo)
+      }else{
+        
+      }
     }
-    //console.log(estado)
   }
   const cancelarAccion=()=>{
-    
     setModalEstado(false)
   }
   const habilitarSitio=()=>{
@@ -153,10 +174,8 @@ const Sitio = (props) => {
   //cronometro
   const [time, setTime] = useState({ms:0, s:0, m:0, h:0});
   const [interv, setInterv] = useState();
-  //const [status, setStatus] = useState(0);
   const start = () => {
     run();
-    //setStatus(1);
     setInterv(setInterval(run, 10));
   };
 
@@ -181,12 +200,10 @@ const Sitio = (props) => {
 
   const stop = () => {
     clearInterval(interv);
-    //setStatus(2);
   };
 
   const reset = () => {
     clearInterval(interv);
-    //setStatus(0);
     setTime({ms:0, s:0, m:0, h:0})
   };
 
@@ -205,33 +222,24 @@ const Sitio = (props) => {
   const [timeTemp, setTimeTemp] = useState({tms:0, ts:10, tm:0, th:0});
   const [intert, setIntert] = useState();
   const startTemp = () => {
-    //updatedTS = timeTemp.ts; updatedTM = timeTemp.tm;
     if(updatedTM === 0 && updatedTS === 0){
-      console.log('verde')
-      
-      setIntert(clearInterval(intert));
       //console.log('verde')
+      setIntert(clearInterval(intert));
     }else{
       runTemp();
       setIntert(setInterval(runTemp, 1000));
     }
-   // let interval=setInterval()
   };
   var updatedTS = timeTemp.ts, updatedTM = timeTemp.tm;
 
   const runTemp = () => {
-    //let continuar=true;
     if(updatedTM === 0 && updatedTS === 0){
-      //clearInterval(intert);
-      //setTimeTemp({ ts:0, tm:1});
-      //continuar=false;
       stopTemp()
       resetTemp()
       
       console.log('verde')
       terminarReserva()
       setTimeTemp({ ts:10, tm:0});
-      //stopTemp()
       clearInterval(intert)
     }else if(updatedTS === 0){
       updatedTM--;
@@ -276,16 +284,32 @@ const Sitio = (props) => {
               <option value='deshabilitar'>DESHABILITAR</option>
             </select>
             {placa&&<EntradaInput
-              titulo="Placa" 
+              titulo="Placa"
+              nombre='placa'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajePlaca} 
+              mensaje={mensajePlaca}
             /> }
               {ci&&<EntradaInput
-              titulo="CI" 
+              titulo="CI"
+              nombre='ci'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajeCi} 
+              mensaje={mensajeCi}
             />}
               {celular&&<EntradaInput
               titulo="Celular" 
+              nombre='celular'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajeCelular}
+              mensaje={mensajeCelular}
             />}
             {motivo&&<EntradaInput
               titulo="Motivo" 
+              nombre='motivo'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajeMotivo}
+              mensaje={mensajeMotivo}
             />}
           </ModalBody>
           <div className='modalFooter'>
