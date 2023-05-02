@@ -194,7 +194,7 @@ const Sitio = (props) => {
     }
   }
   const cancelarAccion=()=>{
-    
+    quitarMensajesError()
     setModalEstado(false)
   }
   const habilitarSitio=()=>{
