@@ -10,19 +10,27 @@ import { database } from '../../firebase';
 //import ShowSitios from './componentes/ShowSitios';
 
 const SitiosAutos = () => {
-  const tableRef = ref(database, "sitiosAutos");
+  /*const tableRef = ref(database, "sitiosAutos");
   const dataSitios=[]
   const [dataRecuperados,setDataRecuperados]=useState(dataSitios)
-  
+  */
   useEffect(()=>{
-    obtenerSitios();
+    getData()
   },[]);
   
-  const obtenerSitios=()=>{
+  /*const obtenerSitios=()=>{
     onValue(tableRef, (snapshot) => {
       const data = snapshot.val();
       setDataRecuperados(data)
      // console.log(data); // Aquí puedes hacer algo con los datos obtenidos
+    });
+  }*/
+  const [dataArr, setDataArr] = useState([]);
+  function getData() {
+    onValue(ref(database, 'sitiosAutos'), (snapshot) => {
+      const dataObj = snapshot.val();
+      const dataArr = Object.values(dataObj);
+      setDataArr(dataArr);
     });
   }
   
@@ -79,7 +87,7 @@ const SitiosAutos = () => {
 />
 </div>
 <div className='sitiosRecuperados'>
-  {dataRecuperados.map((sitio)=>(
+  {dataArr.map((sitio)=>(
     <Sitio
       nombre={sitio.nombre}
     />
