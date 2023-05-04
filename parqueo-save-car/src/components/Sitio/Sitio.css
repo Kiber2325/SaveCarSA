@@ -20,3 +20,19 @@
 .sitio h2{
     text-align: center;
 }
+.botonesModalSitio{
+    text-align: center;
+}
+.botonModal{
+    background-color:#00B9BC ;
+    border-color:#00B9BC ;
+}
+.botonModal:hover{
+    background-color:#F63700 ;
+    border-color:#F63700 ;
+    color: black;
+}
+.cronometroSitio{
+    text-align: center;
+    font-weight: bold;
+}

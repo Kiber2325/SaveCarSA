@@ -3,6 +3,8 @@ import './ConfigurarAuto.css'
 import '../SitioConfiguracion/SitioConfiguracion'
 import SitioConfiguracion from '../SitioConfiguracion/SitioConfiguracion';
 import { useNavigate } from 'react-router-dom';
+import { ref, set, remove } from "firebase/database";
+import { database } from '../../../conexion/firebase';
 
 const ConfiguracionAuto = () => {
   const navigate=useNavigate()
@@ -25,6 +27,16 @@ const ConfiguracionAuto = () => {
     console.log(data)
   }
   const guardarSitiosAutos=()=>{
+    remove(ref(database, `sitiosAutos`));
+    for(let i=0;i<data.length;i++){
+      console.log(data[i].nombre)
+      let agregarNuevoSitio={nombre:data[i].nombre,estado:'disponible'}
+      
+      set(ref(database, "sitiosAutos/"+(i+1)), agregarNuevoSitio);
+      //console.log(agregarNuevoSitio)
+    }
+    //let agregarNuevoSitio={nombre:data[0].nombre,estado:'disponible'}
+    //const dbRef = ref(database);
     navigate('/ConfigurarEstacionamiento')
     console.log(data)
   }

@@ -20,6 +20,8 @@ const Sitio = (props) => {
   const [mensajeCi,setMensajeCi]=useState('');
   const [mensajeCelular,setMensajeCelular]=useState('');
   const [mensajeMotivo,setMensajeMotivo]=useState('');
+  //mostrar cronometro
+  const [mostrarCronometro,setMostrarCronometro]=useState(false)
   //valores de los inputs
   const [values, setValues] = useState({
     placa:'',
@@ -169,6 +171,7 @@ const Sitio = (props) => {
         setModalEstado(false)
         setEstado('ocupado')
         setCardColor(cardColors.completed)
+        setMostrarCronometro(true)
         start()
       }
     }else if(accSel==='reservar'){
@@ -209,6 +212,7 @@ const Sitio = (props) => {
     //cambiarColor('#00FF38')
     setEstado('disponible')
     setCardColor(cardColors.active)
+    setMostrarCronometro(false)
     reset()
   }
   const cancelarHabilitar=()=>{
@@ -376,6 +380,9 @@ const Sitio = (props) => {
     <div>
         <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: cardColor}}>
             <h2>{props.nombre}</h2>
+            {mostrarCronometro &&<div className='cronometroSitio'>
+              <DisplayComponent time={time}/>
+            </div>}
         </div>
         
         <Modal isOpen={modalEstado} centered={true}>
@@ -422,13 +429,13 @@ const Sitio = (props) => {
           </ModalBody>
           <div className='modalFooter'>
           <ModalFooter>
-          <Button onClick={ejecutarAccion} style={{
-              ...StyleSheet.buttonModal,
-              backgroundColor:"#00B9BC"
+            <div className='botonesModalSitio'>
+          <Button onClick={ejecutarAccion} className='botonModal' style={{
+              ...StyleSheet.buttonModal,padding:'6px 26px',
             }}>Aplicar</Button>
-          <Button onClick={cancelarAccion} style={{
-              ...StyleSheet.buttonModal,
-              backgroundColor:"#F46D21",
+            </div>
+          <Button onClick={cancelarAccion} className='botonModal' style={{
+              ...StyleSheet.buttonModal,padding:'6px 20px',
             }}>Cancelar</Button>
             
           </ModalFooter>

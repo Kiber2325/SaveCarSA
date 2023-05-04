@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './SitiosAutos.css';
 import Sitio from '../Sitio/Sitio';
 import logo from '../../Images/logo.png'
 import { Link } from 'react-router-dom';
+import {  ref, onValue } from "firebase/database";
+import { database } from '../../conexion/firebase';
 //import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 //import ShowSitios from './componentes/ShowSitios';
 
 const SitiosAutos = () => {
+const [dataArr, setDataArr] = useState([]);
+useEffect(()=>{
+  getData()
+},[]);
+function getData() {
+  onValue(ref(database, 'sitiosAutos'), (snapshot) => {
+    const dataObj = snapshot.val();
+    const dataArr = Object.values(dataObj);
+    setDataArr(dataArr);
+  });
+}
   return (
     <div>
 <header className='header'>
@@ -35,30 +48,11 @@ const SitiosAutos = () => {
         </section>
 </header>
 <div className='cuerpo'>
-<Sitio
-  nombre='A1'
-/> 
-<Sitio
-  nombre='A2'
-/>
-<Sitio
-  nombre='A3'
-/>
-<Sitio
-  nombre='A4'
-/>
-<Sitio
-  nombre='A5'
-/>
-<Sitio
-  nombre='A6'
-/>
-<Sitio
-  nombre='A7'
-/>
-<Sitio
-  nombre='A8'
-/>
+{dataArr.map((sitio)=>(
+    <Sitio
+      nombre={sitio.nombre}
+    />
+  ))}
 </div>
 <div className='footerReg'><p id='cont'>Contactos</p></div>
     </div>
