@@ -3,8 +3,8 @@ import './Sitio.css'
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import EntradaInput from './EntradasModal/EntradaInput';
 import DisplayComponent from './DisplayComponent';
-import { ref, set } from "firebase/database";
-import { database } from '../../conexion/firebase';
+import { getDatabase, push, ref, set } from "firebase/database";
+import { database, app } from '../../conexion/firebase';
 //import BtnComponent from './BtnComponent';
 const Sitio = (props) => {
   const [estado,setEstado]=useState(props.estado)
@@ -228,10 +228,27 @@ const Sitio = (props) => {
     reset()
     let fecha=new Date()
     let fechaAct=fecha.toDateString();
-    let ingreso={monto:monto,fecha:fechaAct}
-    console.log(ingreso)
-    set(ref(database, "ingresos/"+(1)), ingreso);
+    let anio=fecha.getFullYear()
+    let mes=fecha.getMonth()+1
+    let dia=fecha.getDate()
+    let diaSemana=fecha.getDay()
+    let ingreso={
+      anio:anio,
+      mes:mes,
+      fecha:dia,
+      dia:diaSemana,
+      monto:monto,
+      fechaActual:fechaAct,
+      ciCliente:values.ci,
+      celularCliente:values.celular,
+      placaDelAuto:values.placa,
+      lugarUsado:props.nombre}
+    const db=getDatabase(app)
+    const collectionRef = ref(db,'ingresos');
+    const newId = push(collectionRef).key;
+    set(ref(database, "ingresos/"+(newId)), ingreso);
   }
+  
   const cancelarHabilitar=()=>{
     setModalHabilitar(!modalHabilitar)
   }
