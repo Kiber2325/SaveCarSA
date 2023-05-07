@@ -3,9 +3,11 @@ import './Sitio.css'
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import EntradaInput from './EntradasModal/EntradaInput';
 import DisplayComponent from './DisplayComponent';
+import { ref, set } from "firebase/database";
+import { database } from '../../conexion/firebase';
 //import BtnComponent from './BtnComponent';
 const Sitio = (props) => {
-  const [estado,setEstado]=useState('disponible')
+  const [estado,setEstado]=useState(props.estado)
 
   const [modalEstado,setModalEstado]= useState(false);
   const [modalTerminar,setModalTerminar]= useState(false);
@@ -39,7 +41,17 @@ const Sitio = (props) => {
     pending: '#FC6901',
     completed: '#0050C8'
   };
-  const [cardColor,setCardColor] = useState(cardColors.active);
+  const escogerColor=()=>{
+    let colorElegido=''
+    let estado=props.estado;
+    if(estado==='disponible'){
+      colorElegido=cardColors.active
+    }else if(estado==='ocupado'){
+      colorElegido=cardColors.completed
+    }
+    return colorElegido;
+  }
+  const [cardColor,setCardColor] = useState(escogerColor());
   //const [color, setColor] = useState('#00FF38');
   //mostrarInputs
   const [placa,setPlaca]=useState(true)
@@ -214,6 +226,11 @@ const Sitio = (props) => {
     setCardColor(cardColors.active)
     setMostrarCronometro(false)
     reset()
+    let fecha=new Date()
+    let fechaAct=fecha.toDateString();
+    let ingreso={monto:monto,fecha:fechaAct}
+    console.log(ingreso)
+    set(ref(database, "ingresos/"+(1)), ingreso);
   }
   const cancelarHabilitar=()=>{
     setModalHabilitar(!modalHabilitar)

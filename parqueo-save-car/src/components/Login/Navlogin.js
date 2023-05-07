@@ -23,7 +23,7 @@ const Navlogin = () => {
         <section className="navegarnav">
             <div>
             <div className="navcli">
-                <a clasName= "cliente" href="/" >Clientes </a>
+                <a clasName= "cliente" href="/Clientes" >Clientes </a>
                 </div>
 
                 <div className="sesion">

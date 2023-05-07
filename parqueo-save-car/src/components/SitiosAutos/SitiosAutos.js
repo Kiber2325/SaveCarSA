@@ -51,6 +51,7 @@ function getData() {
 {dataArr.map((sitio)=>(
     <Sitio
       nombre={sitio.nombre}
+      estado={sitio.estado}
     />
   ))}
 </div>
