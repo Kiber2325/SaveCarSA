@@ -9,6 +9,9 @@ import ConfiguracionEstacionamiento from "../components/ConfiguracionParqueo/Con
 import ConfiguracionAuto from "../components/ConfiguracionParqueo/ConfiguracionAutos/ConfiguracionAuto";
 import ConfiguracionMoto from "../components/ConfiguracionParqueo/ConfiguracionMotos/ConfiguracionMoto";
 import SitiosAutos from "../components/SitiosAutos/SitiosAutos";
+import Clientes from "../components/Clientes/Clientes";
+import HomePageGuardia from "../components/HomePageGuardia/HomePageGuardia";
+import SitiosMotos from "../components/SitiosMotos/SitiosMotos";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -27,7 +30,11 @@ const Redipath =() =>{
             <Route path="/ConfigurarAuto" element={<ConfiguracionAuto/>}/>
             <Route path="/ConfigurarMoto" element={<ConfiguracionMoto/>}/>
 
+            <Route path="/ClientesInfo" element={<Clientes/>}/>
+
+            <Route path="/HomePageGuardia" element={<HomePageGuardia/>}/>
             <Route path="/SitiosAutos" element={<SitiosAutos/>}/>
+            <Route path="/SitiosMotos" element={<SitiosMotos/>}/>
         </Routes>
     </BrowserRouter>
     );

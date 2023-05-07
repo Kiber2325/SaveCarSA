@@ -60,38 +60,15 @@ const SitiosAutos = () => {
 
         </section>
 </header>
-<div className='cuerpo'>
-<Sitio
-  nombre='A1'
-/> 
-<Sitio
-  nombre='A2'
-/>
-<Sitio
-  nombre='A3'
-/>
-<Sitio
-  nombre='A4'
-/>
-<Sitio
-  nombre='A5'
-/>
-<Sitio
-  nombre='A6'
-/>
-<Sitio
-  nombre='A7'
-/>
-<Sitio
-  nombre='A8'
-/>
-</div>
 <div className='sitiosRecuperados'>
   {dataArr.map((sitio)=>(
     <Sitio
       nombre={sitio.nombre}
     />
   ))}
+</div>
+<div>
+  <Link></Link>
 </div>
 <div className='footerReg'><p id='cont'>Contactos</p></div>
     </div>
