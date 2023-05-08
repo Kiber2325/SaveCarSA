@@ -11,6 +11,7 @@ import ConfiguracionMoto from "../components/ConfiguracionParqueo/ConfiguracionM
 import SitiosAutos from "../components/SitiosAutos/SitiosAutos";
 import Clientes from "../components/Clientes/Clientes";
 import IngresosAnio from "../components/IngresosReportes/IngresosAnio";
+import ReservasCliente from "../components/ReservasClientes/ReservasCliente";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -30,14 +31,18 @@ const Redipath =() =>{
             <Route path="/ConfigurarMoto" element={<ConfiguracionMoto/>}/>
 
             <Route path="/Clientes" element={<Clientes/>}/>
+            <Route path="/ReservasCliente" element={<ReservasCliente/>}/>
 
             <Route path="/SitiosAutos" element={<SitiosAutos/>}/>
 
             <Route path="/Ingresos" element={<IngresosAnio/>}/>
+
+        
         </Routes>
     </BrowserRouter>
     );
 };
+
 export default Redipath;
 
 /*<Router>
