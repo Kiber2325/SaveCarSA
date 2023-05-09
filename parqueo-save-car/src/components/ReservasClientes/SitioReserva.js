@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import EntradaInput from '../Sitio/EntradasModal/EntradaInput';
 import QrCodigo from '../QRCodigo/QrCodigo';
-import QRCode from 'qrcode-generator';
+import { ref, set } from "firebase/database";
+import { database } from '../../conexion/firebase';
 const SitioReserva = (props) => {
     const [estadoSitio,setEstadoSitio]=useState(props.estado)
     const cardColors ={
@@ -141,6 +142,21 @@ const SitioReserva = (props) => {
             setModalEstado(false)
             setEstadoSitio('reservado')
             setCardColor(cardColors.reservado)
+            let fecha=new Date()
+            let hora=fecha.getTime()
+            const comprobanteData={
+              sitio:props.name,
+              placa:values.placa,
+              ciCliente:values.ci,
+              celular:values.celular,
+              fecha:fecha.toDateString(),
+              hora:fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds(),
+              monto:3.0
+            }
+            let idUnico=values.placa+values.ci+hora+fecha.getHours()+'-'+fecha.getMinutes()+'-'+fecha.getSeconds()
+            set(ref(database, "comprobantes/"+idUnico), comprobanteData);
+            setUrl(url+idUnico)
+            setModalQr(true)
             /*clearInterval(intert);
             updatedS=10;updatedTM=0;
             setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
@@ -149,15 +165,11 @@ const SitioReserva = (props) => {
         
       }
       //QR
-      const generateQRCode = () => {
-        //let cad=values.placa+'\n'+values.ci+'\n'+values.celular+'\n'
-        //console.log(cad)
-        const qr = QRCode(0, 'L');
-        qr.addData(JSON.stringify(values));
-        qr.make();
-        const qrCodeData = qr.createDataURL();
-        return qrCodeData;
-      };
+      const [modalQr,setModalQr]=useState(false)
+      const cerrarModalQR=()=>{
+        setModalQr(false)
+      }
+      const [url,setUrl]=useState('https://cosmic-queijadas-061ac9.netlify.app/comprobante/')
   return (
     <div>
         <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: cardColor}}>
@@ -192,10 +204,6 @@ const SitioReserva = (props) => {
               mostrarMensaje={mostrarMensajeCelular}
               mensaje={mensajeCelular} 
             />
-            <QrCodigo
-                datos={values}
-            />
-            {values && <img src={generateQRCode()} alt="QR Code" />}
           </ModalBody>
           <div className='modalFooter'>
           <ModalFooter>
@@ -207,8 +215,31 @@ const SitioReserva = (props) => {
               ...StyleSheet.buttonModal,padding:'6px 26px',
             }}>Aplicar</Button>
             </div>
-          
-            
+          </ModalFooter>
+          </div>
+        </Modal>
+        <Modal isOpen={modalQr} centered={true}>
+        <div className='modalHeader'>
+          <ModalHeader >
+            <p className='asig'>Escanear Código QR</p>
+            <p className='asig'>{props.nombre}</p>
+          </ModalHeader>
+          </div>
+          <ModalBody>
+            <QrCodigo
+              datos={url}
+            />
+          </ModalBody>
+          <div className='modalFooter'>
+          <ModalFooter>
+            <div className='botonesModalSitio'>
+            <Button onClick={cerrarModalQR} className='botonModal' style={{
+              ...StyleSheet.buttonModal,padding:'6px 20px',
+            }}>Cerrar</Button>
+          <Button onClick={cerrarModalQR} className='botonModal' style={{
+              ...StyleSheet.buttonModal,padding:'6px 26px',
+            }}>Guardar</Button>
+            </div>
           </ModalFooter>
           </div>
         </Modal>
