@@ -196,7 +196,6 @@ const SitioReserva = (props) => {
                 datos={values}
             />
             {values && <img src={generateQRCode()} alt="QR Code" />}
-            <button onClick={generateQRCode}>Generar</button>
           </ModalBody>
           <div className='modalFooter'>
           <ModalFooter>
