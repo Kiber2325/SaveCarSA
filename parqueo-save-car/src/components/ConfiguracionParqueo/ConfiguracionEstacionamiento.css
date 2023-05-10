@@ -1,0 +1,45 @@
+.confEst{
+  padding: 0;
+  margin: 0;
+  
+}
+.Encabezado, .footer{
+    background-color: #004854;
+    width: 100%;
+    height: 111px;
+  }
+ 
+  .configuraciones{
+    height: 388px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 43%;
+  }
+.contLink{
+  margin-top: 50px;
+}
+.volverHome{
+  color: #00B9BC;
+  text-decoration: underline;
+  text-align: center;
+  padding: 10px 73px;
+}
+.volverHome:hover{
+  color: #F63700;
+}
+.botonConfigurar{
+  background-color: #00B9BC;
+  border: none;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  padding: 10px 50px;
+  border-radius: 10px;
+}
+.botonConfigurar:hover{
+  background-color: #F63700;
+  color: black;
+}

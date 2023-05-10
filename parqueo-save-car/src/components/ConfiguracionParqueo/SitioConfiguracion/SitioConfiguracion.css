@@ -1,0 +1,18 @@
+.sitio{
+    width: 100px;
+    height: 110px;
+    background-color: #00FF38;
+    margin: 10px;
+    border-radius: 1rem;
+}
+.sitio h2{
+    text-align: center;
+}
+
+.sitioM{
+    width: 80px;
+    height: 110px;
+    background-color: #00FF38;
+    margin: 10px;
+    border-radius: 2rem;
+}

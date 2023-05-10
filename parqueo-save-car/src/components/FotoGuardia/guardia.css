@@ -46,10 +46,17 @@
   .image-upload{
     margin: auto;
     width: 200px;
-      height: 50px;
-    color: black;
+      
+    color: white;
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.326);
     text-align: center;
     cursor: pointer;
+    background-color: #00B9BC;
+    
+    padding: 5px 50px;
+  }
+  .image-upload:hover{
+    background-color: #F63700;
+  color: black;
   }

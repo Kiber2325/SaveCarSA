@@ -38,6 +38,13 @@
     background-color: #004854;
     margin-top: 2rem;
   }
+  .registrarGuardia{
+    background-color: #00B9BC;
+  }
+  .registrarGuardia:hover{
+    background-color: #F63700;
+  color: black;
+  }
 
 
 

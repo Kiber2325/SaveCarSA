@@ -23,7 +23,7 @@ const Opcioneshome = () => {
                             </div>
                             <div className="card-footer">
                             <div className="d-grid gap-2">
-                                <button className="btn btn-primary" type="button">Acceder</button>
+                                <Link className="btn btn-primary" to="/ConfigurarEstacionamiento">Acceder</Link>
                                 </div>
                             </div>
                     </div>
