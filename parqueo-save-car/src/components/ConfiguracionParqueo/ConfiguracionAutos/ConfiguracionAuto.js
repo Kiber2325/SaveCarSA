@@ -41,7 +41,7 @@ const ConfiguracionAuto = () => {
     remove(ref(database, `sitiosAutos`));
     for(let i=0;i<data.length;i++){
       console.log(data[i].nombre)
-      let agregarNuevoSitio={nombre:data[i].nombre,estado:'disponible'}
+      let agregarNuevoSitio={nombre:data[i].nombre,estado:'disponible',color:'#00FF38'}
       
       set(ref(database, "sitiosAutos/"+(i+1)), agregarNuevoSitio);
       //console.log(agregarNuevoSitio)

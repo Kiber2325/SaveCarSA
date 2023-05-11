@@ -16,7 +16,6 @@ const ReservasCliente = () => {
       setDataArr(dataArr);
     });
   }
-  console.log(dataArr);
   return (
     <div>
       <header className="header">
