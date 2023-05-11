@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../../Images/logo.png';
-
+import "./inicio.css";
 
 import '../landingPage/lading.css'
 
@@ -21,20 +21,25 @@ const Navlogin = () => {
         </section>
 
         <section className="navegarnav">
-            <div>
-            <div className="navcli">
-                <a clasName= "cliente" href="/Clientes" >Clientes </a>
-                </div>
+            <div className="d-flex justify-content-end">
+            <div className="sesion" >
+                <a className= "Consultas"  href="/Consultas" >Consultas</a>
+             </div>
 
-                <div className="sesion">
+             <div className="sesion" >
+                <a className= "Quejas"  href="/Quejas" >Quejas</a>
+             </div>
+
+             <div className="sesion">
+                <a  className= "cliente"  href="/Clientes" >Clientes</a>
+             </div>
+                        
+             <div className="sesion">
                 <a className="Cerrar" href="/">Cerrar Sesion</a>
-                </div>
+             </div>
+
             </div>
-            
-
-           
-
-        </section>
+          </section>
 
 
 

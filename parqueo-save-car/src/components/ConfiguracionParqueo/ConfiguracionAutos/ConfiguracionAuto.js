@@ -11,8 +11,8 @@ import { database } from '../../../conexion/firebase';
 
 const ConfiguracionAuto = () => {
   const navigate=useNavigate()
-  const dataSitios=[]
-  const [data,setData]=useState(dataSitios)
+  
+  const [data,setData]=useState([])
   const [cantidad,setCantidad]=useState(0)
 
   //const [sitio,setSitio]=useState({nombre:''})

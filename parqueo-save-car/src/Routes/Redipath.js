@@ -13,6 +13,8 @@ import Clientes from "../components/Clientes/Clientes";
 import IngresosAnio from "../components/IngresosReportes/IngresosAnio";
 import ReservasCliente from "../components/ReservasClientes/ReservasCliente";
 import Comprobante from "../components/QRCodigo/Comprobante";
+import Consultas from "../components/Consultas/Consultas";
+import Quejas from "../components/Quejas/Quejas";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -31,9 +33,14 @@ const Redipath =() =>{
             <Route path="/ConfigurarAuto" element={<ConfiguracionAuto/>}/>
             <Route path="/ConfigurarMoto" element={<ConfiguracionMoto/>}/>
 
+            <Route path="/Consultas" element={<Consultas/>}/>
+            <Route path="/Quejas" element={<Quejas/>}/>
+
+
             <Route path="/Clientes" element={<Clientes/>}/>
             <Route path="/ReservasCliente" element={<ReservasCliente/>}/>
             <Route path="/comprobante/:comprobanteId" element={<Comprobante/>}/>
+
 
             <Route path="/SitiosAutos" element={<SitiosAutos/>}/>
 

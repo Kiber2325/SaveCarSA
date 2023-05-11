@@ -6,12 +6,14 @@ import logo from '../../Images/logo.png';
 //import{Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 
 import '../landingPage/lading.css'
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import { useState } from "react";
 const Navlading = () => {
-    /*const [dropdown, setDropdown] = useState (false);
+    const [dropdown, setDropdown] = useState (false);
     
     const abrirCerrarDropdown=()=>{
         setDropdown(!dropdown);
-    }*/
+    }
 
   return (
     <div>
@@ -31,6 +33,18 @@ const Navlading = () => {
             <div>
             
             <Link to='/Iniciosesion' class="btn btn-link">Iniciar Sesión</Link>
+            
+            </div>
+            <div>
+                <Dropdown isOpen ={dropdown} toggle={abrirCerrarDropdown}>
+                    <DropdownToggle caret className="btndesplegable">
+                    Ayuda
+                    </DropdownToggle>
+                    <DropdownMenu className="menuops">
+                        <DropdownItem className="op1">Consultas</DropdownItem>
+                        <DropdownItem className="op2">Observaciones</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
             </div>
 
             

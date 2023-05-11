@@ -3,10 +3,6 @@
 
 //import { ref,set , getDatabase,push } from "firebase/database";
 //import {  app, database } from '../../conexion/firebase';
-
-
-
-
 // function QrCodigo (props){
 //     const [data, setData] = useState(props.datos);
 
