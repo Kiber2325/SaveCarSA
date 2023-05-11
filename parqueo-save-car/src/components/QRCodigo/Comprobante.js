@@ -44,7 +44,7 @@ const Comprobante = () => {
       let cad=product.sitio
       let cadRecortada=cad.slice(1)
       const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
-      const nuevaData={nombre:product.sitio, estado:'reservado'}
+      const nuevaData={nombre:product.sitio, estado:'reservado',color:'#FC6901'}
       set(dataRef, nuevaData)
       .then(() => {
         console.log('Dato actualizado correctamente');
