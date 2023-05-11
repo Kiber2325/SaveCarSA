@@ -69,7 +69,7 @@ const Comprobante = () => {
       celularCliente:product.celular,
       placaDelAuto:product.placa,
       lugarUsado:product.sitio,
-    tipo:'Ocupación'}
+    tipo:'Reserva'}
     const db=getDatabase(app)
     const collectionRef = ref(db,'ingresos');
     const newId = push(collectionRef).key;
