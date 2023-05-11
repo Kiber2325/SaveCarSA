@@ -41,13 +41,15 @@ const Sitio = (props) => {
     pending: '#FC6901',
     completed: '#0050C8'
   };
+  
   const escogerColor=()=>{
     let colorElegido=''
-    let estado=props.estado;
     if(estado==='disponible'){
       colorElegido=cardColors.active
     }else if(estado==='ocupado'){
       colorElegido=cardColors.completed
+    }else if(estado==='reservado'){
+      colorElegido=cardColors.pending
     }
     return colorElegido;
   }
@@ -77,7 +79,7 @@ const Sitio = (props) => {
       calcularMonto()
     }else if(estado==='deshabilitado'){
       setModalHabilitar(!modalHabilitar)
-    }else if(estado==='reservar'){
+    }else if(estado==='reservado'){
       setModalReserva(!modalReserva)
       stopTemp()
     }
@@ -164,8 +166,22 @@ const Sitio = (props) => {
       }
     return esInvalido;
   }
-  const ejecutarAccion=()=>{
+  const confirmarReserva=(estadoSitio)=>{
+    let cad=props.nombre
+    let cadRecortada=cad.slice(1)
+    const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
+    const nuevaData={nombre:props.nombre, estado:estadoSitio}
+    set(dataRef, nuevaData)
+    .then(() => {
+      console.log('Dato actualizado correctamente');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar el dato:', error);
+    });
+  }
+  const ejecutarAccion=(e)=>{
     //formato
+    e.preventDefault()
     const regexAll = /^[0-9A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     const regexNumber = /^[0-9]+$/;
     const regexPlaca = /^[0-9A-ZÑÁÉÍÓÚÜ\s]+$/;
@@ -182,6 +198,7 @@ const Sitio = (props) => {
       if(validar===true){
         setModalEstado(false)
         setEstado('ocupado')
+        confirmarReserva('ocupado')
         setCardColor(cardColors.completed)
         setMostrarCronometro(true)
         start()
@@ -193,7 +210,8 @@ const Sitio = (props) => {
       let validar=validarPlaca&&validarCi&&validarCelular
       if(validar===true){
         setModalEstado(false)
-        setEstado('reservar')
+        setEstado('reservado')
+        confirmarReserva('reservado')
         setCardColor(cardColors.pending)
         clearInterval(intert);
         updatedS=10;updatedTM=0;
@@ -204,6 +222,7 @@ const Sitio = (props) => {
       if(!validarInputMotivo(values.motivo,true,alertaMotivo,regexAll,3,50)){
         setModalEstado(false)
         setEstado('deshabilitado')
+        confirmarReserva('deshabilitado')
         setCardColor(cardColors.inactive)
       }
     }
@@ -216,6 +235,7 @@ const Sitio = (props) => {
     setModalHabilitar(!modalHabilitar)
     //cambiarColor('#00FF38')
     setEstado('disponible')
+    confirmarReserva('disponible')
     setCardColor(cardColors.active)
     setAccSel('ocupar')
   }
@@ -223,6 +243,7 @@ const Sitio = (props) => {
     setModalTerminar(!modalTerminar)
     //cambiarColor('#00FF38')
     setEstado('disponible')
+    confirmarReserva('disponible')
     setCardColor(cardColors.active)
     setMostrarCronometro(false)
     reset()
@@ -293,8 +314,8 @@ const Sitio = (props) => {
     resetTemp()
     setModalReserva(!modalReserva)
     setEstado('ocupado')
+    confirmarReserva('ocupado')
     setCardColor(cardColors.completed)
-
   }
   const cancelarReserva=()=>{
     resumeTemp()
@@ -302,6 +323,7 @@ const Sitio = (props) => {
   }
   const terminarReserva=()=>{
     setEstado('disponible')
+    confirmarReserva('disponible')
     setCardColor(cardColors.active)
   }
   //cronometro

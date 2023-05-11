@@ -52,7 +52,6 @@ const SitioReserva = (props) => {
     });
     const onChange = (e)=>{
         setValues({ ...values, [e.target.name]: e.target.value });
-        console.log(values)
     }
     const cancelarAccion=()=>{
         quitarMensajesError()
@@ -145,7 +144,7 @@ const SitioReserva = (props) => {
             let fecha=new Date()
             let hora=fecha.getTime()
             const comprobanteData={
-              sitio:props.name,
+              sitio:props.nombre,
               placa:values.placa,
               ciCliente:values.ci,
               celular:values.celular,
@@ -154,6 +153,8 @@ const SitioReserva = (props) => {
               monto:3.0
             }
             let idUnico=values.placa+values.ci+hora+fecha.getHours()+'-'+fecha.getMinutes()+'-'+fecha.getSeconds()
+            console.log(idUnico)
+            console.log(comprobanteData)
             set(ref(database, "comprobantes/"+idUnico), comprobanteData);
             setUrl(url+idUnico)
             setModalQr(true)
