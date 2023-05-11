@@ -19,7 +19,7 @@ function QrCodigo (props){
   };
   return (
     <div>
-      <input type="text" value={data} onChange={handleChange} />
+      {false&&<input type="text" value={data} onChange={handleChange} />}
       {props.datos && <img src={generateQRCode()} alt="QR Code" />}
     </div>
   );

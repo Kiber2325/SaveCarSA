@@ -88,8 +88,10 @@ const IngresosAnio = () => {
                   <th className='cabeceraTablaClientes' scope="col">Fecha</th>
                   <th className='cabeceraTablaClientes' scope="col">Día</th>
                   <th className='cabeceraTablaClientes' scope="col">CI</th>
+                  <th className='cabeceraTablaClientes' scope="col">Celular</th>
                   <th className='cabeceraTablaClientes' scope="col">Placa</th>
                   <th className='cabeceraTablaClientes' scope="col">Lugar</th>
+                  <th className='cabeceraTablaClientes' scope="col">Tipo</th>
                   <th className='cabeceraTablaClientes' scope="col">Monto</th>
                 </tr>
             </thead>
@@ -101,8 +103,10 @@ const IngresosAnio = () => {
                   <td className='datoIngreso'>{ingreso.fecha}</td>
                   <td className='datoIngreso'>{calcularDia(ingreso.fechaActual)}</td>
                   <td className='datoIngreso'>{ingreso.ciCliente}</td>
+                  <td className='datoIngreso'>{ingreso.celularCliente}</td>
                   <td className='datoIngreso'>{ingreso.placaDelAuto}</td>
                   <td className='datoIngreso'>{ingreso.lugarUsado}</td>
+                  <td className='datoIngreso'>{ingreso.tipo}</td>
                   <td className='datoIngreso'>{ingreso.monto}</td>
                 </tr>
               ))}
@@ -112,6 +116,10 @@ const IngresosAnio = () => {
         <div className='montoTotal'>
           <h3>Monto total: {calcularMonto()} Bs.</h3>          
         </div>
+        <div className="botonesReservaCliente">
+      <Link to='/Home' className="volverLanding">Volver</Link>
+      </div> 
+      <div className='footerReg'><p id='cont'>Contactos</p></div>
     </div>
   )
 }

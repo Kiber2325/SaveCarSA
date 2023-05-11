@@ -30,6 +30,10 @@ const Navlading = () => {
             <div className="d-flex justify-content-end">
             <div>
             
+            <Link to='/ReservasCliente' class="btn btn-link">Reservas</Link>
+            </div>
+            <div>
+            
             <Link to='/Iniciosesion' class="btn btn-link">Iniciar Sesión</Link>
             </div>
 

@@ -6,14 +6,15 @@ import { ref, set } from "firebase/database";
 import { database } from '../../conexion/firebase';
 const SitioReserva = (props) => {
     const [estadoSitio,setEstadoSitio]=useState(props.estado)
-    const cardColors ={
+    
+    /*const cardColors ={
         disponible: '#00FF38',
         deshabilitado: '#BC0000',
         reservado: '#FC6901',
         ocupado: '#0050C8',
         ocupadoMensual: 'violet'
-    };
-    const escogerColor=()=>{
+    };*/
+    /*const escogerColor=()=>{
         let colorElegido=''
         if(estadoSitio==='disponible'){
         colorElegido=cardColors.disponible
@@ -27,12 +28,14 @@ const SitioReserva = (props) => {
             colorElegido=cardColors.ocupadoMensual
         }
         return colorElegido;
-    }
-    const [cardColor,setCardColor] = useState(escogerColor());
+    }*/
+    //const [cardColor,setCardColor] = useState(escogerColor());
 
     const cambiarEstado=()=>{
-        if(estadoSitio==='disponible'){
+      let estadoSitio2=props.estado
+        if(estadoSitio2==='disponible'){
             setModalEstado(true)
+            console.log(estadoSitio)
         }
     }
     //Modal
@@ -140,7 +143,7 @@ const SitioReserva = (props) => {
           if(validar===true){
             setModalEstado(false)
             setEstadoSitio('reservado')
-            setCardColor(cardColors.reservado)
+            //setCardColor(cardColors.reservado)
             let fecha=new Date()
             let hora=fecha.getTime()
             const comprobanteData={
@@ -173,7 +176,7 @@ const SitioReserva = (props) => {
       const [url,setUrl]=useState('https://cosmic-queijadas-061ac9.netlify.app/comprobante/')
   return (
     <div>
-        <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: cardColor}}>
+        <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: props.color}}>
             <h2>{props.nombre}</h2>
         </div>
         <Modal isOpen={modalEstado} centered={true}>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ref, onValue } from "firebase/database";
 import { database } from "../../conexion/firebase";
 import SitioReserva from "./SitioReserva";
+import './ReservasCliente.css';
 const ReservasCliente = () => {
   const [dataArr, setDataArr] = useState([]);
   useEffect(() => {
@@ -30,10 +31,13 @@ const ReservasCliente = () => {
       </header>
       <div className="cuerpo">
         {dataArr.map((sitio) => (
-          <SitioReserva nombre={sitio.nombre} estado={sitio.estado} />
+          <SitioReserva nombre={sitio.nombre} estado={sitio.estado} color={sitio.color}/>
         ))}
       </div>
-      <Link to="/">Volver</Link>
+      <div className="botonesReservaCliente">
+      <Link to='/' className="volverLanding">Volver</Link>
+      </div> 
+      <div className='footerReg'><p id='cont'>Contactos</p></div>
     </div>
   );
 };

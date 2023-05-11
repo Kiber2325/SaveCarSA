@@ -35,14 +35,14 @@ const Sitio = (props) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
   //colores
-  const cardColors ={
+  /*const cardColors ={
     active: '#00FF38',
     inactive: '#BC0000',
     pending: '#FC6901',
     completed: '#0050C8'
-  };
+  };*/
   
-  const escogerColor=()=>{
+  /*const escogerColor=()=>{
     let colorElegido=''
     if(estado==='disponible'){
       colorElegido=cardColors.active
@@ -52,8 +52,8 @@ const Sitio = (props) => {
       colorElegido=cardColors.pending
     }
     return colorElegido;
-  }
-  const [cardColor,setCardColor] = useState(escogerColor());
+  }*/
+  //const [cardColor,setCardColor] = useState(escogerColor());
   //const [color, setColor] = useState('#00FF38');
   //mostrarInputs
   const [placa,setPlaca]=useState(true)
@@ -166,11 +166,11 @@ const Sitio = (props) => {
       }
     return esInvalido;
   }
-  const confirmarReserva=(estadoSitio)=>{
+  const confirmarReserva=(estadoSitio,nuevoColor)=>{
     let cad=props.nombre
     let cadRecortada=cad.slice(1)
     const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
-    const nuevaData={nombre:props.nombre, estado:estadoSitio}
+    const nuevaData={nombre:props.nombre, estado:estadoSitio, color:nuevoColor}
     set(dataRef, nuevaData)
     .then(() => {
       console.log('Dato actualizado correctamente');
@@ -198,8 +198,8 @@ const Sitio = (props) => {
       if(validar===true){
         setModalEstado(false)
         setEstado('ocupado')
-        confirmarReserva('ocupado')
-        setCardColor(cardColors.completed)
+        confirmarReserva('ocupado','#0050C8')
+        //setCardColor(cardColors.completed)
         setMostrarCronometro(true)
         start()
       }
@@ -211,8 +211,8 @@ const Sitio = (props) => {
       if(validar===true){
         setModalEstado(false)
         setEstado('reservado')
-        confirmarReserva('reservado')
-        setCardColor(cardColors.pending)
+        confirmarReserva('reservado','#FC6901')
+        //setCardColor(cardColors.pending)
         clearInterval(intert);
         updatedS=10;updatedTM=0;
         setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
@@ -222,8 +222,8 @@ const Sitio = (props) => {
       if(!validarInputMotivo(values.motivo,true,alertaMotivo,regexAll,3,50)){
         setModalEstado(false)
         setEstado('deshabilitado')
-        confirmarReserva('deshabilitado')
-        setCardColor(cardColors.inactive)
+        confirmarReserva('deshabilitado','#BC0000')
+        //setCardColor(cardColors.inactive)
       }
     }
   }
@@ -235,16 +235,16 @@ const Sitio = (props) => {
     setModalHabilitar(!modalHabilitar)
     //cambiarColor('#00FF38')
     setEstado('disponible')
-    confirmarReserva('disponible')
-    setCardColor(cardColors.active)
+    confirmarReserva('disponible','#00FF38')
+    //setCardColor(cardColors.active)
     setAccSel('ocupar')
   }
   const disponerSitio=()=>{
     setModalTerminar(!modalTerminar)
     //cambiarColor('#00FF38')
     setEstado('disponible')
-    confirmarReserva('disponible')
-    setCardColor(cardColors.active)
+    confirmarReserva('disponible','#00FF38')
+    //setCardColor(cardColors.active)
     setMostrarCronometro(false)
     reset()
     let fecha=new Date()
@@ -263,11 +263,20 @@ const Sitio = (props) => {
       ciCliente:values.ci,
       celularCliente:values.celular,
       placaDelAuto:values.placa,
-      lugarUsado:props.nombre}
+      lugarUsado:props.nombre,
+    tipo:'Ocupación'}
     const db=getDatabase(app)
     const collectionRef = ref(db,'ingresos');
     const newId = push(collectionRef).key;
     set(ref(database, "ingresos/"+(newId)), ingreso);
+    let tiempoUso={
+      sitioUsado:props.nombre,
+      fecha:dia,
+      horasUsadas:time.h,
+      minutosUsados:time.m,
+      segundosUsados:time.s
+    }
+    set(ref(database, "tiempoUso/"+(newId)), tiempoUso);
   }
   
   const cancelarHabilitar=()=>{
@@ -314,8 +323,8 @@ const Sitio = (props) => {
     resetTemp()
     setModalReserva(!modalReserva)
     setEstado('ocupado')
-    confirmarReserva('ocupado')
-    setCardColor(cardColors.completed)
+    confirmarReserva('ocupado','#0050C8')
+    //setCardColor(cardColors.completed)
   }
   const cancelarReserva=()=>{
     resumeTemp()
@@ -323,8 +332,8 @@ const Sitio = (props) => {
   }
   const terminarReserva=()=>{
     setEstado('disponible')
-    confirmarReserva('disponible')
-    setCardColor(cardColors.active)
+    confirmarReserva('disponible','#00FF38')
+    //setCardColor(cardColors.active)
   }
   //cronometro
   const [time, setTime] = useState({ms:0, s:0, m:0, h:0});
@@ -434,7 +443,7 @@ const Sitio = (props) => {
   return (
     
     <div>
-        <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: cardColor}}>
+        <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: props.color}}>
             <h2>{props.nombre}</h2>
             {mostrarCronometro &&<div className='cronometroSitio'>
               <DisplayComponent time={time}/>
