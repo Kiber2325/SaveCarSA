@@ -5,6 +5,7 @@ import './Clientes.css'
 import {  ref, onValue } from "firebase/database";
 import { database } from '../../conexion/firebase';
 
+import 'bootstrap-icons/font/bootstrap-icons.css'
 const Clientes = () => {
     const [dataArr, setDataArr] = useState([]);
 useEffect(()=>{
@@ -17,7 +18,21 @@ function getData() {
     setDataArr(dataArr);
   });
 }
-console.log(dataArr)
+const [mensaje,setMensaje]=useState('')
+const controlarMensaje=(e)=>{
+    setMensaje(e.target.value)
+}
+const enviarMensaje=(e)=>{
+    e.preventDefault()
+    enviarMensajeNum(60372091)
+}
+const enviarMensajeNum=(cel)=>{
+    let phoneNumber = '+591'+cel;
+    let message = mensaje;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+}
   return (
     <div>
         <header className='header'>
@@ -55,20 +70,23 @@ console.log(dataArr)
                         </tr>
                     </thead>
                     <tbody>
-              {dataArr.map(cliente=>(
                 <tr>
+              {dataArr.map(cliente=>(
+                <>
                   <td className='datoIngreso'>{cliente.ciCliente}</td>
                   <td className='datoIngreso'>{cliente.nombre}</td>
                   <td className='datoIngreso'>{cliente.apellido}</td>
                   <td className='datoIngreso'>{cliente.estado}</td>
-                  <td className='datoIngreso'><button>Enviar mensaje</button></td>
-                </tr>
+                  
+                  </>
               ))}
+              <td className='datoIngreso'>
+                    <input className='mensajeWhats' onChange={(e)=>controlarMensaje(e)}/><></>
+                    <button className='contWhats' onClick={(e)=>enviarMensaje(e)}> Enviar <i class="bi bi-whatsapp"></i></button>
+                  </td>
+              </tr>
             </tbody>
                 </table>
-            {dataArr.map((sitio)=>(
-                <div></div>
-            ))}
             </div>
         </div>
         <div className='regresarHome'>

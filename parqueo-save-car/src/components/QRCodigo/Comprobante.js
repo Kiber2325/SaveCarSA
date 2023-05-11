@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getDatabase, ref, get, set } from 'firebase/database';
+import { getDatabase, ref, get, set, push } from 'firebase/database';
 import './Comprobante.css'
 import jsPDF from 'jspdf';
 //import { initializeApp } from 'firebase/app';
 
-import { database } from '../../conexion/firebase';
+import { app, database } from '../../conexion/firebase';
 const Comprobante = () => {
     const { comprobanteId } = useParams();
     const [product, setProduct] = useState(null);
@@ -52,6 +52,28 @@ const Comprobante = () => {
       .catch((error) => {
         console.error('Error al actualizar el dato:', error);
       });
+      let fecha=new Date()
+    let fechaAct=fecha.toDateString();
+    let anio=fecha.getFullYear()
+    let mes=fecha.getMonth()+1
+    let dia=fecha.getDate()
+    let diaSemana=fecha.getDay()
+    let ingreso={
+      anio:anio,
+      mes:mes,
+      fecha:dia,
+      dia:diaSemana,
+      monto:product.monto,
+      fechaActual:fechaAct,
+      ciCliente:product.ciCliente,
+      celularCliente:product.celular,
+      placaDelAuto:product.placa,
+      lugarUsado:product.sitio,
+    tipo:'Ocupación'}
+    const db=getDatabase(app)
+    const collectionRef = ref(db,'ingresos');
+    const newId = push(collectionRef).key;
+    set(ref(database, "ingresos/"+(newId)), ingreso);
     }
     return (
       <div className='recibo'>
