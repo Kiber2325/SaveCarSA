@@ -47,12 +47,24 @@ console.log(dataArr)
                 <table class="table table-bordered">
                     <thead>
                         <tr className='cabeceraClientes'>
-                        <th className='cabeceraTablaClientes' scope="col">#</th>
+                        <th className='cabeceraTablaClientes' scope="col">CI</th>
                         <th className='cabeceraTablaClientes' scope="col">Nombre</th>
                         <th className='cabeceraTablaClientes' scope="col">Apellidos</th>
                         <th className='cabeceraTablaClientes' scope="col">Estado</th>
+                        <th className='cabeceraTablaClientes' scope="col">Notificar</th>
                         </tr>
                     </thead>
+                    <tbody>
+              {dataArr.map(cliente=>(
+                <tr>
+                  <td className='datoIngreso'>{cliente.ciCliente}</td>
+                  <td className='datoIngreso'>{cliente.nombre}</td>
+                  <td className='datoIngreso'>{cliente.apellido}</td>
+                  <td className='datoIngreso'>{cliente.estado}</td>
+                  <td className='datoIngreso'><button>Enviar mensaje</button></td>
+                </tr>
+              ))}
+            </tbody>
                 </table>
             {dataArr.map((sitio)=>(
                 <div></div>

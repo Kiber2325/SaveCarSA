@@ -9,6 +9,8 @@ import FormInput from './InputFormAgregarVehiculo/FormInput';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 //const conexionCliente='http://127.0.0.1:8000/api/cliente';
+import {  ref, set } from "firebase/database";
+import { database} from '../../conexion/firebase';
 const RegistrarCliente = () => {
   //constante para navegar
   const navigate=useNavigate();
@@ -354,8 +356,27 @@ verificacion  de errores  */
       celular:celular,
       cantidad_meses:cantidadMeses});*/
       //redireccion
-      navigate('/Home');
+      //navigate('/Home');
       //window.location.reload();
+      const values={
+        ciCliente:ci,
+        nombre:nombre,
+        apellido:apellido,
+        celular:celular,
+        estado:'activo'
+      }
+      set(ref(database, "clientesMensuales/"+(ci)), values);
+      
+    const dataRef = ref(database, 'sitiosAutos/'+lugar.slice(1));
+    const nuevaData={nombre:lugar, estado:'reservadoMensual', color:'#317E8B'}
+    set(dataRef, nuevaData)
+    .then(() => {
+      console.log('Dato actualizado correctamente');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar el dato:', error);
+    });
+     
     }
   }
   //cancelar con sweet alert

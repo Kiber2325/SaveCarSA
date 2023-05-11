@@ -16,11 +16,11 @@ function getData() {
     setDataArr(dataArr);
   });
 }
-const calcularUso=()=>{
-    let usoPorcentaje=0.0;
-    dataArr.map((uso)=>(
-        usoPorcentaje=(100*(uso.horasUsadas*3600+uso.minutosUsados*60+uso.segundosUsados))/86400 
-    ))
+const calcularUso=(horas,minutos,segundos)=>{
+    let horasUs=horas
+    let minutosUs=minutos
+    let segundosUs=segundos
+    let usoPorcentaje=((100*(horasUs*3600+minutosUs*60+segundosUs))/86400);
     return usoPorcentaje
   }
   return (
@@ -58,7 +58,7 @@ const calcularUso=()=>{
                 <tr>
                   <td className='datoIngreso'>{uso.sitioUsado}</td>
                   <td className='datoIngreso'>{uso.fecha}</td>
-                  <td className='datoIngreso'>{calcularUso()} %</td>
+                  <td className='datoIngreso'>{calcularUso(uso.horasUsadas,uso.minutosUsados,uso.segundosUsados)} %</td>
                 </tr>
               ))}
               </tbody>
