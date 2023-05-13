@@ -1,0 +1,18 @@
+.volverLanding{
+    text-decoration: none;
+    background-color:#00B9BC ;
+    border:none ;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+.volverLanding:hover{
+    background-color:#F63700 ;
+    border-color:#F63700 ;
+    color: black;
+}
+.botonesReservaCliente{
+    display: flex;
+    justify-content: center;
+}

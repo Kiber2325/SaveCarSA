@@ -32,3 +32,10 @@
     background-color: #F63700;
     color: black;
 }
+.contWhats{
+    border: none;
+}
+.mensajeWhats{
+    height: 15px;
+    margin: 0;
+}

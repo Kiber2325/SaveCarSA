@@ -52,6 +52,7 @@ function getData() {
     <Sitio
       nombre={sitio.nombre}
       estado={sitio.estado}
+      color={sitio.color}
     />
   ))}
 </div>
