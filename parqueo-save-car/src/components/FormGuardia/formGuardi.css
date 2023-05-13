@@ -35,8 +35,10 @@
     padding-top: px;
   }
   .footerReg{
+    position: absolute;
     background-color: #004854;
     margin-top: 2rem;
+    bottom: 0;
   }
   .registrarGuardia{
     background-color: #00B9BC;

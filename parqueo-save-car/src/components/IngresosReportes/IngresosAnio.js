@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import logo from '../../Images/logo.png'
+// import logo from '../../Images/logo.png'
 import { Link } from 'react-router-dom'
 import {  ref, onValue } from "firebase/database";
 import { database } from '../../conexion/firebase';
 import './IngresosAnio.css'
+import Navlogin from '../Login/Navlogin';
 const IngresosAnio = () => {
   const [dataArr, setDataArr] = useState([]);
   //const [montoTotal,setMontoTotal]=useState(0.0);
@@ -60,25 +61,7 @@ const IngresosAnio = () => {
   }
   return (
     <div>
-        <header className='header'>
-            <section>
-                <div>
-                <Link to="/">
-                    <img className="image" src={logo} alt="log"/>
-                </Link>
-                </div>
-            </section>
-            <div className='medio'>
-
-            </div>
-            <section className="navegarnav">
-                <div>
-                    <div className="cerrarSesionGuardia">
-                    <a className="Cerrar" href="/">Cerrar Sesion</a>
-                    </div>
-                </div>
-            </section>
-        </header>
+      <Navlogin/>
         <div className='ingresosDetalle'>
           <table class="table table-bordered">
             <thead>

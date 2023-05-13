@@ -4,8 +4,21 @@
     font-family: 'Montserrat', sans-serif;
 }
 .campo{
+   
    width: 366px;
    height: 40px;
    border-radius: 5px;
    padding-left: 10px;
+}
+
+.foter{
+    position: absolute;
+    
+bottom: 0;
+  
+ 
+left: 0;
+  
+ 
+right: 0;
 }

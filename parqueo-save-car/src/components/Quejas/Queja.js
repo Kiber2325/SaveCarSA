@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { database } from '../../conexion/firebase';
 import { onValue, ref } from 'firebase/database';
 
+import './Quejas.css'
+
+
 const Queja = () => {
     const [posts, setPosts] = useState([]);
 
@@ -17,17 +20,26 @@ const Queja = () => {
       });
     }
   
-  
-  
-    // useEffect(() => {
-      
-      
+
       return (
-        <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.message}</li>
+        <>
+          <div class="containersss">
+          
+          <div className='izq'>
+       
+          {posts.map((post)=>(
+            
+                <div className='contenidoQuejas' >
+                <p key={post.id}> <strong>- { post.message}</strong> </p>
+                </div>
           ))}
-      </ul>
+        
+           </div>
+              
+           </div>
+          
+
+      </>
     );
   };
 

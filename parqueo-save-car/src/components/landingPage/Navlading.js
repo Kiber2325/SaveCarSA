@@ -30,6 +30,12 @@ const Navlading = () => {
 
         <section className="navegar">
             <div className="d-flex justify-content-end">
+  
+            <div>
+            
+            <Link to='/' class="btn btn-link">Inicio</Link>
+            </div>
+
             <div>
             
             <Link to='/ReservasCliente' class="btn btn-link">Sitios Disponibles</Link>
@@ -45,8 +51,8 @@ const Navlading = () => {
                     Ayuda
                     </DropdownToggle>
                     <DropdownMenu className="menuops">
-                        <DropdownItem className="op1">Consultas</DropdownItem>
-                        <DropdownItem className="op2">Observaciones</DropdownItem>
+                        <DropdownItem className="op1"><Link to='/Consultas' class="btn btn-link">consultas</Link></DropdownItem>
+                        <DropdownItem className="op2"><Link to='/Observaciones' class="btn btn-link">Observaciones</Link></DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </div>

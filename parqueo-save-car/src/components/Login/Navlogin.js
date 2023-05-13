@@ -24,12 +24,19 @@ const Navlogin = () => {
         <section className="navegarnav">
 
             <div className="d-flex justify-content-end">
+           
             <div className="sesion" >
-                <a className= "Consultas"  href="/Consultas" >Consultas</a>
+                <a className= "Consultas"  href="/Home" >Inicio</a>
+             </div>
+           
+           
+           
+            <div className="sesion" >
+                <a className= "Consultas"  href="/ConsultasAdmin" >Consultas</a>
              </div>
 
              <div className="sesion" >
-                <a className= "Quejas"  href="/Quejas" >Quejas</a>
+                <a className= "Quejas"  href="/QuejasAdmin" >Quejas</a>
              </div>
 
              <div className="sesion">

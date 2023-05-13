@@ -1,70 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import "./consultas.css"
-import Navlogin from '../Login/Navlogin';
-import Footers from '../Footer/Footer';
-import { ref, set, onValue  } from "firebase/database";
+// import Navlogin from '../Login/Navlogin';
+// import Footers from '../Footer/Footer';
+import { ref, onValue,push  } from "firebase/database";
 import { database } from '../../conexion/firebase';
+import Navlading from '../landingPage/Navlading';
 
 
 
 const Consultas = () => {
-  // const firebase = app.database();
-  const [titulo, setTitulo] = useState('');
-  const [consulta, setConsulta] = useState('');
   const [consultas, setConsultas] = useState([]);
+  const [nuevaConsulta, setNuevaConsulta] = useState('');
 
+
+
+  // Cargamos las consultas existentes en Firebase
   useEffect(()=>{
-    getData()
-  },[]);
-  function getData() {
-    onValue(ref(database, 'Consultas'),(snapshot) => {
-      const dataObj = snapshot.val();
-      let dataArray = []
-      console.log(dataObj);
-    
-      if (dataObj) {
-        dataArray  = Object.values(dataObj).map(([id, titulo]) => ({ id, ...titulo }));
-      setConsultas(dataArray);
+      getData()
+    },[]);
+
+
+    function getData() {
+      onValue(ref(database, 'Consultas'), (snapshot) => {
+      const consult = snapshot.val();
+      if (consult) {
+          console.log(consult);
+        const consultaArray = Object.entries(consult).map(([id, consulta]) => ({ id, ...consulta }));
+        console.log(consultaArray);
+        setConsultas(consultaArray);
       }
     });
   }
-
   const enviarConsulta = () => {
-    console.log(titulo, consulta);
-    const nuevaConsulta = { titulo, consulta };
-    // const consultasRef = ref(database, 'Consultas');
-    // consultasRef.set(nuevaConsulta);
-    set(ref(database, "Consultas/"), nuevaConsulta);
-    setTitulo('');
-    setConsulta('');
+     
+      push(ref(database, "Consultas"), {
+
+      Consulta: nuevaConsulta,
+      respuesta: '',
+      });
+   
+    setNuevaConsulta('');
   };
     
   return (
     <>
-     <Navlogin/>
-    <div>
-      <h1>Consultas</h1>
-      <div>
-        <label htmlFor="titulo">Titulo:</label>
-        <input type="text" id="titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-      </div>
-      <div>
-        <label htmlFor="consulta">Consulta:</label>
-        <textarea id="consulta" value={consulta} onChange={(e) => setConsulta(e.target.value)} />
-      </div>
-      <button onClick={enviarConsulta}>Enviar Consulta</button>
-      <ul>
-        {consultas.map((consultas) => (
-          <li key={consultas.id}>
-            <p>{consultas.titulo}</p>
-            <p>{consultas.consulta}</p>
-          </li>
+     <Navlading/>
+    <div className='container'>
+    <h1 className='titu'>Consultas frecuntes</h1>
+        <br/>
+        <br/>
+      
+        {consultas.map((consulta) => (
+          <div key={consulta.id}>
+           <p className='pregunta'><strong>Pregunta: {consulta.Consulta} </strong></p> 
+            <p className='respuesta'>Respuesta: {consulta.respuesta}</p>
+           </div>
         ))}
-      </ul>
-    </div>
-
-
-    <Footers/> 
+         
+        <h2>Agregar nueva consulta</h2>
+        
+        <input type="text" placeholder="consulta" value={nuevaConsulta} onChange={(e) => setNuevaConsulta(e.target.value)} />
+        <button className='btn btn-primary' onClick={enviarConsulta}>Enviar consulta</button>
+      </div>
+      <div className='footerReg'><p id='cont'>Contactos</p></div>
     </>
   )
 }

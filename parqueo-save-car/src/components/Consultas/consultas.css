@@ -56,3 +56,8 @@
     justify-content:center;
     margin: 4rem;
 }
+
+.respuesta{
+  display: block;
+  padding-left: 2rem;
+}

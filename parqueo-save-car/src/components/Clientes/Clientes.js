@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../../Images/logo.png'
+// import logo from '../../Images/logo.png'
 import './Clientes.css'
 import {  ref, onValue } from "firebase/database";
 import { database } from '../../conexion/firebase';
 
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import Navlogin from '../Login/Navlogin';
 const Clientes = () => {
     const [dataArr, setDataArr] = useState([]);
 useEffect(()=>{
@@ -37,25 +38,7 @@ const enviarMensajeNum=(cel)=>{
 }
   return (
     <div>
-        <header className='header'>
-            <section>
-                <div>
-                <Link to="/">
-                    <img className="image" src={logo} alt="log"/>
-                </Link>
-                </div>
-            </section>
-            <div className='medio'>
-
-            </div>
-            <section className="navegarnav">
-                <div>
-                    <div className="cerrarSesionGuardia">
-                    <a className="Cerrar" href="/">Cerrar Sesion</a>
-                    </div>
-                </div>
-            </section>
-        </header>
+       <Navlogin/>
         <div className='cuerpoClientes'>
             <div className='tituloListaClientes'>
                 <h2>Lista de clientes mensuales</h2>
