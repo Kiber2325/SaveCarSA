@@ -15,6 +15,7 @@ import ReservasCliente from "../components/ReservasClientes/ReservasCliente";
 import Comprobante from "../components/QRCodigo/Comprobante";
 import Consultas from "../components/Consultas/Consultas";
 import Quejas from "../components/Quejas/Quejas";
+import UsoSitios from "../components/UsoSitios/UsoSitios";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -45,7 +46,7 @@ const Redipath =() =>{
             <Route path="/SitiosAutos" element={<SitiosAutos/>}/>
 
             <Route path="/Ingresos" element={<IngresosAnio/>}/>
-
+            <Route path="/UsoSitios" element={<UsoSitios/>}/>
         
         </Routes>
     </BrowserRouter>

@@ -1,66 +1,68 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import "./consultas.css"
 import Navlogin from '../Login/Navlogin';
 import Footers from '../Footer/Footer';
-
-import { ref, set } from "firebase/database";
+import { ref, set, onValue  } from "firebase/database";
 import { database } from '../../conexion/firebase';
-import { Navigate } from 'react-router-dom';
+
+
 
 const Consultas = () => {
-    // const navigate=useNavigate()
+  // const firebase = app.database();
+  const [titulo, setTitulo] = useState('');
+  const [consulta, setConsulta] = useState('');
+  const [consultas, setConsultas] = useState([]);
+
+  useEffect(()=>{
+    getData()
+  },[]);
+  function getData() {
+    onValue(ref(database, 'Consultas'),(snapshot) => {
+      const dataObj = snapshot.val();
+      let dataArray = []
+      console.log(dataObj);
     
-    const [titulo,setTitulo]=useState("");
-    const [Consultas,setConsulta]=useState("")
+      if (dataObj) {
+        dataArray  = Object.values(dataObj).map(([id, titulo]) => ({ id, ...titulo }));
+      setConsultas(dataArray);
+      }
+    });
+  }
 
-    const guardarConsultas=()=>{
-        ref(database, `consultas`);
-
-        let agregarConsulta ={titulo, Consultas}
-         set(ref(database, "consultas/"), agregarConsulta);
-         Navigate('/Consultas')
-        }
+  const enviarConsulta = () => {
+    console.log(titulo, consulta);
+    const nuevaConsulta = { titulo, consulta };
+    // const consultasRef = ref(database, 'Consultas');
+    // consultasRef.set(nuevaConsulta);
+    set(ref(database, "Consultas/"), nuevaConsulta);
+    setTitulo('');
+    setConsulta('');
+  };
     
   return (
     <>
-    <Navlogin/>
-    
-     <div className='container'>
-        <div className="consultas">
-       
-				<p className="titulo" >
-				 {titulo}
-				</p>
-				<p>{Consultas}</p>
-	   </div>	
+     <Navlogin/>
+    <div>
+      <h1>Consultas</h1>
+      <div>
+        <label htmlFor="titulo">Titulo:</label>
+        <input type="text" id="titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="consulta">Consulta:</label>
+        <textarea id="consulta" value={consulta} onChange={(e) => setConsulta(e.target.value)} />
+      </div>
+      <button onClick={enviarConsulta}>Enviar Consulta</button>
+      <ul>
+        {consultas.map((consultas) => (
+          <li key={consultas.id}>
+            <p>{consultas.titulo}</p>
+            <p>{consultas.consulta}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
 
-        <div className='formulario'>
-        <div className="ConsultaForm">
-				<input className="ConsultaInput"
-
-					placeholder="Titulo de la consulta"
-					type="text"
-					value={titulo}
-                    onChange={(e) => setTitulo(e.target.value)}
-                    /> <br/>
-
-                    <input className="ConsultaInput"
-
-					placeholder="Respuesta"
-					type="text"
-					value={Consultas}
-                    onChange={(e) => setConsulta(e.target.value)}
-                    /> <br/>
-				<button 
-                     nClick={guardarConsultas}
-					className=" btn btn-primary">
-					Enviar
-				</button>
-			</div>
-        </div>
-
-		
-     </div>
 
     <Footers/> 
     </>

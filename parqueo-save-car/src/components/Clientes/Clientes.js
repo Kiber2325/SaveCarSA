@@ -10,6 +10,8 @@ const Clientes = () => {
 useEffect(()=>{
   getData()
 },[]);
+
+
 function getData() {
   onValue(ref(database, 'clientesMensuales'),(snapshot) => {
     const dataObj = snapshot.val();
