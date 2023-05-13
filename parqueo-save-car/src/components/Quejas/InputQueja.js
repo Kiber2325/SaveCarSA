@@ -28,7 +28,7 @@ const InputQueja = () => {
       />
 
       <div className='volv'>
-      <button className='cancelar'>Cancelar</button>
+      <a className='cancelar btn  ' href='/'  >Cancelar</a>
       <button  className='env' type="submit">Enviar</button>
       </div>
     </form>
