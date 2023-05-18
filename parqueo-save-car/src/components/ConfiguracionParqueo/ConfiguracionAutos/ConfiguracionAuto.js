@@ -9,6 +9,7 @@ import { Col, Row } from 'reactstrap';
 import { ref, set, remove } from "firebase/database";
 import { database } from '../../../conexion/firebase';
 import Navlogin from '../../Login/Navlogin';
+import Footers from '../../Footer/Footer';
 
 const ConfiguracionAuto = () => {
   const navigate=useNavigate()
@@ -49,7 +50,7 @@ const ConfiguracionAuto = () => {
     }
     //let agregarNuevoSitio={nombre:data[0].nombre,estado:'disponible'}
     //const dbRef = ref(database);
-    navigate('/SitiosAutos')
+    navigate('/Home')
     console.log(data)
   }
   const cancelarSitiosAutos=()=>{
@@ -60,8 +61,8 @@ const ConfiguracionAuto = () => {
   return (
     <>
       <Navlogin/>
-      <h2 className='titu'>Configurar Parqueo de autos</h2><br/>
       <div className='container'>
+      <h2 className='titu'>Configurar Parqueo de autos</h2><br/>
         <div className='generar'>
         <Row>
           <Col>
@@ -85,7 +86,7 @@ const ConfiguracionAuto = () => {
           </div>
       </div>
      </div>
-      <div className='footerReg'><p id='cont'>Contactos</p></div>
+<Footers/>
     </>
   )
 }

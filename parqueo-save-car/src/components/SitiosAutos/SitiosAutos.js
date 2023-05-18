@@ -4,7 +4,8 @@ import Sitio from '../Sitio/Sitio';
 
 import {  ref, onValue } from "firebase/database";
 import { database } from '../../conexion/firebase';
-import Navlogin from '../Login/Navlogin';
+import Footers from '../Footer/Footer';
+import Navar from '../NavbarGuardia/Navar';
 //import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 //import ShowSitios from './componentes/ShowSitios';
@@ -23,9 +24,8 @@ function getData() {
 }
   return (
     <div> 
-       <Navlogin/>
-      
-
+       <Navar/>     
+    <h1 className='titu'> Parqueo de Autos</h1>
     <div className='cuerpo'>
         {dataArr.map((sitio)=>(
     <Sitio
@@ -35,7 +35,7 @@ function getData() {
      />
     ))}
    </div>
-<div className='footerReg'><p id='cont'>Contactos</p></div>
+<Footers/>
     </div>
   )
 }

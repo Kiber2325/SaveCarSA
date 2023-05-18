@@ -30,6 +30,7 @@ const Iniciosesion = () => {
     return(
         <div>
         <Navegacion/>
+        <div className='container'>
             <h1 className='title'><b>Iniciar Sesión</b></h1>
         <section className='Columnas'>
         <div className='Columnasx3'>
@@ -65,6 +66,7 @@ const Iniciosesion = () => {
             
             
             </div>
+        </div>
         </div>
         <Footers/>
 

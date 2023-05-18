@@ -2,6 +2,7 @@ import React from 'react'
 import './ConfiguracionEstacionamiento.css'
 import { Link } from 'react-router-dom'
 import Navlogin from '../Login/Navlogin'
+import Footers from '../Footer/Footer'
 
 const ConfiguracionEstacionamiento = () => {
 
@@ -21,7 +22,7 @@ const ConfiguracionEstacionamiento = () => {
           </div>
         </div>
         </div>
-        <div className='footerReg'><p id='cont'>Contactos</p></div>
+        <Footers/>
     </>
   )
 }
