@@ -1,12 +1,13 @@
 import React from 'react'
 import './ConfiguracionEstacionamiento.css'
 import { Link } from 'react-router-dom'
+import Navlogin from '../Login/Navlogin'
 
 const ConfiguracionEstacionamiento = () => {
 
   return (
-    <div className='confEst'>
-        <header className="Encabezado"></header>
+    <>
+        <Navlogin/>
         <div classname='container'>
         <div className='configuraciones row'>
           <div className='contLink'>
@@ -21,7 +22,7 @@ const ConfiguracionEstacionamiento = () => {
         </div>
         </div>
         <div className='footerReg'><p id='cont'>Contactos</p></div>
-    </div>
+    </>
   )
 }
 

@@ -445,6 +445,7 @@ const Sitio = (props) => {
     <div>
         <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: props.color}}>
             <h2>{props.nombre}</h2>
+            <p className='texto'>{props.estado}</p>
             {mostrarCronometro &&<div className='cronometroSitio'>
               <DisplayComponent time={time}/>
             </div>}
@@ -545,18 +546,18 @@ const Sitio = (props) => {
             }}>Cancelar</Button>
           </ModalFooter>
         </Modal>
+
+
         <Modal isOpen={modalReserva} >
           <ModalHeader>
             <h2>Ocupar</h2>
           </ModalHeader>
           <ModalBody>
-            <h3>A3</h3>
-          </ModalBody>
+            <h3>{props.nombre}</h3>
+            </ModalBody>
           <ModalFooter>
-            <Button onClick={ocuparSitio} style={{
-              ...StyleSheet.buttonModal,
-              backgroundColor:"#00B9BC"
-            }}>Aplicar</Button>
+            <Button onClick={ocuparSitio} style={{...StyleSheet.buttonModal,backgroundColor:"#00B9BC"}}>Aplicar</Button>
+            
             <Button onClick={cancelarReserva} style={{
               ...StyleSheet.buttonModal,
               backgroundColor:"#F46D21",

@@ -21,10 +21,20 @@ const ReservasCliente = () => {
   return (
     <div>
       <Navlading/>
-      <div className="cuerpo">
+      <div>
+        <h2 className="titu">Sitios Disponobles</h2>
+      <div className="color-palette">
+        <div className="color" style={{ backgroundColor: '#00FF38' }}>Disponoble</div>
+        <div className="color" style={{ backgroundColor: '#0050C8' }}>Ocupado</div>
+        <div className="color" style={{ backgroundColor: '#BC0000' }}>Deshabilitado</div>
+        <div className="color" style={{ backgroundColor: '#FC6901' }}>Reservado</div>
+      </div>
+
+        <div className="cuerpo">
         {dataArr.map((sitio) => (
           <SitioReserva nombre={sitio.nombre} estado={sitio.estado} color={sitio.color}/>
         ))}
+        </div>
       </div>
       <div className="botonesReservaCliente">
       <Link to='/' className="volverLanding">Volver</Link>

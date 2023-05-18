@@ -16,3 +16,35 @@
     display: flex;
     justify-content: center;
 }
+
+.containerReserva{
+    background-color: blue;
+    width: 80%;
+}
+
+.color-palette {
+  
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    margin: auto;
+  }
+  
+  .color { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(234, 242, 243);
+    font-weight: bold;
+    text-align: center;
+    width: 180px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 4px;
+  }
+
+
+  .texto{
+    text-align: center;
+  }

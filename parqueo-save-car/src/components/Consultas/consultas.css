@@ -61,3 +61,8 @@
   display: block;
   padding-left: 2rem;
 }
+
+.footerXDS{
+  display: flex;
+
+}

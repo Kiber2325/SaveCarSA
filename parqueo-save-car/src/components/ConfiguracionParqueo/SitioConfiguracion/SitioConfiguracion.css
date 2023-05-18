@@ -1,11 +1,15 @@
-.sitio{
-    width: 100px;
-    height: 110px;
+.sitioConfi{
+    
+    width: 125px;
+    height: 140px;
     background-color: #00FF38;
     margin: 10px;
-    border-radius: 1rem;
+    border-radius: 2rem;
+    border:solid 2px black;
+    cursor: pointer;
+    
 }
-.sitio h2{
+.sitioConfi h2{
     text-align: center;
 }
 

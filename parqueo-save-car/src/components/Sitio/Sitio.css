@@ -1,8 +1,10 @@
 .sitio{
-    width: 150px;
-    height: 250px;
+    width: 125px;
+    height: 140px;
     cursor: pointer;
     margin: 10px;
+    border-radius: 1rem;
+    border:solid 2px black
     
 }
 .modalHeader{

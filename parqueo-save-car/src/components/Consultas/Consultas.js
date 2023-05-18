@@ -62,7 +62,7 @@ const Consultas = () => {
         <input type="text" placeholder="consulta" value={nuevaConsulta} onChange={(e) => setNuevaConsulta(e.target.value)} />
         <button className='btn btn-primary' onClick={enviarConsulta}>Enviar consulta</button>
       </div>
-      <div className='footerReg'><p id='cont'>Contactos</p></div>
+      <div className='footerXDS'><p id='cont'>Contactos</p></div>
     </>
   )
 }

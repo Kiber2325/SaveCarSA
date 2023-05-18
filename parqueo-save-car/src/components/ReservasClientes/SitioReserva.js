@@ -178,6 +178,7 @@ const SitioReserva = (props) => {
     <div>
         <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: props.color}}>
             <h2>{props.nombre}</h2>
+            <p className='texto'>{props.estado}</p>
         </div>
         <Modal isOpen={modalEstado} centered={true}>
           <div className='modalHeader'>

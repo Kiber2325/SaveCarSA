@@ -88,6 +88,7 @@ color:  #00B9BC;
 .btndesplegable {
   background-color: #004854 !important;
   border-color: #004854;
+  color: white;
 }
 .navegar{
   display: flex;

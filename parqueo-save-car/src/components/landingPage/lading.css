@@ -41,6 +41,7 @@ footer p{
   /*nav*/
 
   .btndesplegable {
+    color: white;
     background-color: #004854 !important;
     border-color: #004854;
     /*padding-right: 100px ;*/
@@ -75,7 +76,8 @@ footer p{
   }
   header .btndesplegable:hover{
 
-    color:#F63700;
+    color:white;
+    
   }
  .menuops{
     background-color: #017E80;

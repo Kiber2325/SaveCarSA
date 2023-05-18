@@ -11,8 +11,16 @@ label{
     flex-direction: row;
     flex-wrap: wrap;
     min-height: 290px;
+    justify-content: center;
+   
 }
 
 .botones{
     margin: 5px;
+}
+
+.generar{
+    display: flex;
+    justify-content: center;
+    
 }

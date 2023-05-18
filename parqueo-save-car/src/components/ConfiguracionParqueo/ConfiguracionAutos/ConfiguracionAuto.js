@@ -4,10 +4,11 @@ import '../SitioConfiguracion/SitioConfiguracion'
 import SitioConfiguracion from '../SitioConfiguracion/SitioConfiguracion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
-import Navar from '../../Navbar/Navar';
+
 
 import { ref, set, remove } from "firebase/database";
 import { database } from '../../../conexion/firebase';
+import Navlogin from '../../Login/Navlogin';
 
 const ConfiguracionAuto = () => {
   const navigate=useNavigate()
@@ -56,25 +57,21 @@ const ConfiguracionAuto = () => {
     console.log('cancelar')
   }
 
-  /*const peticionPost=()=>{
-    firebase.child("sitios").push(this.state.form,
-      error=>{
-        if(error)console.log(error)
-      });
-      //this.setState({modalInsertar: false});
-  }*/
   return (
     <>
-      <Navar/>
+      <Navlogin/>
+      <h2 className='titu'>Configurar Parqueo de autos</h2><br/>
       <div className='container'>
-     <Row>
-      <Col>
-      <label>Cantidad</label>
-      <input className='entradaCant' type='number' value={cantidad} onChange={(e)=>setCantidad(e.target.value)}/>
-      <button  class="btn btn-primary" onClick={generarSitio} >Generar</button>
-      <button  class="btn btn-primary"onClick={limpiarSitio}>Limpiar</button>
-      </Col>
-     </Row>
+        <div className='generar'>
+        <Row>
+          <Col>
+          <label>Cantidad</label>
+          <input className='entradaCant' type='number' value={cantidad} onChange={(e)=>setCantidad(e.target.value)}/>
+          <button  class="btn btn-primary" onClick={generarSitio} >Generar</button>
+          <button  class="btn btn-primary"onClick={limpiarSitio}>Limpiar</button>
+          </Col>
+        </Row>
+       </div>
       
       <div className='sitiosGenerados'>
         {

@@ -21,6 +21,7 @@ import Quejas from "../components/Quejas/Quejas";
 import UsoSitios from "../components/UsoSitios/UsoSitios";
 import QuejasAdmin from "../components/QuejasAdmin/QuejasAdmin";
 import ConsultasAdmin from "../components/ConsultasAdmin/ConsultasAdmin";
+import HomeGuardia from "../components/HomeGuardia/HomeGuardia";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -31,6 +32,7 @@ const Redipath =() =>{
             <Route path="/" element={<LadingPage/>}/>
             <Route path="/Iniciosesion" element={<Iniciosesion/>}/>
             <Route path="/Home*" element={<Home/>}/>
+            <Route path="/HomeGuardia*" element={<HomeGuardia/>}/>
 
             <Route path="/FormGuardia" element={<FormGuardia/>}/>
             <Route path="/RegistrarCliente" element={<RegistrarCliente/>}/>
