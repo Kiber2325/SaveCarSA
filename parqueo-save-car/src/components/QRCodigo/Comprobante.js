@@ -75,6 +75,10 @@ const Comprobante = () => {
     const newId = push(collectionRef).key;
     set(ref(database, "ingresos/"+(newId)), ingreso);
     }
+    const tiempoLimite=()=>{
+      let array=product.hora.split(':')
+      return (parseInt(product.hora.split(':')[0])+2)+':'+array[1]+':'+array[2];
+    }
     return (
       <div className='recibo'>
         <div>
@@ -84,8 +88,10 @@ const Comprobante = () => {
           <p>Número celular del cliente: {product.celular}</p>
           <p>Monto pagado: {product.monto},0 Bs.</p>
           <p>Fecha: {product.fecha}</p>
-          <p>Hora: {product.hora}</p>
-          <p>¡Gracias por la compra! Recuerda que debes enviar el comprobante para confirmar la reserva</p>
+          <p>Hora de inicio de la reserva: {product.hora}</p>
+          <p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>
+          <p>¡Atención! debes llegar antes a ocupar el sitio reservado antes de la hora de finalización de la reserva, de lo contrario perderá su reserva.</p>
+          <p>¡Gracias por la compra! Recuerda que debes enviar el comprobante para confirmar la reserva.</p>
         </div>
         <div className='botonesComprobante'>
           <button className='botonComprobante' onClick={confirmarReserva}>Enviar comprobante</button>
