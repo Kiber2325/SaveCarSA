@@ -176,7 +176,7 @@ const SitioReserva = (props) => {
       const cerrarModalQR=()=>{
         setModalQr(false)
       }
-      const [url,setUrl]=useState('https://cosmic-queijadas-061ac9.netlify.app/comprobante/')
+      const [url,setUrl]=useState('https://creative-sable-0d4ce3.netlify.app/comprobante/')
       const cerrarModalEstadoOcupado=()=>{
         setModalEstadoOcupado(false)
       }
