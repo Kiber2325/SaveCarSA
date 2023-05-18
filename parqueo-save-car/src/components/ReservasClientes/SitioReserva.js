@@ -36,10 +36,13 @@ const SitioReserva = (props) => {
         if(estadoSitio2==='disponible'){
             setModalEstado(true)
             console.log(estadoSitio)
+          }else{
+            setModalEstadoOcupado(true)
         }
     }
     //Modal
     const [modalEstado,setModalEstado]=useState(false)
+    const [modalEstadoOcupado,setModalEstadoOcupado]=useState(false)
 
     const [mostrarMensajePlaca,setMostrarMensajePlaca]=useState(false);
     const [mostrarMensajeCi,setMostrarMensajeCi]=useState(false);
@@ -174,6 +177,9 @@ const SitioReserva = (props) => {
         setModalQr(false)
       }
       const [url,setUrl]=useState('https://cosmic-queijadas-061ac9.netlify.app/comprobante/')
+      const cerrarModalEstadoOcupado=()=>{
+        setModalEstadoOcupado(false)
+      }
   return (
     <div>
         <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: props.color}}>
@@ -222,6 +228,16 @@ const SitioReserva = (props) => {
             </div>
           </ModalFooter>
           </div>
+        </Modal>
+        <Modal isOpen={modalEstadoOcupado} centered={true}>
+          <ModalHeader>
+            <h1>Este sitio esta {props.estado}</h1>
+          </ModalHeader>
+          <ModalFooter>
+            <button onClick={cerrarModalEstadoOcupado} className='botonModal' style={{
+              ...StyleSheet.buttonModal,padding:'6px 26px',border:'none'
+            }}>Cerrar</button>
+          </ModalFooter>
         </Modal>
         <Modal isOpen={modalQr} centered={true}>
         <div className='modalHeader'>
