@@ -5,6 +5,7 @@ import "./consultas.css"
 import { ref, onValue,push  } from "firebase/database";
 import { database } from '../../conexion/firebase';
 import Navlading from '../landingPage/Navlading';
+import Footers from '../Footer/Footer';
 
 
 
@@ -62,7 +63,7 @@ const Consultas = () => {
         <input type="text" placeholder="consulta" value={nuevaConsulta} onChange={(e) => setNuevaConsulta(e.target.value)} />
         <button className='btn btn-primary' onClick={enviarConsulta}>Enviar consulta</button>
       </div>
-      <div className='footerXDS'><p id='cont'>Contactos</p></div>
+      <Footers/>
     </>
   )
 }

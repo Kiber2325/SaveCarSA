@@ -1,15 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
-import logo from '../../Images/logo.png';
-import "./inicio.css";
-
-import '../landingPage/lading.css'
-
-
-import "../landingPage/lading.css";
-import "./NavLogin.css";
-const Navlogin = () => {
+import React from 'react'
+import "./estilos.css"
+import logo from '../../Images/logo.png'
+import { Link } from 'react-router-dom';
+function Navar  ()  {
   return (
     <div>
       <header className="Encabezado2">
@@ -26,7 +19,7 @@ const Navlogin = () => {
             <div className="d-flex justify-content-end">
            
             <div className="sesion" >
-                <a className= "Consultas"  href="/Home" >Inicio</a>
+                <a className= "Consultas"  href="/HomeGuardia" >Inicio</a>
              </div>
            
            
@@ -39,15 +32,15 @@ const Navlogin = () => {
                 <a className= "Quejas"  href="/QuejasAdmin" >Quejas</a>
              </div>
 
-             <div className="sesion">
+             {/* <div className="sesion">
                 <a  className= "cliente"  href="/Clientes" >Clientes</a>
-             </div>
+             </div> */}
             
-             <div className="sesion">
+             {/* <div className="sesion">
               <a clasName="cliente" href="/Ingresos">
                 Ingresos{" "}
               </a>
-            </div>
+            </div> */}
                         
              <div className="sesion">
                 <a className="Cerrar" href="/">Cerrar Sesion</a>
@@ -58,7 +51,7 @@ const Navlogin = () => {
           </section>
         </header>
     </div>
-  );
-};
+  )
+}
 
-export default Navlogin;
+export default Navar;

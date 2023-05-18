@@ -5,6 +5,7 @@ import {  ref, onValue } from "firebase/database";
 import { database } from '../../conexion/firebase';
 import './IngresosAnio.css'
 import Navlogin from '../Login/Navlogin';
+import Footers from '../Footer/Footer';
 const IngresosAnio = () => {
   const [dataArr, setDataArr] = useState([]);
   //const [montoTotal,setMontoTotal]=useState(0.0);
@@ -102,7 +103,7 @@ const IngresosAnio = () => {
         <div className="botonesReservaCliente">
       <Link to='/Home' className="volverLanding">Volver</Link>
       </div> 
-      <div className='footerReg'><p id='cont'>Contactos</p></div>
+     <Footers/>
     </div>
   )
 }

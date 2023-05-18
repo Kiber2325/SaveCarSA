@@ -3,9 +3,10 @@ import React, {useState}  from 'react'
 import "./formGuardi.css"
 import { Formik, Field } from 'formik';
 
-import logo from '../../Images/logo.png';
 import FotoGuardia from '../FotoGuardia/FotoGuardia';
 import { Link, useNavigate } from 'react-router-dom';
+import Footers from '../Footer/Footer';
+import Navlogin from '../Login/Navlogin';
  
  const FormGuardia = () => {
   const [FormularioEnviado, cambiarFormularioEnviado ] = useState(false)
@@ -14,15 +15,7 @@ import { Link, useNavigate } from 'react-router-dom';
    return (
    <>    
    {/* navar */}
-    <header className="Encabezado">    
-      <section>
-          <div>
-          <a href='/'>
-              <img className="image" src={logo} alt="logo"></img>
-          </a>
-          </div>
-      </section>   
-    </header>
+    <Navlogin/>
 
     {/* titulo */}
        <div>
@@ -219,12 +212,10 @@ import { Link, useNavigate } from 'react-router-dom';
               </div>
          </div>
     </form>
-
        )}
-      
     </Formik> 
     </div>
-    <div className='footerReg'><p id='cont'>Contactos</p></div>
+        <Footers/>
     </> 
 
     );

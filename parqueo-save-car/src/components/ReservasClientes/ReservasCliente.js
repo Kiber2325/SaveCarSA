@@ -6,6 +6,7 @@ import { database } from "../../conexion/firebase";
 import SitioReserva from "./SitioReserva";
 import './ReservasCliente.css';
 import Navlading from "../landingPage/Navlading";
+import Footers from "../Footer/Footer";
 const ReservasCliente = () => {
   const [dataArr, setDataArr] = useState([]);
   useEffect(() => {
@@ -28,6 +29,7 @@ const ReservasCliente = () => {
         <div className="color" style={{ backgroundColor: '#0050C8' }}>Ocupado</div>
         <div className="color" style={{ backgroundColor: '#BC0000' }}>Deshabilitado</div>
         <div className="color" style={{ backgroundColor: '#FC6901' }}>Reservado</div>
+        <div className="color" style={{ backgroundColor: '#808080' }}>Reservado</div>
       </div>
 
         <div className="cuerpo">
@@ -39,7 +41,7 @@ const ReservasCliente = () => {
       <div className="botonesReservaCliente">
       <Link to='/' className="volverLanding">Volver</Link>
       </div> 
-      <div className='footerReg'><p id='cont'>Contactos</p></div>
+      <Footers/>
     </div>
   );
 };

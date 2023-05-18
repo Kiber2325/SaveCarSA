@@ -7,6 +7,7 @@ import { database } from '../../conexion/firebase';
 
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import Navlogin from '../Login/Navlogin';
+import Footers from '../Footer/Footer';
 const Clientes = () => {
     const [dataArr, setDataArr] = useState([]);
 useEffect(()=>{
@@ -39,7 +40,7 @@ const enviarMensajeNum=(cel)=>{
   return (
     <div>
        <Navlogin/>
-        <div className='cuerpoClientes'>
+        <div className='cuerpoClientes container'>
             <div className='tituloListaClientes'>
                 <h2>Lista de clientes mensuales</h2>
             </div>
@@ -77,7 +78,7 @@ const enviarMensajeNum=(cel)=>{
         <div className='regresarHome'>
             <Link className='regresarHomeBoton' to='/Home'>Regresar a la página principal</Link>
         </div>
-        <div className='footerReg'><p id='cont'>Contactos</p></div>
+        <Footers/>
     </div>
   )
 }

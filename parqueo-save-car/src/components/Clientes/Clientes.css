@@ -1,5 +1,5 @@
 .cuerpoClientes{
-    min-height: 363px;
+    min-height: 62vh;
 }
 .tituloListaClientes{
     display: flex;
@@ -17,7 +17,8 @@
 .regresarHome{
     display: flex;
     justify-content: center;
-    margin: 0;
+    padding-bottom: 2rem;
+    bottom: 0;
 }
 .regresarHomeBoton{
     border: none;
@@ -27,6 +28,8 @@
     border-radius: 5px;
     text-decoration: none;
     margin: 0;
+   
+   
 }
 .regresarHomeBoton:hover{
     background-color: #F63700;

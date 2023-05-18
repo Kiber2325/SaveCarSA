@@ -2,14 +2,14 @@ import React from 'react'
 
 import img2 from '../../Images/estacionamiento2.jpeg'
 import img3 from '../../Images/estacionamiento3.jpeg'
-import Navlogin from '../Login/Navlogin'
 import { Link } from 'react-router-dom'
 import Footers from '../Footer/Footer'
+import Navar from '../NavbarGuardia/Navar'
 
 const HomeGuardia = () => {
   return (
     <div>
-        <Navlogin/>
+        <Navar/>
         <div >
             <div class="container text-center">
                 <h2 className='titu'>Guardia</h2>

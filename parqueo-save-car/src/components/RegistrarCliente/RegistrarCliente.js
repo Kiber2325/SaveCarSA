@@ -11,6 +11,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 //const conexionCliente='http://127.0.0.1:8000/api/cliente';
 import {  ref, set } from "firebase/database";
 import { database} from '../../conexion/firebase';
+import Footers from '../Footer/Footer';
+import Navlogin from '../Login/Navlogin'
 const RegistrarCliente = () => {
   //constante para navegar
   const navigate=useNavigate();
@@ -550,8 +552,7 @@ verificacion  de errores  */
   //html
   return (
     <div className='registrarCliente'>
-      <header className="Encabezado">
-    </header>
+      <Navlogin/>
     <h1 className='title'><b>Registrar cliente</b></h1>
     <form className='container'>
       <div className='row'>
@@ -670,7 +671,9 @@ verificacion  de errores  */
       <button className='can' onClick={(e)=>cancelarRegistroCliente(e)}>Cancelar</button>
       </div>
     </div>
-    <div className='footerReg'><p id='cont'>Contactos</p></div>
+    <Footers/>
+
+    
     <Modal isOpen={stateInsertar} >
         <div className='headerModal'>
         <ModalHeader>

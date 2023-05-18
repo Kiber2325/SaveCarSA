@@ -73,15 +73,17 @@ const items = [
             key={item.src}
           >
             <center >
-            <img src={item.src} alt={item.altText} width="50%" height="20%"/>
+            <img src={item.src} alt={item.altText} width="55%" height="25%"/>
             <CarouselCaption className='my-caption' /*captionText={item.caption}*/ captionText={item.caption}/>
             
             </center>
- </CarouselItem>
+        </CarouselItem>
         );
       });
   
       return (
+        <div className='container'>
+          <h4 className='titulo'>Inicio</h4>
         <Carousel
           activeIndex={activeIndex}
           next={this.next}
@@ -92,6 +94,7 @@ const items = [
           <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
           <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
         </Carousel>
+        </div>
       );
     }
   }

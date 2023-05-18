@@ -5,3 +5,8 @@
 .datoIngreso{
     text-align: center;
 }
+
+.ingresosDetalle{
+    width: 100%;
+    padding: 1rem;
+}
