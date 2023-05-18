@@ -9,17 +9,20 @@ const ConfiguracionEstacionamiento = () => {
   return (
     <>
         <Navlogin/>
-        <div classname='container'>
-        <div className='configuraciones row'>
-          <div className='contLink'>
+        <div className='container'>
+        <div className='contenidoBotones'>
+            <div className='cajabtn'>
+            <div class=" contenido d-grid gap-2 col-3 mx-auto">  
+
             <Link className='botonConfigurar' to='/ConfigurarAuto'>Sitios Autos</Link>
-          </div>
-          <div className='contLink'>
             <Link className='botonConfigurar' to='/ConfigurarMoto'>Sitios Motos</Link>
+         
           </div>
-          <div className='contLink'>
+         
+          <div className='text-center '>
             <Link className='volverHome' to='/Home'>Volver</Link>
           </div>
+        </div>
         </div>
         </div>
         <Footers/>

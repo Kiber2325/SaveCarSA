@@ -24,13 +24,13 @@ function Navar  ()  {
            
            
            
-            <div className="sesion" >
+            {/* <div className="sesion" >
                 <a className= "Consultas"  href="/ConsultasAdmin" >Consultas</a>
              </div>
 
              <div className="sesion" >
                 <a className= "Quejas"  href="/QuejasAdmin" >Quejas</a>
-             </div>
+             </div> */}
 
              {/* <div className="sesion">
                 <a  className= "cliente"  href="/Clientes" >Clientes</a>
