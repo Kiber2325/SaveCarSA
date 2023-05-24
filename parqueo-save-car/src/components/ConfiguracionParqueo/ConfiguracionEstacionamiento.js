@@ -16,6 +16,7 @@ const ConfiguracionEstacionamiento = () => {
 
             <Link className='botonConfigurar' to='/ConfigurarAuto'>Sitios Autos</Link>
             <Link className='botonConfigurar' to='/ConfigurarMoto'>Sitios Motos</Link>
+            <Link className='botonConfigurar' to='/ConfigurarTarifas'>Tarifas</Link>
          
           </div>
          
