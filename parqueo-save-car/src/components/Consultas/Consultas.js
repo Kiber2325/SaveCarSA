@@ -6,6 +6,7 @@ import { ref, onValue,push  } from "firebase/database";
 import { database } from '../../conexion/firebase';
 import Navlading from '../landingPage/Navlading';
 import Footers from '../Footer/Footer';
+import Swal from 'sweetalert2';
 
 
 
@@ -39,7 +40,12 @@ const Consultas = () => {
       Consulta: nuevaConsulta,
       respuesta: '',
       });
-   
+      Swal.fire({
+        title: 'Éxito',
+        text: 'Enviado exitosamente',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });   
     setNuevaConsulta('');
   };
     
@@ -52,10 +58,14 @@ const Consultas = () => {
         <br/>
       
         {consultas.map((consulta) => (
-          <div key={consulta.id}>
-           <p className='pregunta'><strong>Pregunta: {consulta.Consulta} </strong></p> 
-            <p className='respuesta'>Respuesta: {consulta.respuesta}</p>
-           </div>
+         <div key={consulta.id}>
+         {consulta.respuesta !== '' && consulta.respuesta !== null && (
+           <p className='pregunta'><strong>Pregunta: {consulta.Consulta}</strong></p>
+         )}
+         {consulta.respuesta !== '' && consulta.respuesta !== null && (
+           <p className='respuesta'>Respuesta: {consulta.respuesta}</p>
+         )}
+       </div>
         ))}
          
         <h2>Agregar nueva consulta</h2>

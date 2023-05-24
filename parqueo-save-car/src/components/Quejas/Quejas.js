@@ -1,5 +1,5 @@
 import React from 'react'
-import Queja from './Queja'
+
 import Navlading from '../landingPage/Navlading'
 import InputQueja from './InputQueja'
 import Footers from '../Footer/Footer'
@@ -11,9 +11,12 @@ const Quejas = () => {
   return (
     <>
       <Navlading/>
-      <h2 className='titulo'>Observaciones</h2>
-      <Queja/>
+      <div className='container'>
+      <br/><br/><br/>
+       <h2 className='titulo'>Observaciones</h2>
+      
       <InputQueja/>
+      </div>
       <Footers/>
     </>
   )
