@@ -46,7 +46,7 @@ const Tarifas = () => {
                     {cuota.tarifa}
                 </p>
                 <p className='infoCuo'>
-                    {cuota.monto}
+                    {cuota.monto} Bs.
                 </p>
                 </div>
              ))}
