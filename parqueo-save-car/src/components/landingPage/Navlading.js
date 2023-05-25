@@ -30,9 +30,13 @@ const Navlading = () => {
 
         <section className="navegar">
             <div className="d-flex justify-content-end">
+        
   
             <div>
+            <Link to='/Anuncios' class="btn btn-link"><i class="fa-regular fa-bell fa-shake"></i></Link>
+            </div> 
             
+            <div>
             <Link to='/' class="btn btn-link">Inicio</Link>
             </div>
 
