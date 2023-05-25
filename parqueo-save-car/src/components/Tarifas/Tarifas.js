@@ -4,6 +4,7 @@ import Navlogin from '../Login/Navlogin'
 import "./Tarifas.css"
 import {  onValue, ref, set } from "firebase/database";
 import { database } from '../../conexion/firebase';
+import { Link } from 'react-router-dom';
 
 
 const Tarifas = () => {
@@ -57,6 +58,9 @@ const Tarifas = () => {
                 <button className='botonConfigurar' onClick={guardar} >Añadir</button> 
             </div>
           </div>
+          <div className="botonesHorarios">
+        <Link className="canHor" to='/ConfigurarEstacionamiento'>Volver</Link>
+      </div>
         <Footers/>
     </div>
   )
