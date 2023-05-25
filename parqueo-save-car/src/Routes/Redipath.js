@@ -27,7 +27,7 @@ import Anuncios from "../components/AnunciosAdmin/Anuncios";
 import Tarifas from "../components/Tarifas/Tarifas";
 import Horarios from "../components/Horarios/Horarios";
 import Solicitud from "../components/Solicitud/Solicitud";
-import Solicitudes from "../components/Solicitud/Solicitudes";
+import Solicitudes from "../components/Solicitud/Solicitudes/Solicitudes";
 
 //import ladingPage from "../pages/ladingpage";
 

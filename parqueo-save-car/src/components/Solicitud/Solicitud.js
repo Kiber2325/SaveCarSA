@@ -12,7 +12,8 @@ const Solicitud = () => {
         nombresApellidos:'',
         tiempoSolicitud:'',
         celular:'',
-        direccion:''
+        direccion:'',
+        unread:1
     });
     const onChange = (e)=>{
         setValues({ ...values, [e.target.name]: e.target.value });

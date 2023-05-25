@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import logo from '../../Images/logo.png';
@@ -9,7 +9,24 @@ import '../landingPage/lading.css'
 
 import "../landingPage/lading.css";
 import "./NavLogin.css";
+import { onValue, ref } from "firebase/database";
+import { database } from "../../conexion/firebase";
 const Navlogin = () => {
+  const [inboxCount, setInboxCount] = useState(0);
+
+  useEffect(() => {
+    const unsubscribe = onValue(ref(database, 'solicitudes'), (snapshot) => {
+      const messages = snapshot.val();
+      const newCount = Object.values(messages).reduce(
+        (count, message) => count + message.unread,
+        0
+      );
+      setInboxCount(newCount);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div>
       <header className="Encabezado2">
@@ -39,7 +56,7 @@ const Navlogin = () => {
                 <a className= "Quejas"  href="/QuejasAdmin" >Quejas</a>
              </div>
              <div className="sesion" >
-                <a className= "Quejas"  href="/Solicitudes" >Solicitudes</a>
+                <a className= "Quejas"  href="/Solicitudes" >Solicitudes {inboxCount}</a>
              </div>
              <div className="sesion">
                 <a  className= "cliente"  href="/Clientes" >Clientes</a>
