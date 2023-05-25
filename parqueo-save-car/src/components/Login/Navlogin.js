@@ -38,7 +38,9 @@ const Navlogin = () => {
              <div className="sesion" >
                 <a className= "Quejas"  href="/QuejasAdmin" >Quejas</a>
              </div>
-
+             <div className="sesion" >
+                <a className= "Quejas"  href="/Solicitudes" >Solicitudes</a>
+             </div>
              <div className="sesion">
                 <a  className= "cliente"  href="/Clientes" >Clientes</a>
              </div>

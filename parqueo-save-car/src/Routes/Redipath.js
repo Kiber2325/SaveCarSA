@@ -26,6 +26,8 @@ import Anuncio from "../components/Anuncios/Anuncio";
 import Anuncios from "../components/AnunciosAdmin/Anuncios";
 import Tarifas from "../components/Tarifas/Tarifas";
 import Horarios from "../components/Horarios/Horarios";
+import Solicitud from "../components/Solicitud/Solicitud";
+import Solicitudes from "../components/Solicitud/Solicitudes";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -60,7 +62,9 @@ const Redipath =() =>{
             <Route path="/Clientes" element={<Clientes/>}/>
             <Route path="/ReservasCliente" element={<ReservasCliente/>}/>
             <Route path="/comprobante/:comprobanteId" element={<Comprobante/>}/>
-
+            
+            <Route path="/Solicitud" element={<Solicitud/>}/>
+            <Route path="/Solicitudes" element={<Solicitudes/>}/>
 
             <Route path="/SitiosAutos" element={<SitiosAutos/>}/>
 

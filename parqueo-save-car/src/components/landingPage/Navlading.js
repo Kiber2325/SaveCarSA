@@ -60,7 +60,11 @@ const Navlading = () => {
                     </DropdownMenu>
                 </Dropdown>
             </div>
-
+            <div>
+            
+            <Link to='/Solicitud' class="btn btn-link">Solicitar</Link>
+            
+            </div>
             
             </div>
 

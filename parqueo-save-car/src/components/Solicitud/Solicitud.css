@@ -1,0 +1,11 @@
+.tituloSolicitud{
+    text-align: center;
+}
+.formSolicitud{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tituloFormSolicitud{
+    text-align: center;
+}
