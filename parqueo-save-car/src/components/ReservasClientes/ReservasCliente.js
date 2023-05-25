@@ -23,13 +23,13 @@ const ReservasCliente = () => {
     <div>
       <Navlading/>
       <div>
-        <h2 className="titu">Sitios Disponobles</h2>
+        <h2 className="titu">Sitios Disponibles</h2>
       <div className="color-palette">
-        <div className="color" style={{ backgroundColor: '#00FF38' }}>Disponoble</div>
+        <div className="color" style={{ backgroundColor: '#00FF38' }}>Disponible</div>
         <div className="color" style={{ backgroundColor: '#0050C8' }}>Ocupado</div>
         <div className="color" style={{ backgroundColor: '#BC0000' }}>Deshabilitado</div>
-        <div className="color" style={{ backgroundColor: '#FC6901' }}>Reservado</div>
-        <div className="color" style={{ backgroundColor: '#808080' }}>Reservado</div>
+        <div className="color" style={{ backgroundColor: '#FC6901' }}>ReservadoD</div>
+        <div className="color" style={{ backgroundColor: '#808080' }}>ReservadoM</div>
       </div>
 
         <div className="cuerpo">
