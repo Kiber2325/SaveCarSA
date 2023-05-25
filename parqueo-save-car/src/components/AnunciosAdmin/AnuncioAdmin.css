@@ -5,3 +5,15 @@
     font-size: 20px;
     
   }
+
+  .ladoIzq{
+    width: 45%;
+    min-height: 65vh;
+    float: left;
+}
+
+  .ladoDer{
+    width: 45%;
+    min-height: 65vh;
+    float: right;
+  }

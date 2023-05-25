@@ -17,8 +17,12 @@ const Queja = () => {
         // const dataObj = snapshot.val();
         // const dataArr = Object.values(dataObj);
            const dataObj = snapshot.val();
+          if(dataObj){
            const dataArr = Object.entries(dataObj).map(([id, queja]) => ({ id, ...queja }));
-        setPosts(dataArr);
+           setPosts(dataArr);
+          }else{
+            setPosts(null)
+          }
       });
     }
 
@@ -27,7 +31,7 @@ const Queja = () => {
       remove(quejaRef)
         .then(() => {
           Swal.fire({
-            title: 'Éxito',
+            title: 'Eliminado',
             text: 'Queja eliminada correctamente',
             icon: 'success',
             confirmButtonText: 'Aceptar',
@@ -39,21 +43,21 @@ const Queja = () => {
         });
     }
     
-    
-
-    
-  
-
       return (
         <>
         <div class="containersss">
           <div className='izq'>
-            {posts.map((post) => (
+            {posts ? (
+            posts.map((post) => (
               <div className='contenidoQuejas' key={post.id}>
                 <p> <strong>- {post.message}</strong> </p>
-                <button onClick={() => deleteQueja(post.id)}>Eliminar</button>
+                <i onClick={() => deleteQueja(post.id)}><i class="fa-solid fa-trash-can"></i></i>
               </div>
-            ))}
+            ))
+            
+            ) : (
+              <p className='titu'>¡No se tiene ningun queja!</p>
+              )}
           </div>
         </div>
       </>

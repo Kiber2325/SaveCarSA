@@ -13,7 +13,7 @@ const ImputAnuncio = () => {
       push(ref(database, "Anuncios"), { anuncio });
       Swal.fire({
         title: 'Éxito',
-        text: 'Enviado exitosamente',
+        text: 'Publicado exitosamente',
         icon: 'success',
         confirmButtonText: 'Aceptar',
       });
@@ -21,6 +21,7 @@ const ImputAnuncio = () => {
     };
   
     return (
+      <div className='ladoDer'>  
       <div className='formula'>
         <label>
            <h4>Escribe el anuncio que quiere publicar</h4>
@@ -33,10 +34,11 @@ const ImputAnuncio = () => {
             onChange={(e) => setAnuncio(e.target.value)}
          />
         <div className='volv'>
-          <a className='cancelar btn  ' href='/'  >Cancelar</a>
+          <a className='cancelar btn  ' href='/ConfigurarEstacionamiento'  >Cancelar</a>
         <button  className='env' type="submit">Publicar</button>
         </div>
         </form>
+      </div>
       </div>
     );
   };
