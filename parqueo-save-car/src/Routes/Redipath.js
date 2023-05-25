@@ -24,6 +24,7 @@ import ConsultasAdmin from "../components/ConsultasAdmin/ConsultasAdmin";
 import HomeGuardia from "../components/HomeGuardia/HomeGuardia";
 import Anuncio from "../components/Anuncios/Anuncio";
 import Anuncios from "../components/AnunciosAdmin/Anuncios";
+import Tarifas from "../components/Tarifas/Tarifas";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -42,6 +43,7 @@ const Redipath =() =>{
             <Route path="/ConfigurarEstacionamiento" element={<ConfiguracionEstacionamiento/>}/>
             <Route path="/ConfigurarAuto" element={<ConfiguracionAuto/>}/>
             <Route path="/ConfigurarMoto" element={<ConfiguracionMoto/>}/>
+            <Route path="/ConfigurarTarifas" element={<Tarifas/>}/>
 
             <Route path="/Consultas" element={<Consultas/>}/>
             <Route path="/ConsultasAdmin" element={<ConsultasAdmin/>}/>
