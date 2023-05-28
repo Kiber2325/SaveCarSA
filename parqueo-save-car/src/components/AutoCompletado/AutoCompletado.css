@@ -1,16 +1,3 @@
-.montoTotal{
-    display: flex;
-    justify-content: center;
-}
-.datoIngreso{
-    text-align: center;
-}
-
-.ingresosDetalle{
-    width: 100%;
-    padding: 1rem;
-}
-
 
 .react-autosuggest__suggestions-container--open {
     display: block;
