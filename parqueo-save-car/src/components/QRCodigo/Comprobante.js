@@ -156,12 +156,18 @@ const Comprobante = () => {
         <div>
           <h1>Comprobante de la reserva del sitio {product.sitio}</h1>
           <p>CI del cliente: {product.ciCliente}</p>
+          <p>Nombre y apellidos del cliente: {product.nombreapellido}</p>
           <p>Placa del auto del Cliente: {product.placa}</p>
           <p>Número celular del cliente: {product.celular}</p>
           <p>Monto pagado: {product.monto},0 Bs.</p>
           <p>Fecha: {formatoFecha()}</p>
           <p>Hora de inicio de la reserva: {product.hora}</p>
           <p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>
+          {product.fechaIni&&<p>Fecha de inicio {product.fechaIni}</p>}
+          {product.fechaFin&&<p>Fecha de finalización {product.fechaFin}</p>}
+          {product.periodo&&<p>Periodo escogido: Mes {product.periodo}</p>}
+          {product.horaInicio&&<p>Hora de ingreso: {product.horaInicio} </p>}
+          {product.horaFin&&<p>Hora de finalización: {product.horaFin} </p>}
           <p>¡Atención! debes llegar antes a ocupar el sitio reservado antes de la hora de finalización de la reserva, de lo contrario perderá su reserva.</p>
           <p>¡Gracias por la compra! Recuerda que debes enviar el comprobante para confirmar la reserva.</p>
         </div>
