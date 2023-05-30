@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import logo from '../../Images/logo.png';
@@ -9,23 +9,23 @@ import '../landingPage/lading.css'
 
 import "../landingPage/lading.css";
 import "./NavLogin.css";
-import { onValue, ref } from "firebase/database";
-import { database } from "../../conexion/firebase";
+// import { onValue, ref } from "firebase/database";
+// import { database } from "../../conexion/firebase";
 const Navlogin = () => {
-  const [inboxCount, setInboxCount] = useState(0);
+  // const [inboxCount, setInboxCount] = useState(0);
 
-  useEffect(() => {
-    const unsubscribe = onValue(ref(database, 'solicitudes'), (snapshot) => {
-      const messages = snapshot.val();
-      const newCount = Object.values(messages).reduce(
-        (count, message) => count + message.unread,
-        0
-      );
-      setInboxCount(newCount);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onValue(ref(database, 'solicitudes'), (snapshot) => {
+  //     const messages = snapshot.val();
+  //     const newCount = Object.values(messages).reduce(
+  //       (count, message) => count + message.unread,
+  //       0
+  //     );
+  //     setInboxCount(newCount);
+  //   });
 
-    return () => unsubscribe();
-  }, []);
+  //   return () => unsubscribe();
+  // }, []);
 
   return (
     <div>
