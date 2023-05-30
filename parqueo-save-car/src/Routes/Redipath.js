@@ -29,6 +29,7 @@ import Horarios from "../components/Horarios/Horarios";
 import Solicitud from "../components/Solicitud/Solicitud";
 import Solicitudes from "../components/Solicitud/Solicitudes/Solicitudes";
 import ReservaMensualCliente from "../components/ReservaMensualCliente/ReservaMensualCliente";
+import AcercaDe from "../components/AcercaDeNosotros/acercaDe";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -49,6 +50,9 @@ const Redipath =() =>{
             <Route path="/ConfigurarMoto" element={<ConfiguracionMoto/>}/>
             <Route path="/ConfigurarTarifas" element={<Tarifas/>}/>
             <Route path="/ConfigurarHorarios" element={<Horarios/>}/>
+
+            <Route path="/Nosotros" element={<AcercaDe/>}/>
+
 
             <Route path="/Consultas" element={<Consultas/>}/>
             <Route path="/ConsultasAdmin" element={<ConsultasAdmin/>}/>

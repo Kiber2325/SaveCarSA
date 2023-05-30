@@ -1,0 +1,38 @@
+
+
+  .contenidoAcercaDe{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 35vh;
+
+  }
+  .contenidoAcercaDe h4{
+    text-align: justify;
+
+  }
+  .contenidoAcercaDe h1{
+    background-color: #7bcfd7;
+
+  }
+.atras{
+  background-color: #00B9BC;
+  color: white;
+  border-color: #00B9BC;
+  margin: 5vh;
+  width: 37vh;
+  border-radius:5px;
+}
+
+
+.tablaXD{
+  margin: 0 auto;
+}
+
+ th {
+  text-align: center; 
+ padding: 1rem;
+}
+td{
+  text-align: center; 
+}

@@ -57,14 +57,15 @@ const Navlading = () => {
                     <DropdownMenu className="menuops">
                         <DropdownItem className="op1"><Link to='/Consultas' class="btn btn-link">consultas</Link></DropdownItem>
                         <DropdownItem className="op2"><Link to='/Observaciones' class="btn btn-link">Observaciones</Link></DropdownItem>
+                        <DropdownItem className="op2"><Link to='/Nosotros' class="btn btn-link">Sobre Nosotros</Link></DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </div>
-            <div>
+            {/* <div>
             
             <Link to='/Solicitud' class="btn btn-link">Solicitar</Link>
             
-            </div>
+            </div> */}
             
             </div>
 
