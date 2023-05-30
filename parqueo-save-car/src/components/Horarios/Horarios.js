@@ -33,7 +33,8 @@ const Horarios = () => {
         setHorarios(updatedHorarios);
       }
     });
-  }, [horarios]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const guardarHorarios = (e) => {
     e.preventDefault();
