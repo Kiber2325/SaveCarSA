@@ -34,7 +34,8 @@ const ReservasCliente = () => {
 
         <div className="cuerpo">
         {dataArr.map((sitio) => (
-          <SitioReserva nombre={sitio.nombre} estado={sitio.estado} color={sitio.color}/>
+          <SitioReserva nombre={sitio.nombre} estado={sitio.estado} color={sitio.color} 
+          timeIni={sitio.horaIni} timeFin={sitio.horaFin} dateIni={sitio.fechaIni} dateFin={sitio.fechaFin}/>
         ))}
         </div>
       </div>

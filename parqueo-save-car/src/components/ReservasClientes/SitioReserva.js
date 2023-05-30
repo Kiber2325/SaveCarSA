@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import EntradaInput from "../Sitio/EntradasModal/EntradaInput";
 import QrCodigo from "../QRCodigo/QrCodigo";
@@ -6,6 +6,7 @@ import { ref, set } from "firebase/database";
 import { database } from "../../conexion/firebase";
 const SitioReserva = (props) => {
   const [estadoSitio, setEstadoSitio] = useState(props.estado);
+  const [color,setColor]=useState(props.color)
   const cambiarEstado = () => {
     let estadoSitio2 = props.estado;
     if (estadoSitio2 === "disponible") {
@@ -395,13 +396,50 @@ const SitioReserva = (props) => {
     }
     //return fechaFinalizacion
   };
+  const [currentTime, setCurrentTime] = useState(new Date());
+  /*let horaInicioSitio='16:11:00'
+  let horaFinSitio='22:58:00'
+  let fechaIniSitio='2023-05-28'
+  let fechaFinSitio='2023-05-29'*/
+  let horaInicioSiti=props.timeIni
+  let horaFinSiti=props.timeFin
+  let fechaIniSiti=props.dateIni
+  let fechaFinSiti=props.dateFin
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+      let hora=new Date()
+      let minutos=hora.getMinutes()
+      if(minutos<10){
+        minutos='0'+hora.getMinutes()
+      }
+    let horaAct=hora.getHours()+':'+minutos+':'+hora.getSeconds()
+    let mes=hora.getMonth()+1
+    if(mes<10){
+      mes='0'+mes
+    }
+    let fechaAct=hora.getFullYear()+'-'+mes+'-'+hora.getDate()
+    if(horaInicioSiti!==undefined&&horaFinSiti!==undefined&&fechaIniSiti!==undefined&&fechaFinSiti!==undefined){
+      if(fechaAct<fechaIniSiti&&fechaAct>fechaFinSiti&&horaAct<horaInicioSiti&&horaAct>horaFinSiti){
+          setColor('#00FF38')
+          console.log('siuu')
+      }else{
+        setColor(props.color)
+        console.log('siuu')
+      }
+    }
+    }, 1000); // Actualizar la hora cada segundo
 
+    return () => {
+      clearInterval(timer); // Limpiar el temporizador cuando el componente se desmonte
+    };
+  }, [horaInicioSiti,horaFinSiti,fechaIniSiti,fechaFinSiti,color,props.color]);
   return (
     <div>
       <div
         className="sitio"
         onClick={cambiarEstado}
-        style={{ backgroundColor: props.color }}
+        style={{ backgroundColor: color }}
       >
         <h2>{props.nombre}</h2>
         <p className="texto">{props.estado}</p>
@@ -469,6 +507,7 @@ const SitioReserva = (props) => {
           {mostrarFechaIni && (
             <input type="date" value={fechaFin} name="fechaFin" disabled />
           )}
+          {false&&currentTime}
         </ModalBody>
         <div className="modalFooter">
           <ModalFooter>
