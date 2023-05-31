@@ -1,3 +1,4 @@
+import './Carrusel.css'
 import React, { Component } from 'react';
 import {
   Carousel,
@@ -14,12 +15,12 @@ const items = [
       caption: 'Haz tu reserva'
     },
     {
-     src: require ('../../Images/estacionamiento2.png'),
+     src: require ('../../Images/estacionamiento2.jpeg'),
       altText: 'Imagen 2',
       caption: 'No busques mas aqui esta tu estacionamiento SaveCar'
     },
     {
-        src:require('../../Images/estacionamiento3.jpg'),
+        src:require('../../Images/estacionamiento3.jpeg'),
         altText: 'Imagen 3',
       caption: 'Atencion para todo tipo de movilidad'
     }
@@ -71,16 +72,18 @@ const items = [
             onExited={this.onExited}
             key={item.src}
           >
-            <center>
-            <img src={item.src} alt={item.altText} width="50%" height="20%"/>
-            <CarouselCaption /*captionText={item.caption}*/ captionHeader={item.caption} />
+            <center >
+            <img src={item.src} alt={item.altText} width="55%" height="25%"/>
+            <CarouselCaption className='my-caption' /*captionText={item.caption}*/ captionText={item.caption}/>
             
             </center>
- </CarouselItem>
+        </CarouselItem>
         );
       });
   
       return (
+        <div className='container'>
+          <h4 className='titulo'>Inicio</h4>
         <Carousel
           activeIndex={activeIndex}
           next={this.next}
@@ -91,6 +94,7 @@ const items = [
           <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
           <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
         </Carousel>
+        </div>
       );
     }
   }

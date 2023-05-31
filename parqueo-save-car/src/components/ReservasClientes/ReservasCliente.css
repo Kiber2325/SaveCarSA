@@ -1,0 +1,50 @@
+.volverLanding{
+    text-decoration: none;
+    background-color:#00B9BC ;
+    border:none ;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+.volverLanding:hover{
+    background-color:#F63700 ;
+    border-color:#F63700 ;
+    color: black;
+}
+.botonesReservaCliente{
+    display: flex;
+    justify-content: center;
+}
+
+.containerReserva{
+    background-color: blue;
+    width: 100%;
+}
+
+.color-palette {
+  
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    margin: auto;
+  }
+  
+  .color { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(234, 242, 243);
+    font-weight: bold;
+    text-align: center;
+    width: 180px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 4px;
+  }
+
+
+  .texto{
+    text-align: center;
+  }

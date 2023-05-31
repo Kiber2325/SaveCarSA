@@ -1,19 +1,21 @@
 import React,{useState} from 'react'
 import Entrada from './Entrada/Entrada';
 import './RegistrarCliente.css';
-import axios from 'axios';
+//import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useHistory } from 'react-router-dom';
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label} from 'reactstrap';
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import FormInput from './InputFormAgregarVehiculo/FormInput';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import logo from '../../Images/logo.png';
-const conexionCliente='http://127.0.0.1:8000/api/cliente';
+//const conexionCliente='http://127.0.0.1:8000/api/cliente';
+import {  ref, set } from "firebase/database";
+import { database} from '../../conexion/firebase';
+import Footers from '../Footer/Footer';
+import Navlogin from '../Login/Navlogin'
 const RegistrarCliente = () => {
   //constante para navegar
-  const navigate=useHistory();
+  const navigate=useNavigate();
   //guardar estado de inputs 
   const [ci,setCi]=useState('');
   const [nombre,setNombre]=useState('');
@@ -167,7 +169,7 @@ verificacion  de errores  */
     } else if(!regexEmail.test(correoCapturado)){
       setErrorCorreo(true);
       errorCorreo2=true;
-      setMensajeErrorCorreo('El campo "Correo" solo acepta letras.');
+      setMensajeErrorCorreo('El formato del campo "Correo" es: ejemplo1@gmail.com');
     }else{
       setErrorCorreo(false);
       errorCorreo2=false;
@@ -346,18 +348,37 @@ verificacion  de errores  */
   }
   //registra cliente/ redireccionar
   const registrarCliente=async(e)=>{
-    //e.preventDefault();
+    e.preventDefault();
     if(comprobarCampos()===false){
       //console.log(ci+'\n'+nombre+'\n'+apellido+'\n'+correo+'\n'+celular+'\n'+lugar+'\n'+cantidadMeses);
-      await axios.post(conexionCliente,{CI:ci,
+      /*await axios.post(conexionCliente,{CI:ci,
       nombre:nombre,
       apellido:apellido,
       correo:correo,
       celular:celular,
-      cantidad_meses:cantidadMeses});
+      cantidad_meses:cantidadMeses});*/
       //redireccion
-      navigate.push('/Home');
-      window.location.reload();
+      //navigate('/Home');
+      //window.location.reload();
+      const values={
+        ciCliente:ci,
+        nombre:nombre,
+        apellido:apellido,
+        celular:celular,
+        estado:'activo'
+      }
+      set(ref(database, "clientesMensuales/"+(ci)), values);
+      
+    const dataRef = ref(database, 'sitiosAutos/'+lugar.slice(1));
+    const nuevaData={nombre:lugar, estado:'reservadoMensual', color:'#317E8B'}
+    set(dataRef, nuevaData)
+    .then(() => {
+      console.log('Dato actualizado correctamente');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar el dato:', error);
+    });
+     
     }
   }
   //cancelar con sweet alert
@@ -372,8 +393,8 @@ verificacion  de errores  */
       
     }).then(response=>{
       if(response.isConfirmed){
-        navigate.push('/Home');
-        window.location.reload();
+        navigate('/Home');
+        //window.location.reload();
       }
     })
   }
@@ -444,13 +465,32 @@ verificacion  de errores  */
   const [stateInsertar,setStateInsertar]= useState(false);
   const [modalEditar, setModalEditar]=useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
-
+  const cerrarModalEditarCancelar=()=>{
+    setModalEditar(!modalEditar);
+    let valoresCero={
+      id:'',
+      matricula:"",
+      tipo:"",
+      marca:"",
+      soat:"",
+    };
+    setValues(valoresCero)
+  }
   const abrirModal=(e)=>{
     e.preventDefault();
     setStateInsertar(!stateInsertar);
   }
+  const [typeOp, setTypeOp] = React.useState('');
+  const captureType = (e) => {
+    setTypeOp(e.target.value);
+  }
   const insertarVehiculo=(e)=>{
     e.preventDefault();
+    
+    if(typeOp!==''){
+      values.tipo=typeOp;
+    }
+    if(values.matricula!==''&&values.tipo!==''&&values.marca!==''&&values.soat!==''){
     listaAutoEstaVacio=false;
       setListaAuto(false)
       setMensajeListaAuto(null)
@@ -468,20 +508,41 @@ verificacion  de errores  */
       soat:"",
     };
     setValues(valoresCero)
-    
+
+    }
   }
   const editar=()=>{
+    values.tipo=typeOp;
+    console.log(values)
+    if(values.matricula!==''&&values.tipo!==''&&values.marca!==''&&values.soat!==''){
     var dataNueva=data;
-    dataNueva.map(auto=>{
+    /*dataNueva.map(auto=>{
       if(auto.id===values.id){
         auto.matricula=values.matricula;
         auto.tipo=values.tipo;
         auto.marca=values.marca;
         auto.soat=values.soat;
       }
-    });
+    });*/
+    for(let i=0;i<dataNueva.length;i++){
+      let auto=dataNueva[i];
+      auto.matricula=values.matricula;
+      auto.tipo=values.tipo;
+      auto.marca=values.marca;
+      auto.soat=values.soat;
+    }
     setData(dataNueva);
     setModalEditar(false);
+    let valoresCero={
+      id:'',
+      matricula:"",
+      tipo:"",
+      marca:"",
+      soat:"",
+    };
+    setValues(valoresCero)
+    console.log(values)
+  }
   }
   const eliminar=(e)=>{
     
@@ -491,15 +552,7 @@ verificacion  de errores  */
   //html
   return (
     <div className='registrarCliente'>
-      <header className="Encabezado">
-      <section>
-          <div>
-          <a href='/'>
-              <img className="image" src={logo} alt="logo"></img>
-          </a>
-          </div>
-      </section>
-    </header>
+      <Navlogin/>
     <h1 className='title'><b>Registrar cliente</b></h1>
     <form className='container'>
       <div className='row'>
@@ -600,8 +653,8 @@ verificacion  de errores  */
           <tr>
             <td>{elemento.marca}</td>
             <td>{elemento.matricula}</td>
-            <td><button className="btn btn-warning" onClick={(e)=>seleccionarAuto(e,elemento, 'Editar')}><i className="bi bi-pencil-fill"></i></button> {"   "} 
-              <button className="btn btn-danger" onClick={(e)=>seleccionarAuto(e,elemento, 'Eliminar')}><i className="bi bi-trash-fill"></i></button></td>
+            <td><button className="btn btn-warning botonModalEliminar" onClick={(e)=>seleccionarAuto(e,elemento, 'Editar')}><i className="bi bi-pencil-fill"></i></button> {"   "} 
+              <button className="btn btn-danger botonModalEliminar" onClick={(e)=>seleccionarAuto(e,elemento, 'Eliminar')}><i className="bi bi-trash-fill"></i></button></td>
           </tr>
         ))}
       </tbody>
@@ -615,14 +668,12 @@ verificacion  de errores  */
     <div className='row'>
       <div className='botones'>
       <button className='re' type='submit' onClick={registrarCliente}>Registrar</button>
-      <Link to="/Home">
-        <button className='can' onClick={(e)=>cancelarRegistroCliente(e)}>Cancelar</button>
-      </Link>
-      
-
+      <button className='can' onClick={(e)=>cancelarRegistroCliente(e)}>Cancelar</button>
       </div>
     </div>
-    <div className='footerReg'><p id='cont'>Contactos</p></div>
+    <Footers/>
+
+    
     <Modal isOpen={stateInsertar} >
         <div className='headerModal'>
         <ModalHeader>
@@ -632,25 +683,38 @@ verificacion  de errores  */
         <form>
         <ModalBody>
         
-          {inputs.map((input) => (
-            <FormInput key={input.id} 
-            {...input} value={values[input.name]} 
+          
+            <FormInput key={inputs[0].id} 
+            {...inputs[0]} value={values[inputs[0].name]} 
             onChange={onChange} />
-          ))}
+            <label>{inputs[1].label}</label><br/>
+            <div className='select'>
+              <select name='tipo' id='format' onChange={captureType}>
+                <option selected disabled value=''>Seleccione el tipo de vehículo</option>
+                <option value="Auto">Auto</option>
+                <option value="Moto">Moto</option>
+              </select>
+            </div>
+            <FormInput key={inputs[2].id} 
+            {...inputs[2]} value={values[inputs[2].name]} 
+            onChange={onChange} />
+            <FormInput key={inputs[3].id} 
+            {...inputs[3]} value={values[inputs[3].name]} 
+            onChange={onChange} />
           
         </ModalBody>
         <div className='footerModal'>
         <ModalFooter>
-          <div className='botonesModalAlinear'>
-            <Button onClick={insertarVehiculo} style={{
+          <div>
+            <Button className='botonesModal' botonModal onClick={insertarVehiculo} style={{
               ...StyleSheet.buttonModal,
-              backgroundColor:"#00B9BC"
+              boder:'none'
             }}>Registrar</Button>
             </div>
-            <Button onClick={
+            <Button className='botonesModal' botonModal onClick={
               ()=>setStateInsertar(!stateInsertar)} style={{
               ...StyleSheet.buttonModal,
-              backgroundColor:"#F46D21",
+              boder:'none'
             }}>Cancelar</Button>
         </ModalFooter>
         </div>
@@ -664,26 +728,36 @@ verificacion  de errores  */
         </div>
         <form>
         <ModalBody>
-        
-          {inputs.map((input) => (
-            <FormInput key={input.id} 
-            {...input} value={values[input.name]} 
+          <FormInput key={inputs[0].id} 
+            {...inputs[0]} name="matricula" value={values&&values.matricula} 
             onChange={onChange} />
-          ))}
-          
+          <label>{inputs[1].label}</label><br/>
+          <div className='select'>
+              <select name='tipo' id='format' onChange={captureType}>
+                <option selected disabled value={values&&values.tipo}>{values&&values.tipo}</option>
+                <option value="Auto">Auto</option>
+                <option value="Moto">Moto</option>
+              </select>
+            </div>
+          <FormInput key={inputs[2].id} 
+            {...inputs[2]} name="marca" value={values&&values.marca} 
+            onChange={onChange} />
+          <FormInput key={inputs[3].id} 
+            {...inputs[3]} value={values&&values.soat} 
+            onChange={onChange} />
         </ModalBody>
         <div className='footerModal'>
         <ModalFooter>
           <div className='botonesModalAlinear'>
-            <Button onClick={editar} style={{
+            <Button className='botonesModal' onClick={editar} style={{
               ...StyleSheet.buttonModal,
-              backgroundColor:"#00B9BC"
+              border:'none',
             }}>Registrar</Button>
             </div>
-            <Button onClick={
-              ()=>setModalEditar(!modalEditar)} style={{
+            <Button className='botonesModal' onClick={
+              ()=>cerrarModalEditarCancelar()} style={{
               ...StyleSheet.buttonModal,
-              backgroundColor:"#F46D21",
+              border:'none',
             }}>Cancelar</Button>
         </ModalFooter>
         </div>
@@ -694,11 +768,11 @@ verificacion  de errores  */
         ¿Estás Seguro que deseas eliminar el auto?
         </ModalBody>
         <ModalFooter>
-          <button className="btn btn-danger" onClick={eliminar}>
+          <button className="btn btn-danger botonModalEliminar" onClick={eliminar}>
             Sí
           </button>
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary botonModalEliminar"
             onClick={()=>setModalEliminar(!modalEliminar)}
           >
             No

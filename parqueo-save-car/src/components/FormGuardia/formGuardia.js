@@ -2,25 +2,20 @@
 import React, {useState}  from 'react'
 import "./formGuardi.css"
 import { Formik, Field } from 'formik';
-import { Link } from "react-router-dom";
-import logo from '../../Images/logo.png';
+
 import FotoGuardia from '../FotoGuardia/FotoGuardia';
+import { Link, useNavigate } from 'react-router-dom';
+import Footers from '../Footer/Footer';
+import Navlogin from '../Login/Navlogin';
  
  const FormGuardia = () => {
   const [FormularioEnviado, cambiarFormularioEnviado ] = useState(false)
-
+  const navigate=useNavigate();
+  
    return (
    <>    
    {/* navar */}
-    <header className="Encabezado">    
-      <section>
-          <div>
-          <Link to='/'>
-              <img className="image" src={logo} alt="logo"></img>
-          </Link>
-          </div>
-      </section>   
-    </header>
+    <Navlogin/>
 
     {/* titulo */}
        <div>
@@ -55,21 +50,21 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
            if (!valores.nombre) {             
               errores.nombre = "Por favor ingrese nombre"
            }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.nombre)) {
-              errores.nombre = 'EL nombre solo puede contener letras y espacios'
+              errores.nombre = 'El nombre solo puede contener letras y espacios'
            }
 
           //validacion apellido
              if (!valores.apellido) {             
               errores.apellido = "Por favor ingrese su apellido"
            }else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.apellido)) {
-              errores.apellido = 'EL apellido solo puede contener letras y espacios'
+              errores.apellido = 'El apellido solo puede contener letras y espacios'
            }
 
             //validacion email
             if (!valores.email) {             
               errores.email = "Por favor ingrese su email"
            }else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.email)) {
-              errores.email = 'EL email solo puede contener caracteres especiales'
+              errores.email = 'EL email solo puede contener letras, números y caracteres especiales'
            }
 
             //validacion celular
@@ -83,7 +78,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
             if (!valores.direccion) {             
               errores.direccion = "Por favor ingrese su direccion"
            }else if (/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.direccion)) {
-              errores.direccion = 'EL direccion solo puede contener letras y espacios'
+              errores.direccion = 'La direccion solo puede contener letras y espacios'
            } 
            
             //validacion turno
@@ -106,6 +101,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
         console.log("formulario enviado");
         cambiarFormularioEnviado(true)
         setTimeout(()=> cambiarFormularioEnviado(false),4000)
+        navigate('/Home')
       }}> 
       
        {({ values, errors, touched, handleSubmit, handleChange, handleBlur })=>(
@@ -114,14 +110,14 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
         <div class="container">
           <div class="row">
             <div class="col hw">
-               <h5 className='titulo'>Registro datos del cliente</h5>
+               <h5 className='titulo'>Registro datos del guardia</h5>
                    
                  <label htmlFor='CI' class="form-label"  >CI</label>
                  <Field 
                   type="text"
                   class="form-control"  
                   id='CI' name='ci' 
-                  placeholder="Escriba aqui el CI del cleinte"
+                  placeholder="Escriba aqui el CI del guardia"
                  
                   />
                   {touched.ci && errors.ci && <div className="error" >{errors.ci}</div>}
@@ -132,7 +128,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                   class="form-control"  
                   id='nombre' 
                   name='nombre'  
-                  placeholder="Escriba aqui el Nombre del cleinte"
+                  placeholder="Escriba aqui el Nombre del guardia"
                   />
                   {touched.nombre && errors.nombre && <div className="error" >{errors.nombre}</div>}
 
@@ -143,7 +139,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                  class="form-control"  
                  id='apellidos' 
                  name='apellido'  
-                 placeholder="Escriba aqui los apellidos del cleinte"  
+                 placeholder="Escriba aqui los apellidos del guardia"  
                  />
                  {touched.apellido && errors.apellido && <div className="error" >{errors.apellido}</div>}
                 
@@ -153,7 +149,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                   class="form-control"  
                   id='email' 
                   name='email'  
-                  placeholder="Escriba aqui el email del cleinte"  
+                  placeholder="Escriba aqui el email del guardia"  
                  />
                   {touched.email && errors.email && <div className="error" >{errors.email}</div>}
 
@@ -163,7 +159,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                  <Field type="text" 
                  class="form-control"  
                  id='celular' name='celular'  
-                 placeholder="Escriba aqui el celular del cleinte"  
+                 placeholder="Escriba aqui el celular del guardia"  
                 />
                  {touched.celular && errors.celular && <div className="error" >{errors.celular}</div>}
 
@@ -174,7 +170,7 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
                  class="form-control"  
                  id='direccion' 
                  name='direccion'  
-                 placeholder="Escriba aqui la dirección del cleinte" 
+                 placeholder="Escriba aqui la dirección del guardia" 
                 />
                  {touched.direccion && errors.direccion && <div className="error" >{errors.direccion}</div>}
 
@@ -182,22 +178,23 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
 
 
                 <div class="col hw2">
-                  <h5 className='titulo'>Registrar datos respecto a la reserva</h5>
+                  <h5 className='titulo'>Registrar datos respecto al trabajo</h5>
                   <label>Turno</label> <br/><br/>
-                       <select class="form-select" aria-label="Default select example">
+                       <Field as='select' class="form-select" aria-label="Default select example" name='turno'>
                         <option selected>Seleccione turno</option>
-                        <option value="1">Mañana</option>
+                        <option value="2">Mañana</option>
                         <option value="2">Tarde</option>
                         <option value="3">Noche</option>
-                       </select>
+                       </Field>
+                       {touched.turno && errors.turno && <div className="error" >{errors.turno}</div>}
                        <br/><br/>
                        
                         <label htmlFor='nombre'>Cantidad de meses</label>
-                        <Field type="text" 
+                        <Field type="number" 
                         class="form-control"  
                         id='nombre' 
                         name='mes'  
-                        placeholder="Escriba aqui el Nombre del cleinte"
+                        placeholder="Contrato por el tiempo de:"
                        />
                         {touched.mes && errors.mes && <div className="error" >{errors.mes}</div>}
                        <FotoGuardia/>
@@ -207,20 +204,18 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
 
               <div class="row">
                 <div class='text-center botones' >
-                  <button type='submit'  class="btn btn-secondary">Registrar</button> 
-                  <Link className="btn btn-primary" to='/Home'>volver</Link>       
+                  <button style={{...StyleSheet.button,border:'none'}} type='submit'  class="btn btn-secondary registrarGuardia" >Registrar</button> 
+                  <Link style={{...StyleSheet.button,border:'none'}} className="btn btn-primary registrarGuardia" to='/Home'>volver</Link>       
                   
                   {FormularioEnviado && <p className='exito'>Enviado con exito</p>}              
                 </div>
               </div>
          </div>
     </form>
-
        )}
-      
     </Formik> 
     </div>
-    <div className='footerReg'><p id='cont'>Contactos</p></div>
+        <Footers/>
     </> 
 
     );

@@ -1,0 +1,44 @@
+.cuerpoClientes{
+    min-height: 62vh;
+}
+.tituloListaClientes{
+    display: flex;
+    justify-content: center;
+}
+.cabeceraTablaClientes{
+    text-align: center;
+    border: none;
+}
+.cabeceraClientes{
+    background-color: #cff4fc;
+    border: none;
+}
+
+.regresarHome{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+    bottom: 0;
+}
+.regresarHomeBoton{
+    border: none;
+    padding: 8px 20px;
+    color: white;
+    background-color: #00B9BC;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0;
+   
+   
+}
+.regresarHomeBoton:hover{
+    background-color: #F63700;
+    color: black;
+}
+.contWhats{
+    border: none;
+}
+.mensajeWhats{
+    height: 15px;
+    margin: 0;
+}

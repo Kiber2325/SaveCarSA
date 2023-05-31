@@ -1,0 +1,12 @@
+.tiempoDetalle{
+    display: flex;
+    justify-content: center;
+    margin: 10px 50px;
+}
+.cabeceraTiempo{
+    text-align: center;
+    background-color: #D9D9D9;
+}
+.cabeceraTiempoSitio{
+    width: 100px;
+}

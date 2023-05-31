@@ -1,0 +1,12 @@
+.tituloSolicitudes{
+    
+    width: 100%;
+}
+.tituloSolicitud{
+    text-align: center;
+}
+.solicitudes{
+ display: flex;
+ justify-content: center;   
+ min-height: 450px;
+}

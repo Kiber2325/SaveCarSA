@@ -14,24 +14,9 @@
   flex-direction: row;
   justify-content: space-between;
 }
-footer{
-  /*background-color: #004854;*/
-  width: 100%;
-  height: 111px;
-  margin-top: 0;
-  margin-left: 0;
-  bottom: 0;
 
-}
-footer p{
-  color: white;
-}
-#cont {
-    background-color: #004854;
-    text-align: center;
-    padding-top: 40px;
-  }
-  
+
+
   .image{
     height: 100px;
     width: 170px;
@@ -41,6 +26,7 @@ footer p{
   /*nav*/
 
   .btndesplegable {
+    color: white;
     background-color: #004854 !important;
     border-color: #004854;
     /*padding-right: 100px ;*/
@@ -75,7 +61,8 @@ footer p{
   }
   header .btndesplegable:hover{
 
-    color:#F63700;
+    color:white;
+    
   }
  .menuops{
     background-color: #017E80;
@@ -98,7 +85,7 @@ footer p{
 
  .navegarnav{
   display: flex;
-  padding:2.5% ;
+  padding:1.5% ;
   flex-direction: row;
  }
  .navegarnav a{

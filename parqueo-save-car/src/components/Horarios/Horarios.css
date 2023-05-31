@@ -1,0 +1,32 @@
+.definirHoras{
+    display: flex;
+    justify-content: center;
+}
+.tituloHora{
+    text-align: center;
+}
+.timeInput{
+    height: 10px;
+    margin: 0 50px;
+}
+.tituloHorarios{
+    text-align: center;
+}
+.botonesHorarios{
+    display: flex;
+    justify-content: center;
+}
+.canHor,.guaHor{
+    background-color: #00B9BC;
+  border: none;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  padding: 10px 50px;
+  border-radius: 10px;
+  margin: 10px 50px;
+}
+.canHor:hover,.guaHor:hover{
+    background-color: #F63700;
+  color: black;
+}

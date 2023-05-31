@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import img1 from '../../Images/estacionamiento1.jpg'
-import img2 from '../../Images/estacionamiento2.png'
-import img3 from '../../Images/estacionamiento3.jpg'
+
+import img1 from '../../Images/opcions.jpg'
+import img2 from '../../Images/estacionamiento2.jpeg'
+import img3 from '../../Images/estacionamiento3.jpeg'
 import '../homePage/home.css'
+import { Link } from "react-router-dom";
 
 //import '../../estilos/home.css'
 
@@ -22,7 +23,7 @@ const Opcioneshome = () => {
                             </div>
                             <div className="card-footer">
                             <div className="d-grid gap-2">
-                                {/* <button className="btn btn-primary" type="button">Acceder</button> */}
+                                <Link className="btn btn-primary" to="/ConfigurarEstacionamiento">Acceder</Link>
                                 </div>
                             </div>
                     </div>

@@ -1,53 +1,63 @@
-.wrapper{
-    
-    height: 70vh;
-    width: 100vh;
-    padding-left: 5rem;
-    padding-top: 3rem;
-    /*font-size: 2rem;*/
+.titulo{
+
+text-align: center;
 
 }
-.title{
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-  }
-  .content{
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0,1,0,1);
-  }
-  .content.show{
-    height: auto;
-    max-height: 9999px;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0,1,0,1);
-  }  
-  .inp{
-    width: 25rem;
-    font-size: 14px;
+.formula{
+  float: left;
+  width: 100%;  
+  text-align: center;
+}
 
-  }
-  .volv{
-    display: flex;
-    justify-content: space-between;
-    width: 80vh;
-  }
-  .env{
-    background-color: #00B9BC;
-    border-color: #00B9BC;
-    color: white;
-    height: 2.5rem;
-    width: 15rem;
-    border-radius: 0.3rem;
-    margin-top: 0.5rem;
-  }
-  .cancelar{
-    background-color: #00B9BC;
-    border-color: #00B9BC;
-    color: white;
-    height: 2.5rem;
-    width: 15rem;
-    border-radius: 0.3rem;
-    margin-top: 0.5rem;
-  }
+.inp{
+  padding: 5px;
+  height: 5rem;
+  font-size: 25px;
+
+}
+
+.env{
+  background-color: #00B9BC;
+  border-color: #00B9BC;
+  color: white;
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 0.3rem;
+  margin: 0.5rem;
+}
+.cancelar{
+  background-color: #00B9BC;
+  border-color: #00B9BC;
+  color: white;
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 0.3rem;
+  margin: 0.5rem;
+}
+
+
+.izq{
+ float: left;
+  padding: 2rem;
+  width: 100%;
+  float: left;
+}
+
+p{
+  word-wrap: break-word;
+  
+  display: block;
+  font-size: 1.5rem;
+}
+
+
+
+.futer{
+  color: white;
+  text-align: center;
+  height: 100px;
+  width: 100%;
+  float: left;
+  background-color: #004854;
+  
+}

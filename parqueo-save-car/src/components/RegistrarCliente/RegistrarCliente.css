@@ -13,12 +13,12 @@
   width: 100%;
   height: 111px;
 }
-#cont{
+/* #cont{
   background-color: #004854;
   color: white;
   text-align: center;
   padding-top: 40px;
-}
+} */
 .title{
   text-align: center;
   font-size: 45px;
@@ -45,36 +45,53 @@
   display: flex;
   justify-content: center;
 }
-.re{
-  margin: 50px;
+.re, .can{
+  
   width: 114px;
-  height: 44px;
+  /*height: 44px;*/
+  padding: 8px;
+  margin: 15px 25px 30px 25px;
   color: white;
   background-color: #00B9BC;
-  border-radius: 20px;
+  border-radius: 10px;
+  border: none;
 }
-.can{
-  margin: 50px;
+.re:hover, .can:hover{
+  background-color: #F63700;
+  color: black;
+}
+/*.can{
+  
   width: 114px;
   height: 44px;
+  padding: 10px;
+  margin: 15px 25px 30px 25px;
   color: white;
   background-color: #FC6901;
-  border-radius: 20px;
+  border-radius: 10px;
+  border: none;
 }
+.can:hover{
+  color: red;
+}*/
 .botonAgregarVehiculo{
   display: flex;
   justify-content: center;
 }
 .agregarVehiculo{
-  
+  border: none;
   width: 130px;
-  height: 44px;
+  padding: 8px;
   color: white;
   background-color: #00B9BC;
-  border-radius: 20px;
+  border-radius: 10px;
   margin: 5px 0;
 }
-/*modales*/
+.agregarVehiculo:hover{
+background-color: #F63700;
+  color: black;
+}
+  /*modales*/
 .headerModal{
   display: flex;
   justify-content: center;
@@ -104,3 +121,69 @@
   align-items: center;
 }
 
+.select select {
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  -ms-appearance:none;
+  appearance:none;
+  outline:0;
+  box-shadow:none;
+  border-radius: 5px;
+  border: 1px solid gray;
+  /*background: #5c6664;*/
+  background-image: none;
+  flex: 1;
+  padding: 0 .5em 0 15px;
+  /*color:#fff;*/
+  cursor:pointer;
+  font-size: 1em;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  
+}
+.select::-ms-expand {
+  display: none;
+}
+.select {
+  position: relative;
+  display: flex;
+  width: 29em;
+  height: 3.5em;
+  line-height: 3;
+  /*background: #5c6664;*/
+  overflow: hidden;
+  border-radius: .25em;
+  margin: 10px 0;
+}
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  margin-top: 3px;
+  /*background: #2b2e2e;*/
+  cursor:pointer;
+  pointer-events:none;
+  transition:.25s all ease;
+}
+.select:hover::after {
+  color: #23b499;
+}
+.botonesModal, .botonModalEliminar{
+  border: none;
+  width: 130px;
+  padding: 8px;
+  color: white;
+  background-color: #00B9BC;
+  border-radius: 10px;
+  margin: 5px 0;
+}
+.botonesModal:hover, .botonModalEliminar:hover{
+  background-color: #F63700;
+  color: black;
+}
+.botonModalEliminar{
+  width: 60px;
+  margin: 0 10px;
+}

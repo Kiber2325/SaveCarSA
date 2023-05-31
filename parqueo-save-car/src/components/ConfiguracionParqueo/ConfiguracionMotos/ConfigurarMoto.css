@@ -1,0 +1,52 @@
+.sitiosGenerados{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 302px;
+}
+.entradaCant{
+    height: 9px;
+    padding: 15px;
+    margin: 0 15px;
+}
+.divGenerarMotos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+.generarMotos{
+    background-color: #00B9BC;
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 7px 50px;
+  border-radius: 10px;
+}
+.generarMotos:hover{
+    background-color: #F63700;
+  color: black;
+}
+.guardarSitiosAutos{
+  width: 20vh;
+  height: 5vh;
+  background-color: #00B9BC;
+  color: white;
+  border-color: #00B9BC;
+  margin: 2vh;
+  border-radius: 1vh;
+
+}
+.cancelarSitiosAutos{
+  width: 20vh;
+  background-color: #F46D21;
+  color: white;
+  border-color: #F46D21;
+  margin: 2vh;
+  border-radius: 1vh;
+}
+.botonesAccionConfigurarAuto{
+  display: flex;
+  justify-content: center;
+
+}
