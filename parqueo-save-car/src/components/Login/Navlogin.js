@@ -67,7 +67,11 @@ const Navlogin = () => {
                 Ingresos{" "}
               </a>
             </div>
-                        
+            <div className="sesion">
+              <a clasName="cliente" href="/UsoSitios">
+                Uso Sitios
+              </a>
+            </div>      
              <div className="sesion">
                 <a className="Cerrar" href="/">Cerrar Sesion</a>
              </div>

@@ -6,12 +6,43 @@ import { ref, set } from "firebase/database";
 import { database } from "../../conexion/firebase";
 const SitioReserva = (props) => {
   const [estadoSitio, setEstadoSitio] = useState(props.estado);
-  const [color,setColor]=useState(props.color)
+  const [color, setColor] = useState(props.color);
   const cambiarEstado = () => {
     let estadoSitio2 = props.estado;
     if (estadoSitio2 === "disponible") {
       setModalEstado(true);
       console.log(estadoSitio);
+    } else if (estadoSitio2 === "reservado mes") {
+      // setModalEstado(true);
+      // console.log(estadoSitio);
+      let hora = new Date();
+      let minutos = hora.getMinutes();
+      if (minutos < 10) {
+        minutos = "0" + hora.getMinutes();
+      }
+      let horaAct = hora.getHours() + ":" + minutos + ":" + hora.getSeconds();
+      let mes = hora.getMonth() + 1;
+      if (mes < 10) {
+        mes = "0" + mes;
+      }
+      let fechaAct = hora.getFullYear() + "-" + mes + "-" + hora.getDate();
+      if (
+        horaInicioSiti !== undefined &&
+        horaFinSiti !== undefined &&
+        fechaIniSiti !== undefined &&
+        fechaFinSiti !== undefined
+      ) {
+        if (
+          fechaAct >= fechaIniSiti &&
+          fechaAct <= fechaFinSiti &&
+          horaAct >= horaInicioSiti &&
+          horaAct <= horaFinSiti
+        ) {
+          setModalEstadoOcupado(true);
+        }else{
+          setModalEstado(true);
+        }
+      }
     } else {
       setModalEstadoOcupado(true);
     }
@@ -37,10 +68,10 @@ const SitioReserva = (props) => {
     nombreapellido: "",
   });
   const [tipo, setTipo] = useState("reservaD");
-  const [tarRes,setTarRes]=useState(400.0)
-  const [periodo,setPeriodo]=useState('dia')
-  const [horaInicio,setHoraInicio]=useState('06:00:00')
-  const [horaFin,setHoraFin]=useState('22:00:00')
+  const [tarRes, setTarRes] = useState(400.0);
+  const [periodo, setPeriodo] = useState("dia");
+  const [horaInicio, setHoraInicio] = useState("06:00:00");
+  const [horaFin, setHoraFin] = useState("22:00:00");
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -189,13 +220,13 @@ const SitioReserva = (props) => {
     }
     return esInvalido;
   };
-  const validarFechaIni=()=>{
-    let esInvalido=false
-    if(fechaIni.length===0){
-      esInvalido=true
+  const validarFechaIni = () => {
+    let esInvalido = false;
+    if (fechaIni.length === 0) {
+      esInvalido = true;
     }
-    return esInvalido
-  }
+    return esInvalido;
+  };
   const ejecutarAccion = () => {
     //formato
     //const regexAll = /^[0-9A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
@@ -208,7 +239,6 @@ const SitioReserva = (props) => {
     let alertaNombre = "Solo se permiten carácteres alfabéticos";
     let alertaCelular = "Solo se permiten carácteres numéricos";
 
-    
     if (tipo === "reservaD") {
       let validarPlaca = !validarInputPlaca(
         values.placa,
@@ -229,7 +259,8 @@ const SitioReserva = (props) => {
         alertaCelular,
         regexNumber
       );
-      let validar = validarPlaca && validarCi && validarNombre && validarCelular;
+      let validar =
+        validarPlaca && validarCi && validarNombre && validarCelular;
       if (validar === true) {
         //setModalEstado(false);
         //setEstadoSitio("reservado");
@@ -240,7 +271,7 @@ const SitioReserva = (props) => {
           sitio: props.nombre,
           placa: values.placa,
           ciCliente: values.ci,
-          nombreapellido:values.nombreapellido,
+          nombreapellido: values.nombreapellido,
           celular: values.celular,
           fecha: fecha.toDateString(),
           hora:
@@ -270,7 +301,7 @@ const SitioReserva = (props) => {
             setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
             startTemp()*/
       }
-    }else if(tipo==='reservaM'){
+    } else if (tipo === "reservaM") {
       let validarPlaca = !validarInputPlaca(
         values.placa,
         true,
@@ -290,10 +321,15 @@ const SitioReserva = (props) => {
         alertaCelular,
         regexNumber
       );
-      let validarFechaIn=!validarFechaIni()
-      console.log(validarFechaIn)
-      let validar = validarPlaca && validarCi && validarNombre && validarCelular&&validarFechaIn;
-      if((validar)===true){
+      let validarFechaIn = !validarFechaIni();
+      console.log(validarFechaIn);
+      let validar =
+        validarPlaca &&
+        validarCi &&
+        validarNombre &&
+        validarCelular &&
+        validarFechaIn;
+      if (validar === true) {
         setModalEstado(false);
         setEstadoSitio("reservado");
         //setCardColor(cardColors.reservado)
@@ -303,7 +339,7 @@ const SitioReserva = (props) => {
           sitio: props.nombre,
           placa: values.placa,
           ciCliente: values.ci,
-          nombreapellido:values.nombreapellido,
+          nombreapellido: values.nombreapellido,
           celular: values.celular,
           fecha: fecha.toDateString(),
           hora:
@@ -312,11 +348,11 @@ const SitioReserva = (props) => {
             fecha.getMinutes() +
             ":" +
             fecha.getSeconds(),
-          fechaIni:fechaIni,
-          fechaFin:fechaFin,
-          periodo:periodo,
-          horaInicio:horaInicio,
-          horaFin:horaFin,
+          fechaIni: fechaIni,
+          fechaFin: fechaFin,
+          periodo: periodo,
+          horaInicio: horaInicio,
+          horaFin: horaFin,
           monto: parseFloat(tarRes),
         };
         let idUnico =
@@ -361,22 +397,22 @@ const SitioReserva = (props) => {
       setMostrarFechaIni(false);
     }
   };
-  const tarifaReserva=(newTarifa)=>{
-    setTarRes(newTarifa)
-    if(newTarifa==='400'){
-      setPeriodo('dia')
-      setHoraInicio('06:00:00')
-      setHoraFin('22:00:00')
-    }else if(newTarifa==='300'){
-      setPeriodo('noche')
-      setHoraInicio('22:00:00')
-      setHoraFin('06:00:00')
-    }else if(newTarifa==='600'){
-      setPeriodo('completo')
-      setHoraInicio('00:00:00')
-      setHoraFin('23:59:00')
+  const tarifaReserva = (newTarifa) => {
+    setTarRes(newTarifa);
+    if (newTarifa === "400") {
+      setPeriodo("dia");
+      setHoraInicio("06:00:00");
+      setHoraFin("22:00:00");
+    } else if (newTarifa === "300") {
+      setPeriodo("noche");
+      setHoraInicio("22:00:00");
+      setHoraFin("06:00:00");
+    } else if (newTarifa === "600") {
+      setPeriodo("completo");
+      setHoraInicio("00:00:00");
+      setHoraFin("23:59:00");
     }
-  }
+  };
   const [fechaFin, setFechaFin] = useState("");
   const onChangeFechaIni = (e) => {
     setFechaIni(e.target.value);
@@ -401,39 +437,56 @@ const SitioReserva = (props) => {
   let horaFinSitio='22:58:00'
   let fechaIniSitio='2023-05-28'
   let fechaFinSitio='2023-05-29'*/
-  let horaInicioSiti=props.timeIni
-  let horaFinSiti=props.timeFin
-  let fechaIniSiti=props.dateIni
-  let fechaFinSiti=props.dateFin
+  let horaInicioSiti = props.timeIni;
+  let horaFinSiti = props.timeFin;
+  let fechaIniSiti = props.dateIni;
+  let fechaFinSiti = props.dateFin;
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-      let hora=new Date()
-      let minutos=hora.getMinutes()
-      if(minutos<10){
-        minutos='0'+hora.getMinutes()
+      let hora = new Date();
+      let minutos = hora.getMinutes();
+      if (minutos < 10) {
+        minutos = "0" + hora.getMinutes();
       }
-    let horaAct=hora.getHours()+':'+minutos+':'+hora.getSeconds()
-    let mes=hora.getMonth()+1
-    if(mes<10){
-      mes='0'+mes
-    }
-    let fechaAct=hora.getFullYear()+'-'+mes+'-'+hora.getDate()
-    if(horaInicioSiti!==undefined&&horaFinSiti!==undefined&&fechaIniSiti!==undefined&&fechaFinSiti!==undefined){
-      if(fechaAct<fechaIniSiti&&fechaAct>fechaFinSiti&&horaAct<horaInicioSiti&&horaAct>horaFinSiti){
-          setColor('#00FF38')
-          console.log('siuu')
-      }else{
-        setColor(props.color)
-        console.log('siuu')
+      let horaAct = hora.getHours() + ":" + minutos + ":" + hora.getSeconds();
+      let mes = hora.getMonth() + 1;
+      if (mes < 10) {
+        mes = "0" + mes;
       }
-    }
+      let fechaAct = hora.getFullYear() + "-" + mes + "-" + hora.getDate();
+      if (
+        horaInicioSiti !== undefined &&
+        horaFinSiti !== undefined &&
+        fechaIniSiti !== undefined &&
+        fechaFinSiti !== undefined
+      ) {
+        if (
+          fechaAct >= fechaIniSiti &&
+          fechaAct <= fechaFinSiti &&
+          horaAct >= horaInicioSiti &&
+          horaAct <= horaFinSiti
+        ) {
+          setColor(props.color);
+        } else {
+          setColor("#00FF38");
+        }
+      } else {
+        setColor(props.color);
+      }
     }, 1000); // Actualizar la hora cada segundo
 
     return () => {
       clearInterval(timer); // Limpiar el temporizador cuando el componente se desmonte
     };
-  }, [horaInicioSiti,horaFinSiti,fechaIniSiti,fechaFinSiti,color,props.color]);
+  }, [
+    horaInicioSiti,
+    horaFinSiti,
+    fechaIniSiti,
+    fechaFinSiti,
+    color,
+    props.color,
+  ]);
   return (
     <div>
       <div
@@ -442,7 +495,7 @@ const SitioReserva = (props) => {
         style={{ backgroundColor: color }}
       >
         <h2>{props.nombre}</h2>
-        <p className="texto">{props.estado}</p>
+        <p className="texto">{props.estado} {props.periodo}</p>
       </div>
       <Modal isOpen={modalEstado} centered={true}>
         <div className="modalHeader">
@@ -456,12 +509,15 @@ const SitioReserva = (props) => {
           <select onChange={(e) => tipoReserva(e.target.value)}>
             <option value="reservaD">Reserva diaria</option>
             <option value="reservaM">Reserva mensual</option>
-          </select><br/>
-          { mostrarFechaIni&&<select onChange={(e) => tarifaReserva(e.target.value)}>
-            <option value={400.0}>Mes Día (06:00-22:00) 400 Bs.</option>
-            <option value={300.0}>Mes Noche (22:00-06:00) 300 Bs.</option>
-            <option value={600.0}>Mes Completo (24:00 horas) 600 Bs.</option>
-          </select>}
+          </select>
+          <br />
+          {mostrarFechaIni && (
+            <select onChange={(e) => tarifaReserva(e.target.value)}>
+              <option value={400.0}>Mes Día (06:00-22:00) 400 Bs.</option>
+              <option value={300.0}>Mes Noche (22:00-06:00) 300 Bs.</option>
+              <option value={600.0}>Mes Completo (24:00 horas) 600 Bs.</option>
+            </select>
+          )}
           <EntradaInput
             titulo="Placa"
             nombre="placa"
@@ -507,7 +563,7 @@ const SitioReserva = (props) => {
           {mostrarFechaIni && (
             <input type="date" value={fechaFin} name="fechaFin" disabled />
           )}
-          {false&&currentTime}
+          {false && currentTime}
         </ModalBody>
         <div className="modalFooter">
           <ModalFooter>

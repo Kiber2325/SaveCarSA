@@ -271,7 +271,7 @@ const Sitio = (props) => {
     set(ref(database, "ingresos/"+(newId)), ingreso);
     let tiempoUso={
       sitioUsado:props.nombre,
-      fecha:dia,
+      fecha:fecha.getFullYear()+'-'+(fecha.getMonth()+1)+'-'+fecha.getDay(),
       horasUsadas:time.h,
       minutosUsados:time.m,
       segundosUsados:time.s
