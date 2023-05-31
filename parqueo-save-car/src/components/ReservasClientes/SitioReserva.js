@@ -262,8 +262,8 @@ const SitioReserva = (props) => {
       let validar =
         validarPlaca && validarCi && validarNombre && validarCelular;
       if (validar === true) {
-        //setModalEstado(false);
-        //setEstadoSitio("reservado");
+        setModalEstado(false);
+        setEstadoSitio("reservado");
         //setCardColor(cardColors.reservado)
         let fecha = new Date();
         let hora = fecha.getTime();
@@ -293,9 +293,9 @@ const SitioReserva = (props) => {
           fecha.getSeconds();
         console.log(idUnico);
         console.log(comprobanteData);
-        //set(ref(database, "comprobantes/" + idUnico), comprobanteData);
-        //setUrl(url + idUnico);
-        //setModalQr(true);
+        set(ref(database, "comprobantes/" + idUnico), comprobanteData);
+        setUrl(url + idUnico);
+        setModalQr(true);
         /*clearInterval(intert);
             updatedS=10;updatedTM=0;
             setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
