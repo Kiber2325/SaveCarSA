@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 // import logo from '../../Images/logo.png'
 import { Link } from "react-router-dom";
-import {  ref, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { database } from "../../conexion/firebase";
 import "./IngresosAnio.css";
 import Navlogin from "../Login/Navlogin";
 import Footers from "../Footer/Footer";
 import Autosuggest from "react-autosuggest";
 import AutoCompletado from "../AutoCompletado/AutoCompletado";
+import AutoCompletadoSitios from "../AutoCompletado/AutoCompletadoSitios";
 /*
 const data = [
   {  ciCliente: "15252545" },
@@ -35,7 +36,7 @@ const IngresosAnio = () => {
     {  ciCliente: "7895821" },
   ]*/
   const [dataArr, setDataArr] = useState([]);
-  const [cis,setCis]=useState([])
+  const [cis, setCis] = useState([]);
   //const [montoTotal,setMontoTotal]=useState(0.0);
   useEffect(() => {
     getData();
@@ -50,12 +51,14 @@ const IngresosAnio = () => {
       const dataObj = snapshot.val();
       const dataArr = Object.values(dataObj);
       setDataArr(dataArr);
-      setCis(dataArr)
+      setCis(dataArr);
     });
   }
   const calcularMonto = () => {
     let montoCalculado = 0.0;
-    dataArr.map((ingreso) => (montoCalculado = montoCalculado + ingreso.monto));
+    datosFiltrados.map(
+      (ingreso) => (montoCalculado = montoCalculado + ingreso.monto)
+    );
     return montoCalculado;
   };
   const dias = {
@@ -88,19 +91,19 @@ const IngresosAnio = () => {
     return dia;
   };
   //sugerencias
-  const[presidentes, setPresidentes]= useState(cis);
-const[value, setValue]= useState("");
-const[presidenteSeleccionado, setPresidenteSeleccionado]= useState({});
+  const [presidentes, setPresidentes] = useState(cis);
+  const [value, setValue] = useState("");
+  const [presidenteSeleccionado, setPresidenteSeleccionado] = useState({});
+  const [sitioAutoCompletado, setSitioAutoCompletado] = useState("");
+  const onSuggestionsFetchRequested = ({ value }) => {
+    setPresidentes(filtrarPresidentes(value));
+  };
 
-const onSuggestionsFetchRequested=({value})=>{
-  setPresidentes(filtrarPresidentes(value));
-}
+  const filtrarPresidentes = (value) => {
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
 
-const filtrarPresidentes=(value)=>{
-  const inputValue=value.trim().toLowerCase();
-const inputLength=inputValue.length;
-
-  /*var filtrado=data.filter((presidente)=>{
+    /*var filtrado=data.filter((presidente)=>{
     var textoCompleto=presidente.ciCliente //+ " - " +presidente.pais;
     if(textoCompleto.toLowerCase()
     .normalize("NFD")
@@ -111,129 +114,174 @@ const inputLength=inputValue.length;
       return ''
     }
   });*/
-  var filtrado2=cis.filter((ciCl)=>{
-    var textoCompleto1=ciCl.ciCliente //+ " - " +presidente.pais;
-    if(textoCompleto1.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .includes(inputValue)){
-      return ciCl;
-    }else{
-      return ''
-    }
-  })
-  console.log(filtrado2)
-  return inputLength===0 ? [] : filtrado2;
-}
-
-const onSuggestionsClearRequested = () =>{
-  setPresidentes([]);
-}
-
-const getSuggestionValue=(suggestion)=>{
-  return `${suggestion.ciCliente}`// - ${suggestion.pais}`;
-}
-
-const renderSuggestion=(suggestion)=>(
-  <div className='sugerencia' onClick={()=>seleccionarPresidente(suggestion)}>
-    {`${suggestion.ciCliente}`// - ${suggestion.pais}`
-    }
-  </div>
-);
-
-const seleccionarPresidente=(presidente)=>{
-  setPresidenteSeleccionado(presidente);
-}
-
-const onChange=(e, {newValue})=>{
-  setValue(newValue);
-}
-
-const inputProps={
-placeholder:"CI del cliente",
-value,
-onChange
-};
-
-const eventEnter=(e)=>{
-if(e.key === "Enter"){
-  var split = e.target.value.split('-');
-  var presidente ={
-    presidente: split[0].trim(),
-    //pais: split[1].trim(),
+    var filtrado2 = cis.filter((ciCl) => {
+      var textoCompleto1 = ciCl.ciCliente; //+ " - " +presidente.pais;
+      if (
+        textoCompleto1
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .includes(inputValue)
+      ) {
+        return ciCl;
+      } else {
+        return "";
+      }
+    });
+    console.log(filtrado2);
+    return inputLength === 0 ? [] : filtrado2;
   };
-  seleccionarPresidente(presidente);
-}
-}
+
+  const onSuggestionsClearRequested = () => {
+    setPresidentes([]);
+  };
+
+  const getSuggestionValue = (suggestion) => {
+    return `${suggestion.ciCliente}`; // - ${suggestion.pais}`;
+  };
+
+  const renderSuggestion = (suggestion) => (
+    <div
+      className="sugerencia"
+      onClick={() => seleccionarPresidente(suggestion)}
+    >
+      {
+        `${suggestion.ciCliente}` // - ${suggestion.pais}`
+      }
+    </div>
+  );
+
+  const seleccionarPresidente = (presidente) => {
+    setPresidenteSeleccionado(presidente);
+  };
+
+  const onChange = (e, { newValue }) => {
+    setValue(newValue);
+  };
+
+  const inputProps = {
+    placeholder: "CI del cliente",
+    value,
+    onChange,
+  };
+
+  const eventEnter = (e) => {
+    if (e.key === "Enter") {
+      var split = e.target.value.split("-");
+      var presidente = {
+        presidente: split[0].trim(),
+        //pais: split[1].trim(),
+      };
+      seleccionarPresidente(presidente);
+    }
+  };
   //boton checar
-  
-  const [placaCl, setPlacaCl]=useState('')
-  const [datosFiltrados,setDatosFiltrados]=useState([])
-  const [filtrado,setFiltrado]=useState({
-    fechaIni:'',
-    fechaFin:''
-  })
-  const handleChange=(e)=>{
+
+  const [placaCl, setPlacaCl] = useState("");
+  const [datosFiltrados, setDatosFiltrados] = useState([]);
+  const [filtrado, setFiltrado] = useState({
+    fechaIni: "",
+    fechaFin: "",
+  });
+  const handleChange = (e) => {
     setFiltrado({ ...filtrado, [e.target.name]: e.target.value });
-  }
+  };
   const obtenerDatosInput = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     //console.log(presidenteSeleccionado)
-    let filtradoSepIni=filtrado.fechaIni.split('-')
+    let filtradoSepIni = filtrado.fechaIni.split("-");
     console.log(filtrado);
-    let anioIni=filtradoSepIni[0]
-    let mesIni=filtradoSepIni[1]
-    let diaIni=filtradoSepIni[2]
-    let filtradoSepFin=filtrado.fechaFin.split('-')
-    let anioFin=filtradoSepFin[0]
-    let mesFin=filtradoSepFin[1]
-    let diaFin=filtradoSepFin[2]
+    let anioIni = filtradoSepIni[0];
+    let mesIni = filtradoSepIni[1];
+    let diaIni = filtradoSepIni[2];
+    let filtradoSepFin = filtrado.fechaFin.split("-");
+    let anioFin = filtradoSepFin[0];
+    let mesFin = filtradoSepFin[1];
+    let diaFin = filtradoSepFin[2];
     /*let bigCities = dataArr.filter(city => city.ciCliente === value && city.lugarUsado==='A2'&&(
       city.anio>=anio&&city.mes>=mes&&city.fecha>=dia
     ));*/
-    
-    let bigCities = dataArr.filter(city => (
-      city.anio>=anioIni&&city.mes>=mesIni&&city.fecha>=diaIni
-    )&&(city.anio<=anioFin&&city.mes<=mesFin&&city.fecha<=diaFin));
+
+    let bigCities = dataArr.filter(
+      (city) =>
+        city.anio >= anioIni &&
+        city.mes >= mesIni &&
+        city.fecha >= diaIni &&
+        city.anio <= anioFin &&
+        city.mes <= mesFin &&
+        city.fecha <= diaFin
+    );
     console.log(bigCities);
-    if(value.length!==0){
-      bigCities=bigCities.filter(city=>value===city.ciCliente)
+    if (value.length !== 0) {
+      bigCities = bigCities.filter((city) => value === city.ciCliente);
     }
-    if(placaCl.length!==0){
-      bigCities=bigCities.filter(city=>placaCl===city.placaDelAuto)
+    if (placaCl.length !== 0) {
+      bigCities = bigCities.filter((city) => placaCl === city.placaDelAuto);
+    }
+    if (sitioAutoCompletado.length !== 0) {
+      bigCities = bigCities.filter(
+        (city) => sitioAutoCompletado === city.lugarUsado
+      );
     }
     console.log(bigCities);
-    setDatosFiltrados(bigCities)
-    console.log(presidenteSeleccionado)
-    console.log(cis)
-    console.log(value)
-    console.log(placaCl)
+    setDatosFiltrados(bigCities);
+    console.log(presidenteSeleccionado);
+    console.log(cis);
+    console.log(value);
+    console.log(placaCl);
   };
   return (
     <div>
       <Navlogin />
-      
-      <input type="date" value={filtrado.fechaIni} onChange={handleChange} name="fechaIni"/>
-      <input type="date" value={filtrado.fechaFin} onChange={handleChange} name="fechaFin"/>
-      {<Autosuggest 
-      suggestions={presidentes}
-      onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-      onSuggestionsClearRequested={onSuggestionsClearRequested}
-      getSuggestionValue={getSuggestionValue}
-      renderSuggestion={renderSuggestion}
-      inputProps={inputProps}
-      onSuggestionSelected={eventEnter}
-     />
-      }
-     { <AutoCompletado
-        value={placaCl}
-        cambio={setPlacaCl}
-     />
-     }
-      <div>
-        <br />
-        <button className="btn btn-primary" onClick={obtenerDatosInput}>
-          Checar Estado
+      <div className="buscadorFecha">
+        <div>
+          <label>Fecha de inicio de búsqueda:</label>
+          <input
+            type="date"
+            value={filtrado.fechaIni}
+            onChange={handleChange}
+            name="fechaIni"
+          />
+        </div>
+        <div>
+          <label>Fecha de fin de búsqueda::</label>
+          <input
+            type="date"
+            value={filtrado.fechaFin}
+            onChange={handleChange}
+            name="fechaFin"
+          />
+        </div>
+      </div>
+      <div className="buscadorInputs">
+        <div classname="inputAutocompletado">
+          {
+            <Autosuggest
+              suggestions={presidentes}
+              onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={onSuggestionsClearRequested}
+              getSuggestionValue={getSuggestionValue}
+              renderSuggestion={renderSuggestion}
+              inputProps={inputProps}
+              onSuggestionSelected={eventEnter}
+            />
+          }
+        </div>
+        <div classname="inputAutocompletado">
+          {<AutoCompletado value={placaCl} cambio={setPlacaCl} />}
+        </div>
+        <div classname="inputAutocompletado">
+          {
+            <AutoCompletadoSitios
+              value={sitioAutoCompletado}
+              cambio={setSitioAutoCompletado}
+            />
+          }
+        </div>
+      </div>
+      <div className="botonBuscar">
+        <button className="volverLanding" onClick={obtenerDatosInput}>
+          Buscar
         </button>
       </div>
       {/*<div className="ingresosDetalle">
@@ -338,7 +386,9 @@ if(e.key === "Enter"){
                   {calcularDia(ingresoFiltrado.fechaActual)}
                 </td>
                 <td className="datoIngreso">{ingresoFiltrado.ciCliente}</td>
-                <td className="datoIngreso">{ingresoFiltrado.celularCliente}</td>
+                <td className="datoIngreso">
+                  {ingresoFiltrado.celularCliente}
+                </td>
                 <td className="datoIngreso">{ingresoFiltrado.placaDelAuto}</td>
                 <td className="datoIngreso">{ingresoFiltrado.lugarUsado}</td>
                 <td className="datoIngreso">{ingresoFiltrado.tipo}</td>

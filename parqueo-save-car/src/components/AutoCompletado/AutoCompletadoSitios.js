@@ -8,14 +8,14 @@ import { database } from '../../conexion/firebase';
 
 
 
-function AutoCompletado(props) {
+function AutoCompletadoSitios(props) {
       const [dataArr, setDataArr] = useState([]);
   const [cis,setCis]=useState([])
 useEffect(() => {
     getData();
   }, []);
 function getData() {
-    onValue(ref(database, "ingresos"), (snapshot) => {
+    onValue(ref(database, "sitiosAutos"), (snapshot) => {
       const dataObj = snapshot.val();
       const dataArr = Object.values(dataObj);
       setDataArr(dataArr);
@@ -46,7 +46,7 @@ function getData() {
       }
     });*/
     var filtrado2=cis.filter((ciCl)=>{
-      var textoCompleto1=ciCl.placaDelAuto //+ " - " +presidente.pais;
+      var textoCompleto1=ciCl.nombre //+ " - " +presidente.pais;
       if(textoCompleto1.toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -65,12 +65,12 @@ function getData() {
   }
   
   const getSuggestionValue=(suggestion)=>{
-    return `${suggestion.placaDelAuto}`// - ${suggestion.pais}`;
+    return `${suggestion.nombre}`// - ${suggestion.pais}`;
   }
   
   const renderSuggestion=(suggestion)=>(
     <div className='sugerencia' onClick={()=>seleccionarPresidente(suggestion)}>
-      {`${suggestion.placaDelAuto}`// - ${suggestion.pais}`
+      {`${suggestion.nombre}`// - ${suggestion.pais}`
       }
     </div>
   );
@@ -85,7 +85,7 @@ function getData() {
   }
   
   const inputProps={
-  placeholder:"Placa del auto del cliente",
+  placeholder:"Sitio del parqueo",
   value,
   onChange
   };
@@ -104,7 +104,7 @@ function getData() {
 }
 
   return (
-    <div >
+    <div>
      <Autosuggest 
       suggestions={presidentes}
       onSuggestionsFetchRequested={onSuggestionsFetchRequested}
@@ -118,4 +118,4 @@ function getData() {
   );
 }
 
-export default AutoCompletado;
+export default AutoCompletadoSitios;

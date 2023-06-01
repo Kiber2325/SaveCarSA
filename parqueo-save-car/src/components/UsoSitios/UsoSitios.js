@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ref, onValue } from "firebase/database";
 import { database } from "../../conexion/firebase";
 import Navlogin from "../Login/Navlogin";
+import AutoCompletadoSitios from "../AutoCompletado/AutoCompletadoSitios";
 const UsoSitios = () => {
   const [dataArr, setDataArr] = useState([]);
   const [dataSitios, setDataSitios] = useState([]);
@@ -13,6 +14,7 @@ const UsoSitios = () => {
   });
   const [datosFiltrados, setDatosFiltrados] = useState([]);
   const meses=[31,28,31,30,31,30,31,31,30,31,30,31]
+  const [sitio,setSitio]=useState('')
   useEffect(() => {
     getData();
   }, []);
@@ -55,6 +57,7 @@ const UsoSitios = () => {
         filtrado.fechaIni <= city.fecha && filtrado.fechaFin >= city.fecha
     );
     //setDatosFiltrados(tiemposFiltrado);
+    
     let datosFinales=[]
     for(let i=0;i<dataSitios.length;i++){
       let nombreSitio=dataSitios[i].nombre
@@ -69,7 +72,9 @@ const UsoSitios = () => {
       }
       datosFinales.push(datoFiltrado)
     }
-    console.log(datosFinales)
+    if(sitio.length!==0){
+      datosFinales=datosFinales.filter((tiemFil)=>(tiemFil.nombreSitio===sitio))
+    }
     setDatosFiltrados(datosFinales)
   };
   const calcularCantidadDias=(fechaInicio,fechaFinal)=>{
@@ -113,6 +118,11 @@ const UsoSitios = () => {
         onChange={handleChange}
         name="fechaFin"
       />
+      { <AutoCompletadoSitios
+        value={sitio}
+        cambio={setSitio}
+     />
+     }
       <div>
         <br />
         <button className="btn btn-primary" onClick={obtenerDatosInput}>

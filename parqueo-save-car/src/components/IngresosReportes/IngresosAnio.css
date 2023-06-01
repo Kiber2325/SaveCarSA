@@ -43,10 +43,15 @@
   }
   
   .react-autosuggest__input{
-    width: 500px;
+    width: 210px;
     margin: 0;
   }
   
   .react-autosuggest__suggestion--highlighted {
     background-color: #ddd;
+  }
+  .buscadorInputs, .buscadorFecha, .botonBuscar{
+    display: flex;
+    justify-content: center;
+    margin: 5px;
   }

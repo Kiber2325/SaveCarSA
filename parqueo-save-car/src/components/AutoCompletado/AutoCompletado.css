@@ -30,8 +30,8 @@
   }
   
   .react-autosuggest__input{
-    width: 500px;
-    margin: 0;
+    width: 210px;
+    margin: 0 10px;
   }
   
   .react-autosuggest__suggestion--highlighted {
