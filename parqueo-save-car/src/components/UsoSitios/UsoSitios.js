@@ -5,6 +5,7 @@ import { ref, onValue } from "firebase/database";
 import { database } from "../../conexion/firebase";
 import Navlogin from "../Login/Navlogin";
 import AutoCompletadoSitios from "../AutoCompletado/AutoCompletadoSitios";
+import Footers from "../Footer/Footer";
 const UsoSitios = () => {
   const [dataArr, setDataArr] = useState([]);
   const [dataSitios, setDataSitios] = useState([]);
@@ -105,7 +106,7 @@ const UsoSitios = () => {
   return (
     <div>
       <Navlogin />
-
+       <div className="container">
       <input
         type="date"
         value={filtrado.fechaIni}
@@ -161,10 +162,10 @@ const UsoSitios = () => {
         <Link to="/Home" className="volverLanding">
           Volver
         </Link>
+
       </div>
-      <div className="footerReg">
-        <p id="cont">Contactos</p>
       </div>
+      <Footers/>
     </div>
   );
 };

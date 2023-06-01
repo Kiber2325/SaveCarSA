@@ -233,6 +233,7 @@ const IngresosAnio = () => {
   return (
     <div>
       <Navlogin />
+      <div className="container">
       <div className="buscadorFecha">
         <div>
           <label>Fecha de inicio de búsqueda:</label>
@@ -405,6 +406,7 @@ const IngresosAnio = () => {
         <Link to="/Home" className="volverLanding">
           Volver
         </Link>
+      </div>
       </div>
       <Footers />
     </div>
