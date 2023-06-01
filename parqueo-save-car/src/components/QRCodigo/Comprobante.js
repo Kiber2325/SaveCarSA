@@ -251,9 +251,9 @@ const Comprobante = () => {
         <p>Monto pagado: {product.monto},0 Bs.</p>
         <p>Fecha: {formatoFecha()}</p>
         <p>Hora de inicio de la reserva: {product.hora}</p>
-        <p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>
-        {product.fechaIni && <p>Fecha de inicio {product.fechaIni}</p>}
-        {product.fechaFin && <p>Fecha de finalización {product.fechaFin}</p>}
+        {!product.periodo&&<p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>}
+        {product.fechaIni && <p>Fecha de inicio: {product.fechaIni}</p>}
+        {product.fechaFin && <p>Fecha de finalización: {product.fechaFin}</p>}
         {product.periodo && <p>Periodo escogido: Mes {product.periodo}</p>}
         {product.horaInicio && <p>Hora de ingreso: {product.horaInicio} </p>}
         {product.horaFin && <p>Hora de finalización: {product.horaFin} </p>}

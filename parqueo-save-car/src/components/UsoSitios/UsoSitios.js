@@ -16,6 +16,7 @@ const UsoSitios = () => {
   const [datosFiltrados, setDatosFiltrados] = useState([]);
   const meses=[31,28,31,30,31,30,31,31,30,31,30,31]
   const [sitio,setSitio]=useState('')
+  const [tiempoUsoTotalParqueo,setTiempoUsoTotalParqueo]=useState(0.0)
   useEffect(() => {
     getData();
   }, []);
@@ -69,14 +70,20 @@ const UsoSitios = () => {
       let datoFiltrado={
         nombreSitio:nombreSitio,
         cantidadDias:dias,
-        tiempoUsado:((tiempoUsadoSitio*100.0)/tiempoTotal)
+        tiempoUsado:transformarSaH(tiempoUsadoSitio),
+        porcentajeUsado:((tiempoUsadoSitio*100.0)/tiempoTotal)
       }
       datosFinales.push(datoFiltrado)
     }
+    let tiempoTot=0
+    datosFinales.map((filDat)=>(tiempoTot=tiempoTot+filDat.porcentajeUsado))
+    tiempoTot=tiempoTot/datosFinales.length
     if(sitio.length!==0){
       datosFinales=datosFinales.filter((tiemFil)=>(tiemFil.nombreSitio===sitio))
     }
     setDatosFiltrados(datosFinales)
+   
+    setTiempoUsoTotalParqueo(tiempoTot)
   };
   const calcularCantidadDias=(fechaInicio,fechaFinal)=>{
     let cantidadDias=0
@@ -103,6 +110,29 @@ const UsoSitios = () => {
     dataFil2.map((datFil2)=>(tiempoTotal=tiempoTotal+datFil2.segundosUsados+datFil2.minutosUsados*60+datFil2.horasUsadas*3600))
     return tiempoTotal
   }
+  /*const calcularUsoTotal=()=>{
+    let tiempoTot=0
+    datosFiltrados.map((filDat)=>(tiempoTot=tiempoTot+filDat.porcentajeUsado))
+    
+    return tiempoTot/12
+  }*/
+  const transformarSaH=(segundos)=>{
+    let horaT=''
+    let horas=parseInt(segundos/3600)
+    if(horas!==0){
+      let segminutos=segundos%3600
+      let minutos=parseInt(segminutos/60)
+      if(minutos!==0){
+        let segseg=segminutos%60
+        horaT=horas+':'+minutos+':'+segseg
+      }else{
+        horaT=horas+':00:00'
+      }
+    }else{
+      horaT='00:00:00'
+    }
+    return horaT
+  }
   return (
     <div>
       <Navlogin />
@@ -126,8 +156,8 @@ const UsoSitios = () => {
      }
       <div>
         <br />
-        <button className="btn btn-primary" onClick={obtenerDatosInput}>
-          Checar Estado
+        <button className="volverLanding" onClick={obtenerDatosInput}>
+          Buscar
         </button>
       </div>
       <div className="tiempoDetalle">
@@ -143,6 +173,9 @@ const UsoSitios = () => {
               <th className="cabeceraTiempoSitio" scope="col">
                 Tiempo de ocupación
               </th>
+              <th className="cabeceraTiempoSitio" scope="col">
+                Porcentaje de ocupación
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -150,14 +183,17 @@ const UsoSitios = () => {
               <tr>
                 <td className="datoIngreso">{uso.nombreSitio}</td>
                 <td className="datoIngreso">{uso.cantidadDias}</td>
+                <td className="datoIngreso">{uso.tiempoUsado}</td>
                 <td className="datoIngreso">
-                  {uso.tiempoUsado} %
+                  {uso.porcentajeUsado} %
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        
       </div>
+      <h2>Porcentaje Total: {tiempoUsoTotalParqueo} %</h2>
       <div className="botonesReservaCliente">
         <Link to="/Home" className="volverLanding">
           Volver

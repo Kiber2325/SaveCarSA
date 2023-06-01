@@ -189,7 +189,7 @@ const IngresosAnio = () => {
   const obtenerDatosInput = (e) => {
     e.preventDefault();
     //console.log(presidenteSeleccionado)
-    let filtradoSepIni = filtrado.fechaIni.split("-");
+   /* let filtradoSepIni = filtrado.fechaIni.split("-");
     console.log(filtrado);
     let anioIni = filtradoSepIni[0];
     let mesIni = filtradoSepIni[1];
@@ -197,19 +197,23 @@ const IngresosAnio = () => {
     let filtradoSepFin = filtrado.fechaFin.split("-");
     let anioFin = filtradoSepFin[0];
     let mesFin = filtradoSepFin[1];
-    let diaFin = filtradoSepFin[2];
+    let diaFin = filtradoSepFin[2];*/
     /*let bigCities = dataArr.filter(city => city.ciCliente === value && city.lugarUsado==='A2'&&(
       city.anio>=anio&&city.mes>=mes&&city.fecha>=dia
     ));*/
-
+      console.log(filtrado.fechaIni)
+      console.log(filtrado.fechaFin)
+      console.log(dataArr[0].anio+'-'+formatoFecha(dataArr[0].mes)+'-'+formatoFecha(dataArr[0].fecha))
     let bigCities = dataArr.filter(
       (city) =>
-        city.anio >= anioIni &&
-        city.mes >= mesIni &&
-        city.fecha >= diaIni &&
-        city.anio <= anioFin &&
-        city.mes <= mesFin &&
-        city.fecha <= diaFin
+        //city.anio >= anioIni &&
+        //city.mes >= mesIni &&
+        //city.fecha >= diaIni &&
+        (city.anio+'-'+formatoFecha(city.mes)+'-'+formatoFecha(city.fecha))>=filtrado.fechaIni&&
+        (city.anio+'-'+formatoFecha(city.mes)+'-'+formatoFecha(city.fecha))<=filtrado.fechaFin
+        //city.anio <= anioFin &&
+        //city.mes <= mesFin &&
+        //city.fecha <= diaFin
     );
     console.log(bigCities);
     if (value.length !== 0) {
@@ -230,6 +234,13 @@ const IngresosAnio = () => {
     console.log(value);
     console.log(placaCl);
   };
+  const formatoFecha=(date)=>{
+    if(date<10){
+      return '0'+date
+    }else{
+      return ''+date
+    }
+  }
   return (
     <div>
       <Navlogin />
