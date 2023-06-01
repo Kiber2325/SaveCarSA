@@ -28,8 +28,8 @@ const ReservaMensualCliente = () => {
           <div className="color" style={{ backgroundColor: '#00FF38' }}>Disponible</div>
           <div className="color" style={{ backgroundColor: '#0050C8' }}>Ocupado</div>
           <div className="color" style={{ backgroundColor: '#BC0000' }}>Deshabilitado</div>
-          <div className="color" style={{ backgroundColor: '#FC6901' }}>ReservadoD</div>
-          <div className="color" style={{ backgroundColor: '#808080' }}>ReservadoM</div>
+          <div className="color" style={{ backgroundColor: '#FC6901' }}>ReservadoDia</div>
+          <div className="color" style={{ backgroundColor: '#808080' }}>ReservadoMes</div>
         </div>
   
           <div className="cuerpo">
