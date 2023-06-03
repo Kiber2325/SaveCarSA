@@ -39,7 +39,7 @@ const SitioReserva = (props) => {
           horaAct <= horaFinSiti
         ) {
           setModalEstadoOcupado(true);
-        }else{
+        } else {
           setModalEstado(true);
         }
       }
@@ -459,9 +459,32 @@ const SitioReserva = (props) => {
         horaInicioSiti !== undefined &&
         horaFinSiti !== undefined &&
         fechaIniSiti !== undefined &&
-        fechaFinSiti !== undefined
+        fechaFinSiti !== undefined &&
+        props.periodo !== undefined
       ) {
-        if (
+        //  console.log(fechaAct+'\n'+horaAct)
+        // console.log(fechaIniSiti+'\n'+fechaFinSiti+'\n'+horaInicioSiti+'\n'+horaFinSiti)
+        //console.log(horaAct+'\n'+horaFinSiti)
+
+        if (fechaAct >= fechaIniSiti && fechaAct <= fechaFinSiti) {
+          if (props.periodo === "noche") {
+            if (horaAct >= horaInicioSiti) {
+              setColor(props.color);
+            } else if (horaAct <= horaFinSiti) {
+              console.log("aquitoy");
+              setColor(props.color);
+            } else {
+              setColor("#00FF38");
+            }
+          } else if(props.periodo === "dia"){
+            if (horaAct >= horaInicioSiti&&horaAct <= horaFinSiti) {
+              setColor(props.color);
+            }else{
+              setColor("#00FF38");
+            }
+          }
+        }
+        /* if (
           fechaAct >= fechaIniSiti &&
           fechaAct <= fechaFinSiti &&
           horaAct >= horaInicioSiti &&
@@ -473,6 +496,7 @@ const SitioReserva = (props) => {
         }
       } else {
         setColor(props.color);
+      }*/
       }
     }, 1000); // Actualizar la hora cada segundo
 
@@ -486,6 +510,7 @@ const SitioReserva = (props) => {
     fechaFinSiti,
     color,
     props.color,
+    props.periodo,
   ]);
   return (
     <div>
@@ -495,7 +520,9 @@ const SitioReserva = (props) => {
         style={{ backgroundColor: color }}
       >
         <h2>{props.nombre}</h2>
-        <p className="texto">{props.estado} {props.periodo}</p>
+        <p className="texto">
+          {props.estado} {props.periodo}
+        </p>
       </div>
       <Modal isOpen={modalEstado} centered={true}>
         <div className="modalHeader">
