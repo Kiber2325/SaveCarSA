@@ -7,12 +7,14 @@ import { database } from "../../conexion/firebase";
 const SitioReserva = (props) => {
   const [estadoSitio, setEstadoSitio] = useState(props.estado);
   const [color, setColor] = useState(props.color);
+  const reservas=props.horarioReserva
   const cambiarEstado = () => {
     let estadoSitio2 = props.estado;
     if (estadoSitio2 === "disponible") {
       setModalEstado(true);
       console.log(estadoSitio);
     } else if (estadoSitio2 === "reservado mes") {
+  console.log(reservas)
       // setModalEstado(true);
       // console.log(estadoSitio);
       let hora = new Date();
@@ -224,6 +226,29 @@ const SitioReserva = (props) => {
     let esInvalido = false;
     if (fechaIni.length === 0) {
       esInvalido = true;
+    }
+    for(let i=0;(i<reservas.length)&&(esInvalido===false);i++){
+      if(tipo==='reservaM'){
+        if(fechaIni>=reservas[i].fechaIni&&fechaIni<=reservas[i].fechaFin){
+          if(horaInicio===reservas[i].horaIni){
+            let men='Ya existe una reserva en esta fecha'
+            console.log(men)
+            esInvalido=true
+          }else{
+            console.log('Reserva  correcta')
+          }
+        }else if(fechaFin>=reservas[i].fechaIni&&fechaFin<=reservas[i].fechaFin){
+          if(horaInicio===reservas[i].horaIni){
+            let men='Ya existe una reserva en esta fecha'
+            console.log(men)
+            esInvalido=true
+          }else{
+            console.log('Reserva  correcta')
+          }
+        }else{
+          console.log('Reserva  correcta')
+        }
+      }
     }
     return esInvalido;
   };
@@ -445,11 +470,15 @@ const SitioReserva = (props) => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
       let hora = new Date();
+      let horas=hora.getHours()
+      if (horas < 10) {
+        horas = "0" + horas;
+      }
       let minutos = hora.getMinutes();
       if (minutos < 10) {
         minutos = "0" + hora.getMinutes();
       }
-      let horaAct = hora.getHours() + ":" + minutos + ":" + hora.getSeconds();
+      let horaAct = horas + ":" + minutos + ":" + hora.getSeconds();
       let mes = hora.getMonth() + 1;
       if (mes < 10) {
         mes = "0" + mes;
@@ -475,7 +504,7 @@ const SitioReserva = (props) => {
             if (horaAct >= horaInicioSiti) {
               setColor(props.color);
             } else if (horaAct < horaFinSiti) {
-              console.log("aquitoy");
+              //console.log("aquitoy");
               setColor(props.color);
             } else {
               setColor("#00FF38");

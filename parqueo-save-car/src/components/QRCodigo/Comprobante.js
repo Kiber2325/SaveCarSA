@@ -120,6 +120,21 @@ const Comprobante = () => {
       const collectionRef = ref(db, "ingresos");
       const newId = push(collectionRef).key;
       set(ref(database, "ingresos/" + newId), ingreso);
+      const nuevaReserva = {
+        nombreSitio: product.sitio,
+        estado: "reserva "+product.periodo,
+        color: "#808080",
+        ciCliente: product.ciCliente,
+        nombreApellido: product.nombreapellido,
+        celularCliente: product.celular,
+        placaDelAuto: product.placa,
+        periodo:product.periodo,
+        fechaIni:product.fechaIni,
+        fechaFin:product.fechaFin,
+        horaIni:product.horaInicio,
+        horaFin:product.horaFin
+      };
+      set(ref(database, "reservas/" + newId), nuevaReserva);
     }else{
       let ingreso = {
         anio: anio,

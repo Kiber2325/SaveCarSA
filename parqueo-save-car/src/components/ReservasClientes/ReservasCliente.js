@@ -9,6 +9,7 @@ import Navlading from "../landingPage/Navlading";
 import Footers from "../Footer/Footer";
 const ReservasCliente = () => {
   const [dataArr, setDataArr] = useState([]);
+  const [dataReserva, setDataReserva] = useState([]);
   useEffect(() => {
     getData();
   }, []);
@@ -18,6 +19,20 @@ const ReservasCliente = () => {
       const dataArr = Object.values(dataObj);
       setDataArr(dataArr);
     });
+  }
+  useEffect(() => {
+    getDataReserva();
+  }, []);
+  function getDataReserva() {
+    onValue(ref(database, "reservas"), (snapshot) => {
+      const dataObj = snapshot.val();
+      const dataReserva = Object.values(dataObj);
+      setDataReserva(dataReserva);
+    });
+  }
+  const horariosReserva=(sitioDesignado)=>{
+    let dataReservaFiltrada=dataReserva.filter((datRes)=>(datRes.nombreSitio===sitioDesignado))
+    return dataReservaFiltrada
   }
   return (
     <div>
@@ -35,7 +50,8 @@ const ReservasCliente = () => {
         <div className="cuerpo">
         {dataArr.map((sitio) => (
           <SitioReserva nombre={sitio.nombre} estado={sitio.estado} color={sitio.color} 
-          timeIni={sitio.horaIni} timeFin={sitio.horaFin} dateIni={sitio.fechaIni} dateFin={sitio.fechaFin} periodo={sitio.periodo}/>
+          timeIni={sitio.horaIni} timeFin={sitio.horaFin} dateIni={sitio.fechaIni} dateFin={sitio.fechaFin} periodo={sitio.periodo}
+          horarioReserva={horariosReserva(sitio.nombre)}/>
         ))}
         </div>
       </div>
