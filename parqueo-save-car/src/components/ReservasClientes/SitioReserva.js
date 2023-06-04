@@ -470,14 +470,14 @@ const SitioReserva = (props) => {
           if (props.periodo === "noche") {
             if (horaAct >= horaInicioSiti) {
               setColor(props.color);
-            } else if (horaAct <= horaFinSiti) {
+            } else if (horaAct < horaFinSiti) {
               console.log("aquitoy");
               setColor(props.color);
             } else {
               setColor("#00FF38");
             }
           } else if(props.periodo === "dia"){
-            if (horaAct >= horaInicioSiti&&horaAct <= horaFinSiti) {
+            if (horaAct >= horaInicioSiti&&horaAct < horaFinSiti) {
               setColor(props.color);
             }else{
               setColor("#00FF38");
