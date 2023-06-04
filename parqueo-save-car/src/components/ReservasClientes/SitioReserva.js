@@ -454,7 +454,11 @@ const SitioReserva = (props) => {
       if (mes < 10) {
         mes = "0" + mes;
       }
-      let fechaAct = hora.getFullYear() + "-" + mes + "-" + hora.getDate();
+      let day=hora.getDate()
+      if (day < 10) {
+        day = "0" + day;
+      }
+      let fechaAct = hora.getFullYear() + "-" + mes + "-" + day;
       if (
         horaInicioSiti !== undefined &&
         horaFinSiti !== undefined &&
@@ -484,19 +488,7 @@ const SitioReserva = (props) => {
             }
           }
         }
-        /* if (
-          fechaAct >= fechaIniSiti &&
-          fechaAct <= fechaFinSiti &&
-          horaAct >= horaInicioSiti &&
-          horaAct <= horaFinSiti
-        ) {
-          setColor(props.color);
-        } else {
-          setColor("#00FF38");
-        }
-      } else {
-        setColor(props.color);
-      }*/
+        
       }
     }, 1000); // Actualizar la hora cada segundo
 
