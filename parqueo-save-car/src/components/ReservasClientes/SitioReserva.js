@@ -7,14 +7,14 @@ import { database } from "../../conexion/firebase";
 const SitioReserva = (props) => {
   const [estadoSitio, setEstadoSitio] = useState(props.estado);
   const [color, setColor] = useState(props.color);
-  const reservas=props.horarioReserva
+  const reservas = props.horarioReserva;
   const cambiarEstado = () => {
     let estadoSitio2 = props.estado;
     if (estadoSitio2 === "disponible") {
       setModalEstado(true);
       console.log(estadoSitio);
     } else if (estadoSitio2 === "reservado mes") {
-  console.log(reservas)
+      console.log(reservas);
       // setModalEstado(true);
       // console.log(estadoSitio);
       let hora = new Date();
@@ -227,30 +227,110 @@ const SitioReserva = (props) => {
     if (fechaIni.length === 0) {
       esInvalido = true;
     }
-    for(let i=0;(i<reservas.length)&&(esInvalido===false);i++){
-      if(tipo==='reservaM'){
-        if(fechaIni>=reservas[i].fechaIni&&fechaIni<=reservas[i].fechaFin){
-          if(horaInicio===reservas[i].horaIni){
-            let men='Ya existe una reserva en esta fecha'
-            console.log(men)
-            esInvalido=true
-          }else{
-            console.log('Reserva  correcta')
+    for (let i = 0; i < reservas.length && esInvalido === false; i++) {
+      if (tipo === "reservaM") {
+        if (
+          fechaIni >= reservas[i].fechaIni &&
+          fechaIni <= reservas[i].fechaFin
+        ) {
+          if (horaInicio === reservas[i].horaIni) {
+            let men = "Ya existe una reserva en esta fecha";
+            console.log(men);
+            esInvalido = true;
+          } else {
+            console.log("Reserva  correcta");
           }
-        }else if(fechaFin>=reservas[i].fechaIni&&fechaFin<=reservas[i].fechaFin){
-          if(horaInicio===reservas[i].horaIni){
-            let men='Ya existe una reserva en esta fecha'
-            console.log(men)
-            esInvalido=true
-          }else{
-            console.log('Reserva  correcta')
+        } else if (
+          fechaFin >= reservas[i].fechaIni &&
+          fechaFin <= reservas[i].fechaFin
+        ) {
+          if (horaInicio === reservas[i].horaIni) {
+            let men = "Ya existe una reserva en esta fecha";
+            console.log(men);
+            esInvalido = true;
+          } else {
+            console.log("Reserva  correcta");
           }
-        }else{
-          console.log('Reserva  correcta')
+        } else {
+          console.log("Reserva  correcta");
         }
       }
     }
+
     return esInvalido;
+  };
+  const validarFechaIniD = () => {
+    let esInvalido = false;
+    if (fechaIniD.length === 0) {
+      esInvalido = true;
+    }
+    let dateNow = new Date();
+    let horas = dateNow.getHours();
+    let minutos = dateNow.getMinutes();
+    let segundos = dateNow.getSeconds();
+    let horaFin = calcularHoraFin(horas, minutos, segundos);
+    if (horas < 10) {
+      horas = "0" + horas;
+    }
+    if (minutos < 10) {
+      minutos = "0" + minutos;
+    }
+    if (segundos < 10) {
+      segundos = "0" + segundos;
+    }
+    let horaCompleta = horas + ":" + minutos + ":" + segundos;
+    for (let i = 0; i < reservas.length && esInvalido === false; i++) {
+      if (tipo === "reservaD") {
+        if (
+          fechaIniD >= reservas[i].fechaIni &&
+          fechaIniD <= reservas[i].fechaFin
+        ) {
+          //if (reservas[i].periodo === "noche") {
+            if ((horaCompleta >= reservas[i].horaIni && horaCompleta<reservas[i].horaFin) || horaFin>reservas[i].horaIni) {
+              let men = "Ya existe una reserva en esta fecha y hora";
+              console.log(men);
+              esInvalido = true;
+            } else {
+              console.log("Reserva  correcta");
+            }
+          //}
+        } else if (
+          fechaFin >= reservas[i].fechaIni &&
+          fechaFin <= reservas[i].fechaFin
+        ) {
+          if (horaFin > reservas[i].horaIni) {
+            let men = "Ya existe una reserva en esta fecha";
+            console.log(men);
+            esInvalido = true;
+          } else {
+            console.log("Reserva  correcta");
+          }
+        } else {
+          console.log("Reserva  correcta");
+        }
+      }
+    }
+
+    return esInvalido;
+  };
+  const calcularHoraFin = (horas, minutos, segundos) => {
+    if (horas === 22) {
+      horas = 0;
+    } else if (horas === 23) {
+      horas = 1;
+    } else {
+      horas = horas + 2;
+    }
+    if (horas < 10) {
+      horas = "0" + horas;
+    }
+    if (minutos < 10) {
+      minutos = "0" + minutos;
+    }
+    if (segundos < 10) {
+      segundos = "0" + segundos;
+    }
+    return horas + ":" + segundos + ":" + segundos;
   };
   const ejecutarAccion = () => {
     //formato
@@ -284,8 +364,13 @@ const SitioReserva = (props) => {
         alertaCelular,
         regexNumber
       );
+      let validarFechaIniDi = !validarFechaIniD();
       let validar =
-        validarPlaca && validarCi && validarNombre && validarCelular;
+        validarPlaca &&
+        validarCi &&
+        validarNombre &&
+        validarCelular &&
+        validarFechaIniDi;
       if (validar === true) {
         setModalEstado(false);
         setEstadoSitio("reservado");
@@ -411,15 +496,19 @@ const SitioReserva = (props) => {
   //tipo reserva
   const [fechaIni, setFechaIni] = useState("");
   const [mostrarFechaIni, setMostrarFechaIni] = useState(false);
+  const [fechaIniD, setFechaIniD] = useState("");
+  const [mostrarFechaIniD, setMostrarFechaIniD] = useState(true);
   const tipoReserva = (opcion) => {
     setTipo(opcion);
     //setValues(values.tipo)
     if (opcion === "reservaM") {
       console.log(values.fechaIni);
       setMostrarFechaIni(true);
+      setMostrarFechaIniD(false);
     } else if (opcion === "reservaD") {
       console.log(opcion);
       setMostrarFechaIni(false);
+      setMostrarFechaIniD(true);
     }
   };
   const tarifaReserva = (newTarifa) => {
@@ -457,6 +546,9 @@ const SitioReserva = (props) => {
     }
     //return fechaFinalizacion
   };
+  const onChangeFechaIniD = (e) => {
+    setFechaIniD(e.target.value);
+  };
   const [currentTime, setCurrentTime] = useState(new Date());
   /*let horaInicioSitio='16:11:00'
   let horaFinSitio='22:58:00'
@@ -470,7 +562,7 @@ const SitioReserva = (props) => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
       let hora = new Date();
-      let horas=hora.getHours()
+      let horas = hora.getHours();
       if (horas < 10) {
         horas = "0" + horas;
       }
@@ -483,7 +575,7 @@ const SitioReserva = (props) => {
       if (mes < 10) {
         mes = "0" + mes;
       }
-      let day=hora.getDate()
+      let day = hora.getDate();
       if (day < 10) {
         day = "0" + day;
       }
@@ -509,15 +601,14 @@ const SitioReserva = (props) => {
             } else {
               setColor("#00FF38");
             }
-          } else if(props.periodo === "dia"){
-            if (horaAct >= horaInicioSiti&&horaAct < horaFinSiti) {
+          } else if (props.periodo === "dia") {
+            if (horaAct >= horaInicioSiti && horaAct < horaFinSiti) {
               setColor(props.color);
-            }else{
+            } else {
               setColor("#00FF38");
             }
           }
         }
-        
       }
     }, 1000); // Actualizar la hora cada segundo
 
@@ -594,10 +685,19 @@ const SitioReserva = (props) => {
             mostrarMensaje={mostrarMensajeCelular}
             mensaje={mensajeCelular}
           />
+          {mostrarFechaIniD && <label>Definir fecha de la reserva:</label>}
+          {mostrarFechaIniD && (
+            <input
+              type="date"
+              value={fechaIniD}
+              onChange={onChangeFechaIniD}
+              name="fechaIniD"
+            />
+          )}
           {mostrarFechaIni && (
             <label>
               Definir fecha de inicio de la reserva(la fecha de finalización
-              será definida automaticamente)
+              será definida automaticamente):
             </label>
           )}
           {mostrarFechaIni && (
