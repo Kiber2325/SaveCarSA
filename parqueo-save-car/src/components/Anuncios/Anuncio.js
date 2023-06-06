@@ -17,7 +17,7 @@ const Anuncio = () => {
             const dataObj = snapshot.val();
             console.log(dataObj);
             if (dataObj) { // Verificar si dataObj no es null ni undefined
-                const dataArr = Object.entries(dataObj).map(([id, anuncio]) => ({ id, ...anuncio }));
+                const dataArr = Object.entries(dataObj).map(([id, anuncio]) => ({ id, ...anuncio })).reverse();;
                 setAnuncio(dataArr);
             }  else{
                 setAnuncio(null)
@@ -28,15 +28,15 @@ const Anuncio = () => {
     <>
        <Navlading/>
        <div className='container'>
+        
        {anuncio ? (
          anuncio.map((anuncio) => (
             <div className="contenidoAnuncio" key={anuncio.id}>
                 <br/>
-                <h2 className='titu'>Comunicado</h2> <br/>
-              <p>
-              <strong>{anuncio.anuncio}</strong>
-              </p>
-             
+                <center><h1 className='comuni'>Comunicado</h1></center>
+                <p className='comunicado'>
+                <strong>{anuncio.anuncio}</strong>
+                </p>
            </div>
             ))
         ) : (

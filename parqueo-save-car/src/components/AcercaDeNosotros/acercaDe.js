@@ -58,7 +58,7 @@ function AcercaDe() {
         <div>
         <center>
         <h1>Horarios de Atención</h1>
-        <h2>Horarios</h2>
+      
       <table  className="tablaXD">
         <thead>
           <tr>
@@ -71,8 +71,8 @@ function AcercaDe() {
           {horarios.map((horario, index) => (
             <tr key={index}>
               <td><h4>{horario.dia}</h4></td>
-              <td>{horario.horaInicio}</td> 
-              <td>{horario.horaFin} </td>
+              <td><h5>{horario.horaInicio}</h5></td> 
+              <td><h5>{horario.horaFin}</h5> </td>
             </tr>
           ))}
         </tbody>
