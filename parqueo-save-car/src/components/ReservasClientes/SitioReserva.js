@@ -265,7 +265,7 @@ const SitioReserva = (props) => {
       esInvalido = true;
     }
     let dateNow = new Date();
-    let horas = dateNow.getHours();
+    let horas = dateNow.getHours()+23;
     let minutos = dateNow.getMinutes();
     let segundos = dateNow.getSeconds();
     let horaFin = calcularHoraFin(horas, minutos, segundos);
@@ -286,7 +286,7 @@ const SitioReserva = (props) => {
           fechaIniD <= reservas[i].fechaFin
         ) {
           //if (reservas[i].periodo === "noche") {
-            if ((horaCompleta >= reservas[i].horaIni && horaCompleta<reservas[i].horaFin) || horaFin>reservas[i].horaIni) {
+            if ((horaCompleta >= reservas[i].horaIni || horaCompleta<reservas[i].horaFin) || horaFin>reservas[i].horaIni) {
               let men = "Ya existe una reserva en esta fecha y hora";
               console.log(men);
               esInvalido = true;
@@ -310,7 +310,11 @@ const SitioReserva = (props) => {
         }
       }
     }
-
+    let arregloFiltrado=reservas.filter((reser)=>(fechaIniD >= reser.fechaIni &&
+      fechaIniD <= reser.fechaFin))
+    console.log(arregloFiltrado)
+    let filtradoHora=arregloFiltrado.filter((reser)=>((horaCompleta <= reser.horaIni && horaCompleta>reser.horaFin) || horaFin<reser.horaIni))
+    console.log(filtradoHora)
     return esInvalido;
   };
   const calcularHoraFin = (horas, minutos, segundos) => {
@@ -371,6 +375,7 @@ const SitioReserva = (props) => {
         validarNombre &&
         validarCelular &&
         validarFechaIniDi;
+      
       if (validar === true) {
         setModalEstado(false);
         setEstadoSitio("reservado");
