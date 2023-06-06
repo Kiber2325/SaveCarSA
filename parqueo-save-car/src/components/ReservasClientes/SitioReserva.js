@@ -61,7 +61,10 @@ const SitioReserva = (props) => {
   const [mensajeCi, setMensajeCi] = useState("");
   const [mensajeNombre, setMensajeNombre] = useState("");
   const [mensajeCelular, setMensajeCelular] = useState("");
-
+  const [errorFechaIni,setErrorFechaIni]=useState('')
+  const [mostrarErrorFechaIni,setMostrarErrorFechaIni]=useState(false)
+  const [errorFechaIniD,setErrorFechaIniD]=useState('')
+  const [mostrarErrorFechaIniD,setMostrarErrorFechaIniD]=useState(false)
   // const  [tipo, setTipo]=useState('')
   const [values, setValues] = useState({
     placa: "",
@@ -84,6 +87,7 @@ const SitioReserva = (props) => {
   const quitarMensajesError = () => {
     setMostrarMensajePlaca(false);
     setMostrarMensajeCi(false);
+    setMostrarMensajeNombre(false)
     setMostrarMensajeCelular(false);
   };
   const validarInputPlaca = (
@@ -235,7 +239,8 @@ const SitioReserva = (props) => {
         ) {
           if (horaInicio === reservas[i].horaIni) {
             let men = "Ya existe una reserva en esta fecha";
-            console.log(men);
+            setMostrarErrorFechaIni(true)
+            setErrorFechaIni(men)
             esInvalido = true;
           } else {
             console.log("Reserva  correcta");
@@ -246,13 +251,14 @@ const SitioReserva = (props) => {
         ) {
           if (horaInicio === reservas[i].horaIni) {
             let men = "Ya existe una reserva en esta fecha";
-            console.log(men);
+            setMostrarErrorFechaIni(true)
+            setErrorFechaIni(men)
             esInvalido = true;
           } else {
-            console.log("Reserva  correcta");
+            console.log("Reserva correcta");
           }
         } else {
-          console.log("Reserva  correcta");
+          console.log("Reserva correcta");
         }
       }
     }
@@ -265,7 +271,7 @@ const SitioReserva = (props) => {
       esInvalido = true;
     }
     let dateNow = new Date();
-    let horas = dateNow.getHours()+23;
+    let horas = dateNow.getHours();
     let minutos = dateNow.getMinutes();
     let segundos = dateNow.getSeconds();
     let horaFin = calcularHoraFin(horas, minutos, segundos);
@@ -286,9 +292,13 @@ const SitioReserva = (props) => {
           fechaIniD <= reservas[i].fechaFin
         ) {
           //if (reservas[i].periodo === "noche") {
+            console.log(horaCompleta)
+            console.log(reservas[i].horaIni)
+            console.log(reservas[i].horaFin)
             if ((horaCompleta >= reservas[i].horaIni || horaCompleta<reservas[i].horaFin) || horaFin>reservas[i].horaIni) {
               let men = "Ya existe una reserva en esta fecha y hora";
-              console.log(men);
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
               esInvalido = true;
             } else {
               console.log("Reserva  correcta");
@@ -299,8 +309,9 @@ const SitioReserva = (props) => {
           fechaFin <= reservas[i].fechaFin
         ) {
           if (horaFin > reservas[i].horaIni) {
-            let men = "Ya existe una reserva en esta fecha";
-            console.log(men);
+            let men = "Ya existe una reserva en esta fecha y hora";
+            setMostrarErrorFechaIniD(true)
+            setErrorFechaIniD(men)
             esInvalido = true;
           } else {
             console.log("Reserva  correcta");
@@ -312,8 +323,7 @@ const SitioReserva = (props) => {
     }
     let arregloFiltrado=reservas.filter((reser)=>(fechaIniD >= reser.fechaIni &&
       fechaIniD <= reser.fechaFin))
-    console.log(arregloFiltrado)
-    let filtradoHora=arregloFiltrado.filter((reser)=>((horaCompleta <= reser.horaIni && horaCompleta>reser.horaFin) || horaFin<reser.horaIni))
+    let filtradoHora=arregloFiltrado.filter((reser)=>((horaCompleta >= reser.horaIni && horaCompleta<reser.horaFin)))
     console.log(filtradoHora)
     return esInvalido;
   };
@@ -334,7 +344,7 @@ const SitioReserva = (props) => {
     if (segundos < 10) {
       segundos = "0" + segundos;
     }
-    return horas + ":" + segundos + ":" + segundos;
+    return horas + ":" + minutos + ":" + segundos;
   };
   const ejecutarAccion = () => {
     //formato
@@ -347,7 +357,6 @@ const SitioReserva = (props) => {
     let alertaCi = "Solo se permiten carácteres numéricos";
     let alertaNombre = "Solo se permiten carácteres alfabéticos";
     let alertaCelular = "Solo se permiten carácteres numéricos";
-
     if (tipo === "reservaD") {
       let validarPlaca = !validarInputPlaca(
         values.placa,
@@ -382,19 +391,36 @@ const SitioReserva = (props) => {
         //setCardColor(cardColors.reservado)
         let fecha = new Date();
         let hora = fecha.getTime();
+        let anio=fecha.getFullYear();let mes=fecha.getMonth()+1;let dia=fecha.getDay()
+        if(mes<10){
+          mes='0'+mes
+        }
+        if(dia<10){
+          dia='0'+dia
+        }
+        let fechaInicio=anio+'-'+mes+'-'+dia
+        let hour=fecha.getHours();let minute=fecha.getMinutes();let second=fecha.getSeconds();
+        if(hour<10){
+          hour='0'+hour
+        }
+        if(minute<10){
+          minute='0'+minute
+        }
+        if(second<10){
+          second='0'+second
+        }
+        let horaActual=hour+':'+minute+':'+second
+        let fechaFinal=fechaInicio
         const comprobanteData = {
           sitio: props.nombre,
           placa: values.placa,
           ciCliente: values.ci,
           nombreapellido: values.nombreapellido,
           celular: values.celular,
-          fecha: fecha.toDateString(),
-          hora:
-            fecha.getHours() +
-            ":" +
-            fecha.getMinutes() +
-            ":" +
-            fecha.getSeconds(),
+          fechaIni: fechaInicio,
+          fechaFin:fechaFinal,
+          horaIni:horaActual,
+          horaFin:calcularHoraFin(fecha.getHours(),fecha.getMinutes(),fecha.getSeconds()),  
           monto: 3.0,
         };
         let idUnico =
@@ -535,6 +561,7 @@ const SitioReserva = (props) => {
   const [fechaFin, setFechaFin] = useState("");
   const onChangeFechaIni = (e) => {
     setFechaIni(e.target.value);
+    setMostrarErrorFechaIni(false)
     //setTipo(e.target.value)
     let fechaFinalizacion = "";
     if (e.target.value !== 0) {
@@ -553,6 +580,7 @@ const SitioReserva = (props) => {
   };
   const onChangeFechaIniD = (e) => {
     setFechaIniD(e.target.value);
+    setMostrarErrorFechaIniD(false)
   };
   const [currentTime, setCurrentTime] = useState(new Date());
   /*let horaInicioSitio='16:11:00'
@@ -585,6 +613,19 @@ const SitioReserva = (props) => {
         day = "0" + day;
       }
       let fechaAct = hora.getFullYear() + "-" + mes + "-" + day;
+      let arregloFiltrado=reservas.filter((reser)=>(fechaAct >= reser.fechaIni &&
+        fechaAct <= reser.fechaFin))
+      let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct >= reser.horaIni && horaAct<reser.horaFin)))
+      //console.log(filtradoHora)
+      //console.log(reservas)
+      if(filtradoHora.length===0){
+        setColor('#00FF38')
+        setEstadoSitio('disponible')
+      }else{
+        setColor(filtradoHora[0].color)
+        setEstadoSitio(filtradoHora[0].estado)
+      }
+      /*
       if (
         horaInicioSiti !== undefined &&
         horaFinSiti !== undefined &&
@@ -614,7 +655,7 @@ const SitioReserva = (props) => {
             }
           }
         }
-      }
+      }*/
     }, 1000); // Actualizar la hora cada segundo
 
     return () => {
@@ -627,7 +668,7 @@ const SitioReserva = (props) => {
     fechaFinSiti,
     color,
     props.color,
-    props.periodo,
+    props.periodo,fechaIniD,reservas
   ]);
   return (
     <div>
@@ -638,7 +679,9 @@ const SitioReserva = (props) => {
       >
         <h2>{props.nombre}</h2>
         <p className="texto">
-          {props.estado} {props.periodo}
+          {//props.estado} {props.periodo
+          }
+          {estadoSitio}
         </p>
       </div>
       <Modal isOpen={modalEstado} centered={true}>
@@ -699,6 +742,7 @@ const SitioReserva = (props) => {
               name="fechaIniD"
             />
           )}
+          {mostrarErrorFechaIniD&&<div className="mensajeErrorFormModal">{errorFechaIniD}</div>}
           {mostrarFechaIni && (
             <label>
               Definir fecha de inicio de la reserva(la fecha de finalización
@@ -716,6 +760,8 @@ const SitioReserva = (props) => {
           {mostrarFechaIni && (
             <input type="date" value={fechaFin} name="fechaFin" disabled />
           )}
+          
+          {mostrarErrorFechaIni&&<div className="mensajeErrorFormModal">{errorFechaIni}</div>}
           {false && currentTime}
         </ModalBody>
         <div className="modalFooter">

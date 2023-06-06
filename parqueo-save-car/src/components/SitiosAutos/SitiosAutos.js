@@ -12,6 +12,7 @@ import Navar from '../Navbar/Navar';
 
 const SitiosAutos = () => {
 const [dataArr, setDataArr] = useState([]);
+const [dataReserva, setDataReserva] = useState([]);
 useEffect(()=>{
   getData()
 },[]);
@@ -21,6 +22,20 @@ function getData() {
     const dataArr = Object.values(dataObj);
     setDataArr(dataArr);
   });
+}
+useEffect(() => {
+  getDataReserva();
+}, []);
+function getDataReserva() {
+  onValue(ref(database, "reservas"), (snapshot) => {
+    const dataObj = snapshot.val();
+    const dataReserva = Object.values(dataObj);
+    setDataReserva(dataReserva);
+  });
+}
+const horariosReserva=(sitioDesignado)=>{
+  let dataReservaFiltrada=dataReserva.filter((datRes)=>(datRes.nombreSitio===sitioDesignado))
+  return dataReservaFiltrada
 }
   return (
     <div> 
@@ -32,6 +47,7 @@ function getData() {
       nombre={sitio.nombre}
       estado={sitio.estado}
       color={sitio.color}
+      horarioReserva={horariosReserva(sitio.nombre)}
      />
     ))}
    </div>

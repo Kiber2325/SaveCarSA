@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Sitio.css'
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import EntradaInput from './EntradasModal/EntradaInput';
@@ -31,6 +31,8 @@ const Sitio = (props) => {
     celular:'',
     motivo:''
   });
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const reservas = props.horarioReserva;
   const onChange = (e)=>{
     setValues({ ...values, [e.target.name]: e.target.value });
   }
@@ -54,7 +56,7 @@ const Sitio = (props) => {
     return colorElegido;
   }*/
   //const [cardColor,setCardColor] = useState(escogerColor());
-  //const [color, setColor] = useState('#00FF38');
+  const [color, setColor] = useState('#00FF38');
   //mostrarInputs
   const [placa,setPlaca]=useState(true)
   const [ci,setCi]=useState(true)
@@ -439,13 +441,56 @@ const Sitio = (props) => {
   };
 
   const resumeTemp = () => startTemp();
-  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+      let hora = new Date();
+      let horas = hora.getHours();
+      if (horas < 10) {
+        horas = "0" + horas;
+      }
+      let minutos = hora.getMinutes();
+      if (minutos < 10) {
+        minutos = "0" + hora.getMinutes();
+      }
+      let horaAct = horas + ":" + minutos + ":" + hora.getSeconds();
+      let mes = hora.getMonth() + 1;
+      if (mes < 10) {
+        mes = "0" + mes;
+      }
+      let day = hora.getDate();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      let fechaAct = hora.getFullYear() + "-" + mes + "-" + day;
+      let arregloFiltrado=reservas.filter((reser)=>(fechaAct >= reser.fechaIni &&
+        fechaAct <= reser.fechaFin))
+      let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct >= reser.horaIni && horaAct<reser.horaFin)))
+      //console.log(filtradoHora)
+      //console.log(reservas)
+      if(filtradoHora.length===0){
+        setColor('#00FF38')
+        setEstado('disponible')
+      }else{
+        setColor(filtradoHora[0].color)
+        setEstado(filtradoHora[0].estado)
+      }
+    }, 1000); // Actualizar la hora cada segundo
+
+    return () => {
+      clearInterval(timer); // Limpiar el temporizador cuando el componente se desmonte
+    };
+  }, [
+    color,
+    props.color,reservas
+  ]);
   return (
     
     <div>
-        <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: props.color}}>
+      {false&&currentTime}
+        <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: color}}>
             <h2>{props.nombre}</h2>
-            <p className='texto'>{props.estado}</p>
+            <p className='texto'>{estado}</p>
             {mostrarCronometro &&<div className='cronometroSitio'>
               <DisplayComponent time={time}/>
             </div>}

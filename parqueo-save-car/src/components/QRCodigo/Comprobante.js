@@ -122,7 +122,7 @@ const Comprobante = () => {
       set(ref(database, "ingresos/" + newId), ingreso);
       const nuevaReserva = {
         nombreSitio: product.sitio,
-        estado: "reserva "+product.periodo,
+        estado: "reserva mes "+product.periodo,
         color: "#808080",
         ciCliente: product.ciCliente,
         nombreApellido: product.nombreapellido,
@@ -169,24 +169,25 @@ const Comprobante = () => {
       set(ref(database, "ingresos/" + newId), ingreso);
       const nuevaReserva = {
         nombreSitio: product.sitio,
-        estado: "reserva "+product.periodo,
+        estado: "reservado",
         color: "#808080",
         ciCliente: product.ciCliente,
         nombreApellido: product.nombreapellido,
         celularCliente: product.celular,
         placaDelAuto: product.placa,
-        periodo:product.periodo,
+        periodo:'corto',
         fechaIni:product.fechaIni,
         fechaFin:product.fechaFin,
-        horaIni:product.horaInicio,
+        horaIni:product.horaIni,
         horaFin:product.horaFin
       };
+      //console.log(nuevaReserva)
       set(ref(database, "reservas/" + newId), nuevaReserva);
     }
   };
   const tiempoLimite = () => {
-    let array = product.hora.split(":");
-    let tiempoLimite = parseInt(product.hora.split(":")[0]);
+    let array = product.horaIni.split(":");
+    let tiempoLimite = parseInt(product.horaIni.split(":")[0]);
     if (tiempoLimite === 22) {
       tiempoLimite = 0;
     } else if (tiempoLimite === 23) {
@@ -279,13 +280,14 @@ const Comprobante = () => {
         <p>Placa del auto del Cliente: {product.placa}</p>
         <p>Número celular del cliente: {product.celular}</p>
         <p>Monto pagado: {product.monto},0 Bs.</p>
-        <p>Fecha: {formatoFecha()}</p>
-        <p>Hora de inicio de la reserva: {product.hora}</p>
+        {//<p>Fecha: {formatoFecha()}</p>
+        }
+        <p>Hora de inicio de la reserva: {product.horaIni}</p>
         {!product.periodo&&<p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>}
         {product.fechaIni && <p>Fecha de inicio: {product.fechaIni}</p>}
         {product.fechaFin && <p>Fecha de finalización: {product.fechaFin}</p>}
         {product.periodo && <p>Periodo escogido: Mes {product.periodo}</p>}
-        {product.horaInicio && <p>Hora de ingreso: {product.horaInicio} </p>}
+        {product.horaInicio && <p>Hora de ingreso: {product.horaIni} </p>}
         {product.horaFin && <p>Hora de finalización: {product.horaFin} </p>}
         <p>
           ¡Atención! debes llegar antes a ocupar el sitio reservado antes de la
