@@ -646,7 +646,7 @@ const SitioReserva = (props) => {
       let fechaAct = hora.getFullYear() + "-" + mes + "-" + day;
       let arregloFiltrado=reservas.filter((reser)=>(fechaAct >= reser.fechaIni &&
         fechaAct <= reser.fechaFin))
-      let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct >= reser.horaIni || horaAct<reser.horaFin)))
+      let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct<reser.horaFin)))
       //console.log(filtradoHora)
       //console.log(reservas)
       if(filtradoHora.length===0){
