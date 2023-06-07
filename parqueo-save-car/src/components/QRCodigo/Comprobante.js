@@ -170,7 +170,7 @@ const Comprobante = () => {
       const nuevaReserva = {
         nombreSitio: product.sitio,
         estado: "reservado",
-        color: "#808080",
+        color: "#FC6901",
         ciCliente: product.ciCliente,
         nombreApellido: product.nombreapellido,
         celularCliente: product.celular,

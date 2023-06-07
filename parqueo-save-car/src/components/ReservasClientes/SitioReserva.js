@@ -9,13 +9,13 @@ const SitioReserva = (props) => {
   const [color, setColor] = useState(props.color);
   const reservas = props.horarioReserva;
   const cambiarEstado = () => {
-    let estadoSitio2 = props.estado;
+    let estadoSitio2 = estadoSitio;
     if (estadoSitio2 === "disponible") {
       setModalEstado(true);
       console.log(estadoSitio);
-    } else if (estadoSitio2 === "reservado mes") {
+    } else if (estadoSitio2 === "reservado mes"||estadoSitio2==='reservado') {
       console.log(reservas);
-      // setModalEstado(true);
+       setModalEstado(true);
       // console.log(estadoSitio);
       let hora = new Date();
       let minutos = hora.getMinutes();
@@ -74,6 +74,8 @@ const SitioReserva = (props) => {
   });
   const [tipo, setTipo] = useState("reservaD");
   const [tarRes, setTarRes] = useState(400.0);
+  const [tarHor,setTarHor]=useState(3)
+  const [tarHora,setTarHora]=useState(1)
   const [periodo, setPeriodo] = useState("dia");
   const [horaInicio, setHoraInicio] = useState("06:00:00");
   const [horaFin, setHoraFin] = useState("22:00:00");
@@ -89,6 +91,14 @@ const SitioReserva = (props) => {
     setMostrarMensajeCi(false);
     setMostrarMensajeNombre(false)
     setMostrarMensajeCelular(false);
+    setMostrarErrorFechaIni(false)
+    setMostrarErrorFechaIniD(false)
+    setMensajePlaca('')
+    setMensajeCi('')
+    setMensajeNombre('')
+    setMensajeCelular('')
+    setFechaIni('')
+    setFechaIniD('')
   };
   const validarInputPlaca = (
     contenido,
@@ -321,19 +331,16 @@ const SitioReserva = (props) => {
         }
       }
     }
-    let arregloFiltrado=reservas.filter((reser)=>(fechaIniD >= reser.fechaIni &&
+    /*let arregloFiltrado=reservas.filter((reser)=>(fechaIniD >= reser.fechaIni &&
       fechaIniD <= reser.fechaFin))
     let filtradoHora=arregloFiltrado.filter((reser)=>((horaCompleta >= reser.horaIni && horaCompleta<reser.horaFin)))
-    console.log(filtradoHora)
+    console.log(filtradoHora)*/
     return esInvalido;
   };
-  const calcularHoraFin = (horas, minutos, segundos) => {
-    if (horas === 22) {
-      horas = 0;
-    } else if (horas === 23) {
-      horas = 1;
-    } else {
-      horas = horas + 2;
+  const calcularHoraFin = (aumento,horas, minutos) => {
+    horas=horas+aumento
+    if (horas > 24) {
+      horas = horas%24;
     }
     if (horas < 10) {
       horas = "0" + horas;
@@ -341,10 +348,7 @@ const SitioReserva = (props) => {
     if (minutos < 10) {
       minutos = "0" + minutos;
     }
-    if (segundos < 10) {
-      segundos = "0" + segundos;
-    }
-    return horas + ":" + minutos + ":" + segundos;
+    return horas + ":" + minutos ;
   };
   const ejecutarAccion = () => {
     //formato
@@ -384,7 +388,9 @@ const SitioReserva = (props) => {
         validarNombre &&
         validarCelular &&
         validarFechaIniDi;
-      
+      console.log(tarHor)
+      console.log(tarHora)
+      console.log((parseInt(horaInicioReserva.split(':')[0])+parseInt(tarHora))%24)
       if (validar === true) {
         setModalEstado(false);
         setEstadoSitio("reservado");
@@ -399,7 +405,7 @@ const SitioReserva = (props) => {
           dia='0'+dia
         }
         let fechaInicio=anio+'-'+mes+'-'+dia
-        let hour=fecha.getHours();let minute=fecha.getMinutes();let second=fecha.getSeconds();
+        /*let hour=fecha.getHours();let minute=fecha.getMinutes();let second=fecha.getSeconds();
         if(hour<10){
           hour='0'+hour
         }
@@ -408,9 +414,17 @@ const SitioReserva = (props) => {
         }
         if(second<10){
           second='0'+second
-        }
-        let horaActual=hour+':'+minute+':'+second
+        }*/
+        let horaActual=horaInicioReserva.split(':')
+        let hour=parseInt(horaActual[0])
         let fechaFinal=fechaInicio
+        if(hour+parseInt(tarHora)>24){
+          let dayActualizado=parseInt(dia)+1
+          if(dayActualizado<10){
+            dayActualizado='0'+dayActualizado
+          }
+          fechaFinal=anio+'-'+mes+'-'+dayActualizado
+        }
         const comprobanteData = {
           sitio: props.nombre,
           placa: values.placa,
@@ -419,9 +433,9 @@ const SitioReserva = (props) => {
           celular: values.celular,
           fechaIni: fechaInicio,
           fechaFin:fechaFinal,
-          horaIni:horaActual,
-          horaFin:calcularHoraFin(fecha.getHours(),fecha.getMinutes(),fecha.getSeconds()),  
-          monto: 3.0,
+          horaIni:horaInicioReserva+':00',
+          horaFin:calcularHoraFin(parseInt(tarHora),hour,parseInt(horaActual[1]))+':00',  
+          monto: tarHor,
         };
         let idUnico =
           values.placa +
@@ -529,6 +543,7 @@ const SitioReserva = (props) => {
   const [mostrarFechaIni, setMostrarFechaIni] = useState(false);
   const [fechaIniD, setFechaIniD] = useState("");
   const [mostrarFechaIniD, setMostrarFechaIniD] = useState(true);
+  const [horaInicioReserva,setHoraInicioReserva]=useState('')
   const tipoReserva = (opcion) => {
     setTipo(opcion);
     //setValues(values.tipo)
@@ -558,6 +573,19 @@ const SitioReserva = (props) => {
       setHoraFin("23:59:00");
     }
   };
+  const tarifaHoraria=(newTarifaHoraria)=>{
+    let horaElegida=parseInt(newTarifaHoraria)
+    setTarHor(horaElegida)
+    if(horaElegida===3){
+      setTarHora(1)
+    }else if(horaElegida===6){
+      setTarHora(4)
+    }else if(horaElegida===10){
+      setTarHora(12)
+    }else if(horaElegida===15){
+      setTarHora(24)
+    }
+  }
   const [fechaFin, setFechaFin] = useState("");
   const onChangeFechaIni = (e) => {
     setFechaIni(e.target.value);
@@ -582,6 +610,9 @@ const SitioReserva = (props) => {
     setFechaIniD(e.target.value);
     setMostrarErrorFechaIniD(false)
   };
+  const onChangeHoraInicioReserva=(e)=>{
+    setHoraInicioReserva(e.target.value)
+  }
   const [currentTime, setCurrentTime] = useState(new Date());
   /*let horaInicioSitio='16:11:00'
   let horaFinSitio='22:58:00'
@@ -615,7 +646,7 @@ const SitioReserva = (props) => {
       let fechaAct = hora.getFullYear() + "-" + mes + "-" + day;
       let arregloFiltrado=reservas.filter((reser)=>(fechaAct >= reser.fechaIni &&
         fechaAct <= reser.fechaFin))
-      let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct >= reser.horaIni && horaAct<reser.horaFin)))
+      let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct >= reser.horaIni || horaAct<reser.horaFin)))
       //console.log(filtradoHora)
       //console.log(reservas)
       if(filtradoHora.length===0){
@@ -743,6 +774,17 @@ const SitioReserva = (props) => {
             />
           )}
           {mostrarErrorFechaIniD&&<div className="mensajeErrorFormModal">{errorFechaIniD}</div>}
+          {mostrarFechaIniD && 
+            <select onChange={(e) => tarifaHoraria(e.target.value)}> 
+              <option value='3'>0 a 1 hora(3 Bs)</option>
+              <option value='6'>1 a 4 horas(6 Bs)</option>
+              <option value='10'>4 a 12 horas(10 Bs)</option>
+              <option value='15'>12 a 24 horas(15 Bs)</option>
+            </select>
+          }
+          {mostrarFechaIniD && 
+            <input type="time" value={horaInicioReserva} onChange={onChangeHoraInicioReserva} name="horaInicioReserva"/>
+          }
           {mostrarFechaIni && (
             <label>
               Definir fecha de inicio de la reserva(la fecha de finalización
