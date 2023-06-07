@@ -487,6 +487,7 @@ const SitioReserva = (props) => {
             updatedS=10;updatedTM=0;
             setTimeTemp({tms:0, ts:updatedS, tm:updatedTM, th:0})
             startTemp()*/
+            quitarMensajesError()
       }
     } else if (tipo === "reservaM") {
       let validarPlaca = !validarInputPlaca(
@@ -556,6 +557,7 @@ const SitioReserva = (props) => {
         set(ref(database, "comprobantes/" + idUnico), comprobanteDataM);
         setUrl(url + idUnico);
         setModalQr(true);
+        quitarMensajesError()
       }
     }
   };
