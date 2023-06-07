@@ -243,6 +243,14 @@ const SitioReserva = (props) => {
     }
     for (let i = 0; i < reservas.length && esInvalido === false; i++) {
       if (tipo === "reservaM") {
+        let reservasFecha=reservas.filter(reser=>(fechaIni>=reser.fechaIni&&fechaFin>=reser.fechaFin))
+        console.log(reservasFecha)
+        if(periodo==='dia'){
+          console.log(horaInicio)
+          console.log(horaFin)
+          let reservasFechaHora=reservasFecha.filter(reser=>((reser.horaIni>=horaInicio&&reser.horaFin<=horaFin)||reser.horaFin>=horaInicio))
+          console.log(reservasFechaHora)
+        }
         if (
           fechaIni >= reservas[i].fechaIni &&
           fechaIni <= reservas[i].fechaFin
