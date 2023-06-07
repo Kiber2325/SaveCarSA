@@ -656,37 +656,10 @@ const SitioReserva = (props) => {
         setColor(filtradoHora[0].color)
         setEstadoSitio(filtradoHora[0].estado)
       }
-      /*
-      if (
-        horaInicioSiti !== undefined &&
-        horaFinSiti !== undefined &&
-        fechaIniSiti !== undefined &&
-        fechaFinSiti !== undefined &&
-        props.periodo !== undefined
-      ) {
-        //  console.log(fechaAct+'\n'+horaAct)
-        // console.log(fechaIniSiti+'\n'+fechaFinSiti+'\n'+horaInicioSiti+'\n'+horaFinSiti)
-        //console.log(horaAct+'\n'+horaFinSiti)
-
-        if (fechaAct >= fechaIniSiti && fechaAct <= fechaFinSiti) {
-          if (props.periodo === "noche") {
-            if (horaAct >= horaInicioSiti) {
-              setColor(props.color);
-            } else if (horaAct < horaFinSiti) {
-              //console.log("aquitoy");
-              setColor(props.color);
-            } else {
-              setColor("#00FF38");
-            }
-          } else if (props.periodo === "dia") {
-            if (horaAct >= horaInicioSiti && horaAct < horaFinSiti) {
-              setColor(props.color);
-            } else {
-              setColor("#00FF38");
-            }
-          }
-        }
-      }*/
+      if(props.estado==='deshabilitado'){
+        setEstadoSitio(props.estado)
+        setColor(props.color)
+      }
     }, 1000); // Actualizar la hora cada segundo
 
     return () => {
@@ -699,7 +672,7 @@ const SitioReserva = (props) => {
     fechaFinSiti,
     color,
     props.color,
-    props.periodo,fechaIniD,reservas
+    props.periodo,fechaIniD,reservas,props.estado
   ]);
   return (
     <div>
