@@ -284,7 +284,8 @@ const SitioReserva = (props) => {
     let horas = dateNow.getHours();
     let minutos = dateNow.getMinutes();
     let segundos = dateNow.getSeconds();
-    let horaFin = calcularHoraFin(horas, minutos, segundos);
+    let horaFinal=horaInicioReserva.split(':')
+    let horaFin = calcularHoraFin(parseInt(tarHora), parseInt(horaFinal[0]), parseInt(horaFinal[1]));
     if (horas < 10) {
       horas = "0" + horas;
     }
@@ -301,20 +302,48 @@ const SitioReserva = (props) => {
           fechaIniD >= reservas[i].fechaIni &&
           fechaIniD <= reservas[i].fechaFin
         ) {
-          //if (reservas[i].periodo === "noche") {
-            console.log(horaCompleta)
-            console.log(reservas[i].horaIni)
-            console.log(reservas[i].horaFin)
-            if ((horaCompleta >= reservas[i].horaIni || horaCompleta<reservas[i].horaFin) || horaFin>reservas[i].horaIni) {
+          if (reservas[i].horaIni > reservas[i].horaFin) {
+            if ((horaInicioReserva >= reservas[i].horaIni || horaFin<reservas[i].horaFin)) {
               let men = "Ya existe una reserva en esta fecha y hora";
               setMostrarErrorFechaIniD(true)
               setErrorFechaIniD(men)
+              console.log(horaCompleta)
+              console.log(horaFin)
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
               esInvalido = true;
             } else {
               console.log("Reserva  correcta");
             }
-          //}
-        } else if (
+          }else{
+            if ((horaInicioReserva+':00' >= reservas[i].horaIni && horaInicioReserva+':00'<=reservas[i].horaFin)) {
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(horaInicioReserva)
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
+              esInvalido = true;
+            } else if(horaFin+':00'>=reservas[i].horaIni && horaFin+':00'<=reservas[i].horaFin){
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(horaFin+':00')
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
+              esInvalido = true;
+            } else{
+              console.log(horaInicioReserva)
+              console.log(horaFin)
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log("Reserva  correcta");
+            }
+          }
+        }/* else if (
           fechaFin >= reservas[i].fechaIni &&
           fechaFin <= reservas[i].fechaFin
         ) {
@@ -322,13 +351,15 @@ const SitioReserva = (props) => {
             let men = "Ya existe una reserva en esta fecha y hora";
             setMostrarErrorFechaIniD(true)
             setErrorFechaIniD(men)
+            console.log(men)
+            console.log(horaFin)
             esInvalido = true;
           } else {
             console.log("Reserva  correcta");
           }
         } else {
           console.log("Reserva  correcta");
-        }
+        }*/
       }
     }
     /*let arregloFiltrado=reservas.filter((reser)=>(fechaIniD >= reser.fechaIni &&
@@ -391,6 +422,7 @@ const SitioReserva = (props) => {
       console.log(tarHor)
       console.log(tarHora)
       console.log((parseInt(horaInicioReserva.split(':')[0])+parseInt(tarHora))%24)
+      console.log(fechaIniD)
       if (validar === true) {
         setModalEstado(false);
         setEstadoSitio("reservado");
@@ -404,7 +436,7 @@ const SitioReserva = (props) => {
         if(dia<10){
           dia='0'+dia
         }
-        let fechaInicio=anio+'-'+mes+'-'+dia
+        let fechaInicio=fechaIniD
         /*let hour=fecha.getHours();let minute=fecha.getMinutes();let second=fecha.getSeconds();
         if(hour<10){
           hour='0'+hour
@@ -431,7 +463,7 @@ const SitioReserva = (props) => {
           ciCliente: values.ci,
           nombreapellido: values.nombreapellido,
           celular: values.celular,
-          fechaIni: fechaInicio,
+          fechaIni: fechaIniD,
           fechaFin:fechaFinal,
           horaIni:horaInicioReserva+':00',
           horaFin:calcularHoraFin(parseInt(tarHora),hour,parseInt(horaActual[1]))+':00',  
