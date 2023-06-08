@@ -700,9 +700,21 @@ const SitioReserva = (props) => {
             if(horaAct>=arregloFiltrado[i].horaIni||horaAct<=arregloFiltrado[i].horaFin){
               setColor(arregloFiltrado[i].color)
               setEstadoSitio(arregloFiltrado[i].estado)
+              encontrado=true
+            }else{
+              setColor('#00FF38')
+              setEstadoSitio('disponible')
             }
           }else if(arregloFiltrado[i].horaIni<arregloFiltrado[i].horaFin){
             //console.log('ehh')
+            if(horaAct>=arregloFiltrado[i].horaIni&&horaAct<=arregloFiltrado[i].horaFin){
+              setColor(arregloFiltrado[i].color)
+              setEstadoSitio(arregloFiltrado[i].estado)
+              encontrado=true
+            }else{
+              setColor('#00FF38')
+              setEstadoSitio('disponible')
+            }
           }
         }
       }else{
