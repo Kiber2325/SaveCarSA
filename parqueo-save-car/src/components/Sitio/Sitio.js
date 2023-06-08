@@ -562,13 +562,13 @@ const Sitio = (props) => {
               mostrarMensaje={mostrarMensajeMotivo}
               mensaje={mensajeMotivo}
             />}
-            <select onChange={(e) => tarifaHoraria(e.target.value)}> 
+            {celular&&<select onChange={(e) => tarifaHoraria(e.target.value)}> 
               <option value='3'>0 a 1 hora(3 Bs)</option>
               <option value='6'>1 a 4 horas(6 Bs)</option>
               <option value='10'>4 a 12 horas(10 Bs)</option>
               <option value='15'>12 a 24 horas(15 Bs)</option>
-            </select>
-            <input type="time" value={horaInicioReserva} onChange={onChangeHoraInicioReserva} name="horaInicioReserva"/>
+            </select>}
+            {celular&&<input type="time" value={horaInicioReserva} onChange={onChangeHoraInicioReserva} name="horaInicioReserva"/>}
           </ModalBody>
           <div className='modalFooter'>
           <ModalFooter>
