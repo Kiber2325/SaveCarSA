@@ -33,6 +33,9 @@ const Sitio = (props) => {
   });
   const [currentTime, setCurrentTime] = useState(new Date());
   const reservas = props.horarioReserva;
+  const [tarHor,setTarHor]=useState(3)
+  const [tarHora,setTarHora]=useState(1)
+  const [horaInicioReserva,setHoraInicioReserva]=useState('')
   const onChange = (e)=>{
     setValues({ ...values, [e.target.name]: e.target.value });
   }
@@ -192,6 +195,9 @@ const Sitio = (props) => {
     let alertaCi='Solo se permiten carácteres numéricos'
     let alertaCelular='Solo se permiten carácteres numéricos'
     let alertaMotivo='Solo se permiten carácteres alfanuméricos'
+    
+    console.log(tarHor)
+    console.log(tarHora)
     if(accSel==='ocupar'){
       let validarPlaca=!validarInputPlaca(values.placa,true,alertaPlaca,regexPlaca,6,8)
       let validarCi=!validarInputCi(values.ci,true,alertaCi,regexNumber,6,9)
@@ -439,7 +445,22 @@ const Sitio = (props) => {
     clearInterval(intert);
     setTimeTemp({tms:0, ts:10, tm:0, th:0})
   };
-
+  const tarifaHoraria=(newTarifaHoraria)=>{
+    let horaElegida=parseInt(newTarifaHoraria)
+    setTarHor(horaElegida)
+    if(horaElegida===3){
+      setTarHora(1)
+    }else if(horaElegida===6){
+      setTarHora(4)
+    }else if(horaElegida===10){
+      setTarHora(12)
+    }else if(horaElegida===15){
+      setTarHora(24)
+    }
+  }
+  const onChangeHoraInicioReserva=(e)=>{
+    setHoraInicioReserva(e.target.value)
+  }
   const resumeTemp = () => startTemp();
   useEffect(() => {
     const timer = setInterval(() => {
@@ -475,6 +496,10 @@ const Sitio = (props) => {
         setColor(filtradoHora[0].color)
         setEstado(filtradoHora[0].estado)
       }
+      if(props.estado==='deshabilitado'){
+        setEstado(props.estado)
+        setColor(props.color)
+      }
     }, 1000); // Actualizar la hora cada segundo
 
     return () => {
@@ -482,7 +507,7 @@ const Sitio = (props) => {
     };
   }, [
     color,
-    props.color,reservas
+    props.color,reservas,props.estado
   ]);
   return (
     
@@ -537,6 +562,13 @@ const Sitio = (props) => {
               mostrarMensaje={mostrarMensajeMotivo}
               mensaje={mensajeMotivo}
             />}
+            <select onChange={(e) => tarifaHoraria(e.target.value)}> 
+              <option value='3'>0 a 1 hora(3 Bs)</option>
+              <option value='6'>1 a 4 horas(6 Bs)</option>
+              <option value='10'>4 a 12 horas(10 Bs)</option>
+              <option value='15'>12 a 24 horas(15 Bs)</option>
+            </select>
+            <input type="time" value={horaInicioReserva} onChange={onChangeHoraInicioReserva} name="horaInicioReserva"/>
           </ModalBody>
           <div className='modalFooter'>
           <ModalFooter>

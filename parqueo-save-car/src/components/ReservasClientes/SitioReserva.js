@@ -378,7 +378,7 @@ const SitioReserva = (props) => {
   };
   const calcularHoraFin = (aumento,horas, minutos) => {
     horas=horas+aumento
-    if (horas > 24) {
+    if (horas > 23) {
       horas = horas%24;
     }
     if (horas < 10) {
@@ -688,16 +688,33 @@ const SitioReserva = (props) => {
       let fechaAct = hora.getFullYear() + "-" + mes + "-" + day;
       let arregloFiltrado=reservas.filter((reser)=>(fechaAct >= reser.fechaIni &&
         fechaAct <= reser.fechaFin))
-      let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct<reser.horaFin)))
+        //console.log(arregloFiltrado)
+      //let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct<reser.horaFin)))
       //console.log(filtradoHora)
       //console.log(reservas)
+      if(arregloFiltrado.length!==0){
+        let encontrado=false
+        for(let i=0;i<arregloFiltrado.length&&encontrado===false;i++){
+          if(arregloFiltrado[i].horaIni>arregloFiltrado[i].horaFin){
+            //console.log('ehh')
+            if(horaAct>=arregloFiltrado[i].horaIni||horaAct<=arregloFiltrado[i].horaFin){
+              setColor(arregloFiltrado[i].color)
+              setEstadoSitio(arregloFiltrado[i].estado)
+            }
+          }else if(arregloFiltrado[i].horaIni<arregloFiltrado[i].horaFin){
+            //console.log('ehh')
+          }
+        }
+      }else{
+        //console.log('#00FF38')
+      }/*
       if(filtradoHora.length===0){
         setColor('#00FF38')
         setEstadoSitio('disponible')
       }else{
         setColor(filtradoHora[0].color)
         setEstadoSitio(filtradoHora[0].estado)
-      }
+      }*/
       if(props.estado==='deshabilitado'){
         setEstadoSitio(props.estado)
         setColor(props.color)
