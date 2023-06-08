@@ -547,7 +547,7 @@ const SitioReserva = (props) => {
           fechaIni: fechaIni,
           fechaFin: fechaFin,
           periodo: periodo,
-          horaInicio: horaInicio,
+          horaIni: horaInicio,
           horaFin: horaFin,
           monto: parseFloat(tarRes),
         };

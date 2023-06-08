@@ -62,8 +62,8 @@ const Comprobante = () => {
   };
   //reserva
   const confirmarReserva = () => {
-    let cad = product.sitio;
-    let cadRecortada = cad.slice(1);
+    //let cad = product.sitio;
+    //let cadRecortada = cad.slice(1);
     /*const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
       const nuevaData={nombre:product.sitio, estado:'reservado',color:'#FC6901'}
       set(dataRef, nuevaData)
@@ -94,7 +94,7 @@ const Comprobante = () => {
         lugarUsado: product.sitio,
         tipo: "Reserva Mensual",
       };
-      const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
+      /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
       const nuevaData = {
         nombre: product.sitio,
         estado: "reservado mes",
@@ -115,7 +115,7 @@ const Comprobante = () => {
         })
         .catch((error) => {
           console.error("Error al actualizar el dato:", error);
-        });
+        });*/
       const db = getDatabase(app);
       const collectionRef = ref(db, "ingresos");
       const newId = push(collectionRef).key;
@@ -150,7 +150,7 @@ const Comprobante = () => {
         lugarUsado: product.sitio,
         tipo: "Reserva",
       };
-      const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
+      /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
       const nuevaData = {
         nombre: product.sitio,
         estado: "reservado",
@@ -162,7 +162,7 @@ const Comprobante = () => {
         })
         .catch((error) => {
           console.error("Error al actualizar el dato:", error);
-        });
+        });*/
       const db = getDatabase(app);
       const collectionRef = ref(db, "ingresos");
       const newId = push(collectionRef).key;
