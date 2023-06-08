@@ -131,10 +131,11 @@ const Comprobante = () => {
         periodo:product.periodo,
         fechaIni:product.fechaIni,
         fechaFin:product.fechaFin,
-        horaIni:product.horaInicio,
+        horaIni:product.horaIni,
         horaFin:product.horaFin
       };
       set(ref(database, "reservas/" + newId), nuevaReserva);
+      console.log('eh')
     }else{
       let ingreso = {
         anio: anio,
