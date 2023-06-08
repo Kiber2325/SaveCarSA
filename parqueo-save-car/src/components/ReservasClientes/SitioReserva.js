@@ -458,7 +458,7 @@ const SitioReserva = (props) => {
         let horaActual=horaInicioReserva.split(':')
         let hour=parseInt(horaActual[0])
         let fechaFinal=fechaInicio
-        if(hour+parseInt(tarHora)>24){
+        if(hour+parseInt(tarHora)>23){
           let dayActualizado=parseInt(dia)+1
           if(dayActualizado<10){
             dayActualizado='0'+dayActualizado
@@ -695,6 +695,7 @@ const SitioReserva = (props) => {
       if(arregloFiltrado.length!==0){
         let encontrado=false
         for(let i=0;i<arregloFiltrado.length&&encontrado===false;i++){
+          //console.log(arregloFiltrado[i].horaIni)
           if(arregloFiltrado[i].horaIni>arregloFiltrado[i].horaFin){
             //console.log('ehh')
             if(horaAct>=arregloFiltrado[i].horaIni||horaAct<=arregloFiltrado[i].horaFin){

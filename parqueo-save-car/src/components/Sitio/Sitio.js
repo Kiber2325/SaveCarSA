@@ -486,6 +486,34 @@ const Sitio = (props) => {
       let fechaAct = hora.getFullYear() + "-" + mes + "-" + day;
       let arregloFiltrado=reservas.filter((reser)=>(fechaAct >= reser.fechaIni &&
         fechaAct <= reser.fechaFin))
+        if(arregloFiltrado.length!==0){
+          let encontrado=false
+          for(let i=0;i<arregloFiltrado.length&&encontrado===false;i++){
+            if(arregloFiltrado[i].horaIni>arregloFiltrado[i].horaFin){
+              //console.log('ehh')
+              if(horaAct>=arregloFiltrado[i].horaIni||horaAct<=arregloFiltrado[i].horaFin){
+                setColor(arregloFiltrado[i].color)
+                setEstado(arregloFiltrado[i].estado)
+                encontrado=true
+              }else{
+                setColor('#00FF38')
+                setEstado('disponible')
+              }
+            }else if(arregloFiltrado[i].horaIni<arregloFiltrado[i].horaFin){
+              //console.log('ehh')
+              if(horaAct>=arregloFiltrado[i].horaIni&&horaAct<=arregloFiltrado[i].horaFin){
+                setColor(arregloFiltrado[i].color)
+                setEstado(arregloFiltrado[i].estado)
+                encontrado=true
+              }else{
+                setColor('#00FF38')
+                setEstado('disponible')
+              }
+            }
+          }
+        }else{
+          //console.log('#00FF38')
+        }/*
       let filtradoHora=arregloFiltrado.filter((reser)=>((horaAct >= reser.horaIni || horaAct<reser.horaFin)))
       //console.log(filtradoHora)
       //console.log(reservas)
@@ -499,7 +527,7 @@ const Sitio = (props) => {
       if(props.estado==='deshabilitado'){
         setEstado(props.estado)
         setColor(props.color)
-      }
+      }*/
     }, 1000); // Actualizar la hora cada segundo
 
     return () => {
