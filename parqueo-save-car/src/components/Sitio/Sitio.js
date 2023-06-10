@@ -171,19 +171,32 @@ const Sitio = (props) => {
       }
     return esInvalido;
   }
-  const confirmarReserva=(estadoSitio,nuevoColor)=>{
-    let cad=props.nombre
-    let cadRecortada=cad.slice(1)
-    const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
-    const nuevaData={nombre:props.nombre, estado:estadoSitio, color:nuevoColor}
-    set(dataRef, nuevaData)
-    .then(() => {
-      console.log('Dato actualizado correctamente');
-    })
-    .catch((error) => {
-      console.error('Error al actualizar el dato:', error);
-    });
-  }
+  const confirmarReserva = (estadoSitio, nuevoColor) => {
+    let cad = props.nombre;
+    let cadRecortada = cad.slice(1);
+    const nuevaData = { nombre: props.nombre, estado: estadoSitio, color: nuevoColor };
+  
+    if (cad.includes('A')) {
+      const dataRef = ref(database, 'sitiosAutos/' + cadRecortada);
+      set(dataRef, nuevaData)
+        .then(() => {
+          console.log('Dato actualizado correctamente');
+        })
+        .catch((error) => {
+          console.error('Error al actualizar el dato:', error);
+        });
+    } else if (cad.includes('M')) {
+      const dataRef = ref(database, 'sitiosMotos/' + cadRecortada);
+      set(dataRef, nuevaData)
+        .then(() => {
+          console.log('Dato actualizado correctamente');
+        })
+        .catch((error) => {
+          console.error('Error al actualizar el dato:', error);
+        });
+    }
+  };
+  
   const ejecutarAccion=(e)=>{
     //formato
     e.preventDefault()
@@ -541,7 +554,7 @@ const Sitio = (props) => {
     
     <div>
       {false&&currentTime}
-        <div className='sitio' onClick={cambiarEstado} style={{ backgroundColor: color}}>
+        <div  className={props.nombre.includes('A') ? 'sitio' : props.nombre.includes('M') ? 'sitioM' : 'sitio'} onClick={cambiarEstado} style={{ backgroundColor: color }}>
             <h2>{props.nombre}</h2>
             <p className='texto'>{estado}</p>
             {mostrarCronometro &&<div className='cronometroSitio'>

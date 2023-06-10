@@ -50,8 +50,8 @@ const Queja = () => {
             {posts ? (
             posts.map((post) => (
               <div className='contenidoQuejas' key={post.id}>
-                <p> <strong>- {post.message}</strong> </p>
-                <i onClick={() => deleteQueja(post.id)}><i class="fa-solid fa-trash-can"></i></i>
+                <p> <strong>{post.message}</strong></p>
+               <div className='Icon'><i class="fa-solid fa-trash-can" onClick={() => deleteQueja(post.id)} /></div >
               </div>
             ))
             

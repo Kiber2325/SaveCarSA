@@ -62,7 +62,7 @@ const ConfiguracionAuto = () => {
     <>
       <Navlogin/>
       <div className='container'>
-      <h2 className='titu'>Configurar Parqueo de autos</h2><br/>
+      <h2 className='titu'>Configurar Parqueo de autos <i class="fa-solid fa-car"></i></h2><br/>
         <div className='generar'>
         <Row>
           <Col>

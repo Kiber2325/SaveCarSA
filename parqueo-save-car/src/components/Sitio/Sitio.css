@@ -4,7 +4,17 @@
     cursor: pointer;
     margin: 10px;
     border-radius: 1rem;
-    border:solid 2px black
+    border:solid 5px rgba(223, 19, 19, 0.877)
+    
+}
+
+.sitioM{
+    width: 90px;
+    height: 130px;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 1rem;
+    border:solid 5px rgba(124, 19, 223, 0.87)
     
 }
 .modalHeader{

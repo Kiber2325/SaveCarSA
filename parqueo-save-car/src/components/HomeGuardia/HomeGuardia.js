@@ -44,7 +44,7 @@ const HomeGuardia = () => {
                             <div className="d-grid gap-2">
                                
 
-                                    <Link className="btn btn-primary" to='/SitiosAutos'>Acceder</Link>
+                                    <Link className="btn btn-primary" to='/SitiosMotos'>Acceder</Link>
                                    
 
                             </div>

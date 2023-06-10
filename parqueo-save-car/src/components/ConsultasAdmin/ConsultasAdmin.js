@@ -1,10 +1,11 @@
 import React ,{useState ,useEffect}from 'react'
 import { database } from '../../conexion/firebase';
-import { onValue, ref , push , update} from 'firebase/database';
+import { onValue, ref , push , update, remove} from 'firebase/database';
 import './ConsultaAdmin.css'
 
 import Navlogin from '../Login/Navlogin';
 import Footers from '../Footer/Footer';
+import Swal from 'sweetalert2';
 
 
 
@@ -50,6 +51,23 @@ const ConsultasAdmin = () => {
         update(ref(database, `Consultas/${id}`),{respuesta:respuesta})
          setRespuesta('');
     };
+
+    function deleteConsulta(quejaId) {
+      const consultaRef = ref(database, `Consultas/${quejaId}`);
+      remove(consultaRef)
+        .then(() => {
+          Swal.fire({
+            title: 'Eliminado',
+            text: 'consulta eliminada correctamente',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+          getData();
+        })
+        .catch((error) => {
+          console.error("Error al eliminar la consulta:", error);
+        });
+    }
   
     return (
      <>
@@ -62,7 +80,7 @@ const ConsultasAdmin = () => {
         <br/>
       
         {consultas.map((consulta) => (
-          <div key={consulta.id}>
+          <div className='contenidoQuejas' key={consulta.id}>
             
             <p className='pregunta'><strong>Pregunta: {consulta.Consulta} </strong></p> 
 
@@ -73,6 +91,8 @@ const ConsultasAdmin = () => {
                 <button className='btn btn-danger' onClick={() => enviarRespuesta(consulta.id)}>Enviar respuesta</button>
               </div>
             )}
+            <i class="fa-solid fa-trash-can" onClick={() => deleteConsulta(consulta.id)} />
+
           </div>
         ))}
         <h2>Agregar nueva consulta</h2>

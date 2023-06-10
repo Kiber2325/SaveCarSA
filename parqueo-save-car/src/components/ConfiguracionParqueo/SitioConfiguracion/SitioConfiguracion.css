@@ -1,4 +1,4 @@
-.sitioConfi{
+.sitioAuto{
     
     width: 125px;
     height: 140px;
@@ -9,14 +9,20 @@
     cursor: pointer;
     
 }
-.sitioConfi h2{
+.sitioAuto h2{
     text-align: center;
 }
 
-.sitioM{
-    width: 80px;
-    height: 110px;
+.sitioMoto{
+    width: 90px;
+    height: 120px;
     background-color: #00FF38;
     margin: 10px;
     border-radius: 2rem;
+    border:solid 2px black;
+    cursor: pointer;
+}
+
+.sitioMoto h2{
+    text-align: center;
 }

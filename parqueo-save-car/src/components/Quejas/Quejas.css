@@ -45,7 +45,6 @@ text-align: center;
 
 p{
   word-wrap: break-word;
-  
   display: block;
   font-size: 1.5rem;
 }
@@ -61,3 +60,11 @@ p{
   background-color: #004854;
   
 }
+
+
+.contenidoQuejas{
+  background-color: #34afb12f;
+  margin: 4px;
+  padding: 1rem;
+}
+

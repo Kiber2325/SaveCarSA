@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './SitiosAutos.css';
+import './SitiosMotos.css';
 import Sitio from '../Sitio/Sitio';
 
 import {  ref, onValue } from "firebase/database";
@@ -10,14 +10,14 @@ import Navar from '../Navbar/Navar';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 //import ShowSitios from './componentes/ShowSitios';
 
-const SitiosAutos = () => {
+const SitiosMotos = () => {
 const [dataArr, setDataArr] = useState([]);
 const [dataReserva, setDataReserva] = useState([]);
 useEffect(()=>{
   getData()
 },[]);
 function getData() {
-  onValue(ref(database, 'sitiosAutos'), (snapshot) => {
+  onValue(ref(database, 'sitiosMotos'), (snapshot) => {
     const dataObj = snapshot.val();
     const dataArr = Object.values(dataObj);
     setDataArr(dataArr);
@@ -27,10 +27,12 @@ useEffect(() => {
   getDataReserva();
 }, []);
 function getDataReserva() {
-  onValue(ref(database, "reservas"), (snapshot) => {
-    const dataObj = snapshot.val();
-    const dataReserva = Object.values(dataObj);
-    setDataReserva(dataReserva);
+    onValue(ref(database, "reservasMotos"), (snapshot) => {
+        const dataObj = snapshot.val();
+        if (dataObj) {
+          const dataReserva = Object.values(dataObj);
+          setDataReserva(dataReserva);
+        }
   });
 }
 const horariosReserva=(sitioDesignado)=>{
@@ -40,7 +42,7 @@ const horariosReserva=(sitioDesignado)=>{
   return (
     <div> 
        <Navar/>     
-    <h1 className='titu'> Parqueo de Autos <i class="fa-solid fa-car"></i></h1>
+    <h1 className='titu'> Parqueo de Motos <i class="fa-solid fa-motorcycle"></i></h1>
     <div className='cuerpo'>
         {dataArr.map((sitio)=>(
     <Sitio
@@ -56,4 +58,4 @@ const horariosReserva=(sitioDesignado)=>{
   )
 }
 
-export default SitiosAutos
+export default SitiosMotos
