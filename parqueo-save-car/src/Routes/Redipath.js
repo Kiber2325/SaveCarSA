@@ -30,6 +30,7 @@ import Solicitud from "../components/Solicitud/Solicitud";
 import Solicitudes from "../components/Solicitud/Solicitudes/Solicitudes";
 import ReservaMensualCliente from "../components/ReservaMensualCliente/ReservaMensualCliente";
 import AcercaDe from "../components/AcercaDeNosotros/acercaDe";
+import EstadoSitios from "../components/EstadoSitios/EstadoSitios";
 
 //import ladingPage from "../pages/ladingpage";
 
@@ -76,6 +77,7 @@ const Redipath =() =>{
 
             <Route path="/Ingresos" element={<IngresosAnio/>}/>
             <Route path="/UsoSitios" element={<UsoSitios/>}/>
+            <Route path="/EstadoDelParqueo" element={<EstadoSitios/>}/>
         
         </Routes>
     </BrowserRouter>
