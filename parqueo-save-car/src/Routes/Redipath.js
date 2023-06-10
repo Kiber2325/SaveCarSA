@@ -30,11 +30,9 @@ import Solicitud from "../components/Solicitud/Solicitud";
 import Solicitudes from "../components/Solicitud/Solicitudes/Solicitudes";
 import ReservaMensualCliente from "../components/ReservaMensualCliente/ReservaMensualCliente";
 import AcercaDe from "../components/AcercaDeNosotros/acercaDe";
-<<<<<<< HEAD
 import SitiosMotos from "../components/SitiosMotos/SitiosMotos";
-=======
 import EstadoSitios from "../components/EstadoSitios/EstadoSitios";
->>>>>>> 81f26732b70e4b226488ec9afdc44d25a7632d72
+
 
 //import ladingPage from "../pages/ladingpage";
 
