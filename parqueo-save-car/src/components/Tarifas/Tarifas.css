@@ -14,7 +14,48 @@
 }
 .tarifas{
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .infoCuo{
-    margin-left: 100px;
+    margin: 10px 0;
+}
+.inputsEditarTarifas,.tituloModalTarifa, .btnsModalEditar{
+    display: flex;
+    justify-content: center;
+}
+.btnModalEditar{
+    text-decoration: none;
+    background-color:#00B9BC ;
+    border:none ;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+.btnModalEditar:hover{
+    background-color:#F63700 ;
+    border-color:#F63700 ;
+    color: black;
+}
+.modal-footer{
+    justify-content: center;
+}
+.modal-header{
+    justify-content: center;
+}
+.btnIcono{
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color:#00B9BC ;
+    border:none ;
+    color: white;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+.tarifa{
+    width: 40%;
+}
+.monto{
+    width: 20%;
 }
