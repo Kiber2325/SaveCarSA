@@ -10,6 +10,19 @@ import './AcercaDe.css'
 
 function AcercaDe() {
   const [horarios, setHorarios] = useState([]);
+  const [dataArr, setDataArr] = useState([]);
+  useEffect(()=>{
+      getData()
+    },[]);
+    function getData() {
+      onValue(ref(database, 'tarifas'), (snapshot) => {
+        const dataObj = snapshot.val();
+        const dataArr = Object.values(dataObj);
+        setDataArr(dataArr);
+      });
+    }
+ 
+  
 
   useEffect(() => {
     const obtenerHorarios = () => {
@@ -33,7 +46,7 @@ function AcercaDe() {
   return (
     <>
      <Navlading/>
-         <div className='contenidoAcercaDe'>
+        <div className='contenidoAcercaDe'>
         <center>
         <div>
         <center>
@@ -80,6 +93,25 @@ function AcercaDe() {
         </center>
         </div>
 
+{/* precio */}
+        <div>
+          <center>
+            <h1>Precios</h1>
+            <div className='tarif'>
+             {dataArr.map((cuota)=>(
+                <div className='tarifas'>
+                <b><p className='infoCuo'>
+                    {cuota.tarifa}
+                </p></b>
+                <p className='infoCuo'>
+                    {cuota.monto} Bs.
+                </p>
+                </div>
+             ))}
+            </div>
+          </center>
+        </div>
+{/* .------------ */}
 
         <div>
         <center>
