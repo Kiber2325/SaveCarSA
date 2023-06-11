@@ -97,17 +97,21 @@ function AcercaDe() {
         <div>
           <center>
             <h1>Precios</h1>
+            <div className='tarifasGeneral'>
             <div className='tarif'>
              {dataArr.map((cuota)=>(
-                <div className='tarifas'>
-                <b><p className='infoCuo'>
+              <div>               
+              <div className='tarifas' key={cuota.id}>
+                <p className='infoCuo tarifa'>
                     {cuota.tarifa}
-                </p></b>
-                <p className='infoCuo'>
+                </p>
+                <p className='infoCuo monto'>
                     {cuota.monto} Bs.
                 </p>
-                </div>
+               </div>
+                </div> 
              ))}
+            </div>
             </div>
           </center>
         </div>
