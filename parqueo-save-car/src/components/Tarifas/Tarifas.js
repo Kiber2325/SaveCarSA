@@ -77,14 +77,14 @@ const Tarifas = () => {
              {dataArr.map((cuota)=>(
               <div>               
               <div className='tarifas' key={cuota.id}>
-                <p className='infoCuo'>
+                <p className='infoCuo tarifa'>
                     {cuota.tarifa}
                 </p>
-                <p className='infoCuo'>
+                <p className='infoCuo monto'>
                     {cuota.monto} Bs.
                 </p>
-                <button onClick={()=>editarTarifa(cuota.monto,cuota.tarifa,cuota.monto)}>Editar</button>
-                <button onClick={()=>eliminarTarifa(cuota.monto)}>Eliminar</button>
+                <button className='btnIcono' onClick={()=>editarTarifa(cuota.monto,cuota.tarifa,cuota.monto)}><i className="bi bi-pencil-fill"></i></button>
+                <button className='btnIcono' onClick={()=>eliminarTarifa(cuota.monto)}><i className="bi bi-trash-fill"></i></button>
                 </div>
                 
                 </div> 
