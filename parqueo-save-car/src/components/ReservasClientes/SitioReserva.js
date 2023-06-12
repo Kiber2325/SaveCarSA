@@ -10,10 +10,12 @@ const SitioReserva = (props) => {
   const reservas = props.horarioReserva;
   const cambiarEstado = () => {
     let estadoSitio2 = estadoSitio;
+    console.log(estadoSitio2)
     if (estadoSitio2 === "disponible") {
       setModalEstado(true);
       console.log(estadoSitio);
-    } else if (estadoSitio2 === "reservado mes"||estadoSitio2==='reservado') {
+    } else if (estadoSitio2 === "reservado mes"||estadoSitio2==='reservado'||
+    estadoSitio2 === "reserva mes noche"||estadoSitio2 === "reserva mes dia") {
       console.log(reservas);
        setModalEstado(true);
       // console.log(estadoSitio);
@@ -245,9 +247,13 @@ const SitioReserva = (props) => {
       if (tipo === "reservaM") {
         let reservasFecha=reservas.filter(reser=>(fechaIni>=reser.fechaIni&&fechaFin>=reser.fechaFin))
         console.log(reservasFecha)
+        console.log(periodo)
         if(periodo==='dia'){
           console.log(horaInicio)
           console.log(horaFin)
+          let reservasFechaHora=reservasFecha.filter(reser=>((reser.horaIni>=horaInicio&&reser.horaFin<=horaFin)||reser.horaFin>=horaInicio))
+          console.log(reservasFechaHora)
+        }else if(periodo==='noche'){
           let reservasFechaHora=reservasFecha.filter(reser=>((reser.horaIni>=horaInicio&&reser.horaFin<=horaFin)||reser.horaFin>=horaInicio))
           console.log(reservasFechaHora)
         }
@@ -444,7 +450,6 @@ const SitioReserva = (props) => {
         if(dia<10){
           dia='0'+dia
         }
-        let fechaInicio=fechaIniD
         /*let hour=fecha.getHours();let minute=fecha.getMinutes();let second=fecha.getSeconds();
         if(hour<10){
           hour='0'+hour
@@ -457,9 +462,11 @@ const SitioReserva = (props) => {
         }*/
         let horaActual=horaInicioReserva.split(':')
         let hour=parseInt(horaActual[0])
-        let fechaFinal=fechaInicio
+        let fechaFinal=fechaIniD
         if(hour+parseInt(tarHora)>23){
-          let dayActualizado=parseInt(dia)+1
+          let sepFechaFinal=fechaFinal.split('-')
+          let diaFinal=parseInt(sepFechaFinal[2])
+          let dayActualizado=diaFinal+1
           if(dayActualizado<10){
             dayActualizado='0'+dayActualizado
           }
@@ -489,7 +496,7 @@ const SitioReserva = (props) => {
         console.log(idUnico);
         console.log(comprobanteData);
         set(ref(database, "comprobantes/" + idUnico), comprobanteData);
-        setUrl(url + idUnico);
+        setUrl(urlDef + idUnico);
         setModalQr(true);
         /*clearInterval(intert);
             updatedS=10;updatedTM=0;
@@ -563,7 +570,7 @@ const SitioReserva = (props) => {
         console.log(idUnico);
         console.log(comprobanteDataM);
         set(ref(database, "comprobantes/" + idUnico), comprobanteDataM);
-        setUrl(url + idUnico);
+        setUrl(urlDef + idUnico);
         setModalQr(true);
         quitarMensajesError()
       }
@@ -574,9 +581,8 @@ const SitioReserva = (props) => {
   const cerrarModalQR = () => {
     setModalQr(false);
   };
-  const [url, setUrl] = useState(
-    "https://creative-sable-0d4ce3.netlify.app/comprobante/"
-  );
+  const urlDef="https://creative-sable-0d4ce3.netlify.app/comprobante/"
+  const [url, setUrl] = useState('');
   const cerrarModalEstadoOcupado = () => {
     setModalEstadoOcupado(false);
   };
