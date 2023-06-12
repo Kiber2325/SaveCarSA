@@ -32,6 +32,7 @@ import ReservaMensualCliente from "../components/ReservaMensualCliente/ReservaMe
 import AcercaDe from "../components/AcercaDeNosotros/acercaDe";
 import SitiosMotos from "../components/SitiosMotos/SitiosMotos";
 import EstadoSitios from "../components/EstadoSitios/EstadoSitios";
+import AutosMotos from "../components/SitioAutosMotos/AutosMotos";
 
 
 //import ladingPage from "../pages/ladingpage";
@@ -44,6 +45,7 @@ const Redipath =() =>{
             <Route path="/Iniciosesion" element={<Iniciosesion/>}/>
             <Route path="/Home*" element={<Home/>}/>
             <Route path="/HomeGuardia*" element={<HomeGuardia/>}/>
+            <Route path="/AutosMotos" element={<AutosMotos/>}/>
 
             <Route path="/FormGuardia" element={<FormGuardia/>}/>
             <Route path="/RegistrarCliente" element={<RegistrarCliente/>}/>

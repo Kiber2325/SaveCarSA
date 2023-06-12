@@ -56,7 +56,7 @@ const ReservasCliente = () => {
         </div>
       </div>
       <div className="botonesReservaCliente">
-      <Link to='/' className="volverLanding">Volver</Link>
+      <Link to='/AutosMotos' className="volverLanding">Volver</Link>
       </div> 
       <Footers/>
     </div>

@@ -42,7 +42,7 @@ const Navlading = () => {
 
             <div>
             
-            <Link to='/ReservasCliente' class="btn btn-link">Sitios Disponibles</Link>
+            <Link to='/AutosMotos' class="btn btn-link">Sitios Disponibles</Link>
             </div>
             <div>
             
