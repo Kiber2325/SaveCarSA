@@ -245,18 +245,41 @@ const SitioReserva = (props) => {
     }
     for (let i = 0; i < reservas.length && esInvalido === false; i++) {
       if (tipo === "reservaM") {
-        let reservasFecha=reservas.filter(reser=>(fechaIni>=reser.fechaIni&&fechaFin>=reser.fechaFin))
-        console.log(reservasFecha)
-        console.log(periodo)
-        if(periodo==='dia'){
-          console.log(horaInicio)
-          console.log(horaFin)
-          let reservasFechaHora=reservasFecha.filter(reser=>((reser.horaIni>=horaInicio&&reser.horaFin<=horaFin)||reser.horaFin>=horaInicio))
-          console.log(reservasFechaHora)
-        }else if(periodo==='noche'){
-          let reservasFechaHora=reservasFecha.filter(reser=>((reser.horaIni>=horaInicio&&reser.horaFin<=horaFin)||reser.horaFin>=horaInicio))
-          console.log(reservasFechaHora)
+        let reservasFechaIniFin=[]
+        for(let i=0;i<reservas.length;i++){
+          if(reservas[i].fechaIni>=fechaIni&&reservas[i].fechaFin<=fechaFin){
+            reservasFechaIniFin.push(reservas[i])
+          }else if(reservas[i].fechaFin>fechaFin&&reservas[i].fechaIni<=fechaFin){
+            reservasFechaIniFin.push(reservas[i])
+          }else if(reservas[i].fechaFin>=fechaIni&&reservas[i].fechaIni<fechaIni){
+            reservasFechaIniFin.push(reservas[i])
+          }
         }
+        console.log(reservasFechaIniFin)
+        if(periodo==='dia'){
+          let encontrado=false
+          let horaIniMesDia='06:00';let horaFinMesDia='22:00'
+          for(let i=0;i<reservasFechaIniFin.length&&encontrado===false;i++){
+            if(reservasFechaIniFin[i].horaIni>=horaIniMesDia&&reservasFechaIniFin[i].horaFin<=horaFinMesDia){
+              encontrado=true
+            }else if(reservasFechaIniFin[i].fechaIni<reservasFechaIniFin[i].fechaFin){
+              if(reservasFechaIniFin[i].fechaFin>=fechaIni&&reservasFechaIniFin[i].horaFin>=horaIniMesDia){
+                encontrado=true
+              }else if(reservasFechaIniFin[i].fechaIni<=fechaFin&&reservasFechaIniFin[i].horaIni<=horaFinMesDia){
+                encontrado=true
+              }
+            } 
+          }
+          if(encontrado===false){
+            console.log('Reserva correcta')
+          }else{
+            let men='Ya existe una reserva en este periodo'
+            console.log(men)
+            setErrorFechaIni(men)
+          }
+        }else if(periodo==='noche'){
+          
+        }/*
         if (
           fechaIni >= reservas[i].fechaIni &&
           fechaIni <= reservas[i].fechaFin
@@ -283,7 +306,7 @@ const SitioReserva = (props) => {
           }
         } else {
           console.log("Reserva correcta");
-        }
+        }*/
       }
     }
 
@@ -886,7 +909,7 @@ const SitioReserva = (props) => {
       </Modal>
       <Modal isOpen={modalEstadoOcupado} centered={true}>
         <ModalHeader>
-          <h1>Este sitio esta {props.estado}</h1>
+          <h1>Este sitio esta {estadoSitio}</h1>
         </ModalHeader>
         <ModalFooter>
           <button
