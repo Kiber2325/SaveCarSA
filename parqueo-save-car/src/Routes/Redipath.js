@@ -33,6 +33,8 @@ import AcercaDe from "../components/AcercaDeNosotros/acercaDe";
 import SitiosMotos from "../components/SitiosMotos/SitiosMotos";
 import EstadoSitios from "../components/EstadoSitios/EstadoSitios";
 import AutosMotos from "../components/SitioAutosMotos/AutosMotos";
+import EstadoSitiosMotos from "../components/EstadoSitios/EstadoSitiosMotos";
+import AutosMotosAdmin from "../components/EstadoSitios/AutosMotosAdmin";
 
 
 //import ladingPage from "../pages/ladingpage";
@@ -83,6 +85,9 @@ const Redipath =() =>{
             <Route path="/Ingresos" element={<IngresosAnio/>}/>
             <Route path="/UsoSitios" element={<UsoSitios/>}/>
             <Route path="/EstadoDelParqueo" element={<EstadoSitios/>}/>
+            
+            <Route path="/EstadoDeMotos" element={<EstadoSitiosMotos/>}/>
+            <Route path="/AutosMotosAdmin" element={<AutosMotosAdmin/>}/>
         
         </Routes>
     </BrowserRouter>
