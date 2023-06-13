@@ -14,7 +14,7 @@ const SitioReserva = (props) => {
     if (estadoSitio2 === "disponible") {
       setModalEstado(true);
       console.log(estadoSitio);
-    } else if (estadoSitio2 === "reservado mes"||estadoSitio2==='reservado'||
+    } else if (estadoSitio2 === "reserva mes completo"||estadoSitio2==='reservado'||
     estadoSitio2 === "reserva mes noche"||estadoSitio2 === "reserva mes dia") {
       console.log(reservas);
        setModalEstado(true);
@@ -271,14 +271,54 @@ const SitioReserva = (props) => {
             } 
           }
           if(encontrado===false){
-            console.log('Reserva correcta')
+            console.log('Reserva mes dia correcta')
           }else{
             let men='Ya existe una reserva en este periodo'
             console.log(men)
+            setMostrarErrorFechaIni(true)
             setErrorFechaIni(men)
           }
         }else if(periodo==='noche'){
-          
+          let encontrado=false
+          let horaIniMesNoche='22:00';let horaFinMesNoche='06:00'
+          for(let i=0;i<reservasFechaIniFin.length&&encontrado===false;i++){
+            if(reservasFechaIniFin[i].fechaIni<reservasFechaIniFin[i].fechaFin){
+              if(reservasFechaIniFin[i].horaIni===reservasFechaIniFin[i].horaFin){
+                if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<='23:59'){
+                  encontrado=true
+                }else if(reservasFechaIniFin[i].horaIni>='00:00'&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
+                  encontrado=true
+                }
+              }else if(reservasFechaIniFin[i].horaIni>reservasFechaIniFin[i].horaFin){
+                if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
+                  encontrado=true
+                }
+              }
+            }else if(reservasFechaIniFin[i].fechaIni===reservasFechaIniFin[i].fechaFin){
+              if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<='23:59'){
+                encontrado=true
+              }else if(reservasFechaIniFin[i].horaIni>='00:00'&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
+                encontrado=true
+              }
+            }
+          }
+          if(encontrado===false){
+            console.log('Reserva mes dia correcta')
+          }else{
+            let men='Ya existe una reserva en este periodo'
+            console.log(men)
+            setMostrarErrorFechaIni(true)
+            setErrorFechaIni(men)
+          }
+        }else if(periodo==='completo'){
+          if(reservasFechaIniFin.length===0){
+            console.log('reserva mensual completa correcta')
+          }else{
+            let men='Ya existe una reserva en este periodo de mes completo'
+            console.log(men)
+            setMostrarErrorFechaIni(true)
+            setErrorFechaIni(men)
+          }
         }/*
         if (
           fechaIni >= reservas[i].fechaIni &&
