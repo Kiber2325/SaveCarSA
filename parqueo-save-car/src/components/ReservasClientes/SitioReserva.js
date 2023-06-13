@@ -14,7 +14,7 @@ const SitioReserva = (props) => {
     if (estadoSitio2 === "disponible") {
       setModalEstado(true);
       console.log(estadoSitio);
-    } else if (estadoSitio2 === "reservado mes"||estadoSitio2==='reservado'||
+    } else if (estadoSitio2 === "reserva mes completo"||estadoSitio2==='reservado'||
     estadoSitio2 === "reserva mes noche"||estadoSitio2 === "reserva mes dia") {
       console.log(reservas);
        setModalEstado(true);
@@ -245,18 +245,81 @@ const SitioReserva = (props) => {
     }
     for (let i = 0; i < reservas.length && esInvalido === false; i++) {
       if (tipo === "reservaM") {
-        let reservasFecha=reservas.filter(reser=>(fechaIni>=reser.fechaIni&&fechaFin>=reser.fechaFin))
-        console.log(reservasFecha)
-        console.log(periodo)
-        if(periodo==='dia'){
-          console.log(horaInicio)
-          console.log(horaFin)
-          let reservasFechaHora=reservasFecha.filter(reser=>((reser.horaIni>=horaInicio&&reser.horaFin<=horaFin)||reser.horaFin>=horaInicio))
-          console.log(reservasFechaHora)
-        }else if(periodo==='noche'){
-          let reservasFechaHora=reservasFecha.filter(reser=>((reser.horaIni>=horaInicio&&reser.horaFin<=horaFin)||reser.horaFin>=horaInicio))
-          console.log(reservasFechaHora)
+        let reservasFechaIniFin=[]
+        for(let i=0;i<reservas.length;i++){
+          if(reservas[i].fechaIni>=fechaIni&&reservas[i].fechaFin<=fechaFin){
+            reservasFechaIniFin.push(reservas[i])
+          }else if(reservas[i].fechaFin>fechaFin&&reservas[i].fechaIni<=fechaFin){
+            reservasFechaIniFin.push(reservas[i])
+          }else if(reservas[i].fechaFin>=fechaIni&&reservas[i].fechaIni<fechaIni){
+            reservasFechaIniFin.push(reservas[i])
+          }
         }
+        console.log(reservasFechaIniFin)
+        if(periodo==='dia'){
+          let encontrado=false
+          let horaIniMesDia='06:00';let horaFinMesDia='22:00'
+          for(let i=0;i<reservasFechaIniFin.length&&encontrado===false;i++){
+            if(reservasFechaIniFin[i].horaIni>=horaIniMesDia&&reservasFechaIniFin[i].horaFin<=horaFinMesDia){
+              encontrado=true
+            }else if(reservasFechaIniFin[i].fechaIni<reservasFechaIniFin[i].fechaFin){
+              if(reservasFechaIniFin[i].fechaFin>=fechaIni&&reservasFechaIniFin[i].horaFin>=horaIniMesDia){
+                encontrado=true
+              }else if(reservasFechaIniFin[i].fechaIni<=fechaFin&&reservasFechaIniFin[i].horaIni<=horaFinMesDia){
+                encontrado=true
+              }
+            } 
+          }
+          if(encontrado===false){
+            console.log('Reserva mes dia correcta')
+          }else{
+            let men='Ya existe una reserva en este periodo'
+            console.log(men)
+            setMostrarErrorFechaIni(true)
+            setErrorFechaIni(men)
+          }
+        }else if(periodo==='noche'){
+          let encontrado=false
+          let horaIniMesNoche='22:00';let horaFinMesNoche='06:00'
+          for(let i=0;i<reservasFechaIniFin.length&&encontrado===false;i++){
+            if(reservasFechaIniFin[i].fechaIni<reservasFechaIniFin[i].fechaFin){
+              if(reservasFechaIniFin[i].horaIni===reservasFechaIniFin[i].horaFin){
+                if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<='23:59'){
+                  encontrado=true
+                }else if(reservasFechaIniFin[i].horaIni>='00:00'&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
+                  encontrado=true
+                }
+              }else if(reservasFechaIniFin[i].horaIni>reservasFechaIniFin[i].horaFin){
+                if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
+                  encontrado=true
+                }
+              }
+            }else if(reservasFechaIniFin[i].fechaIni===reservasFechaIniFin[i].fechaFin){
+              if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<='23:59'){
+                encontrado=true
+              }else if(reservasFechaIniFin[i].horaIni>='00:00'&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
+                encontrado=true
+              }
+            }
+          }
+          if(encontrado===false){
+            console.log('Reserva mes dia correcta')
+          }else{
+            let men='Ya existe una reserva en este periodo'
+            console.log(men)
+            setMostrarErrorFechaIni(true)
+            setErrorFechaIni(men)
+          }
+        }else if(periodo==='completo'){
+          if(reservasFechaIniFin.length===0){
+            console.log('reserva mensual completa correcta')
+          }else{
+            let men='Ya existe una reserva en este periodo de mes completo'
+            console.log(men)
+            setMostrarErrorFechaIni(true)
+            setErrorFechaIni(men)
+          }
+        }/*
         if (
           fechaIni >= reservas[i].fechaIni &&
           fechaIni <= reservas[i].fechaFin
@@ -283,7 +346,7 @@ const SitioReserva = (props) => {
           }
         } else {
           console.log("Reserva correcta");
-        }
+        }*/
       }
     }
 
@@ -886,7 +949,7 @@ const SitioReserva = (props) => {
       </Modal>
       <Modal isOpen={modalEstadoOcupado} centered={true}>
         <ModalHeader>
-          <h1>Este sitio esta {props.estado}</h1>
+          <h1>Este sitio esta {estadoSitio}</h1>
         </ModalHeader>
         <ModalFooter>
           <button
