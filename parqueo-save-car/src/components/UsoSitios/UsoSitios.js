@@ -185,7 +185,7 @@ const UsoSitios = () => {
                 <td className="datoIngreso">{uso.cantidadDias}</td>
                 <td className="datoIngreso">{uso.tiempoUsado}</td>
                 <td className="datoIngreso">
-                  {uso.porcentajeUsado} %
+                  {uso.porcentajeUsado.toFixed(2)} %
                 </td>
               </tr>
             ))}
@@ -193,7 +193,7 @@ const UsoSitios = () => {
         </table>
         
       </div>
-      <h2>Porcentaje Total: {tiempoUsoTotalParqueo} %</h2>
+      <h2>Porcentaje Total del parqueo : {tiempoUsoTotalParqueo.toFixed(2)} %</h2>
       <div className="botonesReservaCliente">
         <Link to="/Home" className="volverLanding">
           Volver
