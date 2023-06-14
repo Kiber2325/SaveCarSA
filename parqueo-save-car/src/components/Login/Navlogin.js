@@ -62,7 +62,7 @@ const Navlogin = () => {
                 <a  className= "cliente"  href="/Clientes" >Clientes</a>
              </div>
              <div className="sesion">
-                <a  className= "cliente"  href="/EstadoDelParqueo" >Parqueo</a>
+                <a  className= "cliente"  href="/AutosMotosAdmin" >Parqueo</a>
              </div>
              <div className="sesion">
               <a clasName="cliente" href="/Ingresos">
