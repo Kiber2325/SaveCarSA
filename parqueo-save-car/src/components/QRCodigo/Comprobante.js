@@ -32,12 +32,7 @@ const Comprobante = () => {
     return Math.floor(Math.random() * max);
   }
   const descargarPDF = () => {
-    Swal.fire({
-      title: 'Éxito',
-      text: 'Se descargo su comprobante',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-    });
+   
     const doc = new jsPDF();
     console.log(product);
     // Agrega contenido al PDF
@@ -67,11 +62,17 @@ const Comprobante = () => {
 
     // Guarda el PDF
     doc.save("comprobante.pdf");
+    Swal.fire({
+      title: 'Éxito',
+      text: 'Se descargo su comprobante',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
   };
   //reserva
   const confirmarReserva = () => {
 
-    setEnviando(true);
+    
 
     if(product.tipoVehiculo==='Auto'||product.tipoVehiculo===undefined){
 
@@ -149,7 +150,7 @@ const Comprobante = () => {
         horaFin:product.horaFin
       };
       set(ref(database, "reservas/" + newId), nuevaReserva);
-      
+      setEnviando(true);
       Swal.fire({
         title: 'Éxito',
         text: 'Enviado exitosamente',
@@ -206,6 +207,13 @@ const Comprobante = () => {
       };
       //console.log(nuevaReserva)
       set(ref(database, "reservas/" + newId), nuevaReserva);
+      setEnviando(true);
+      Swal.fire({
+        title: 'Éxito',
+        text: 'Enviado exitosamente',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
       
     
     }
@@ -272,6 +280,13 @@ const Comprobante = () => {
         horaFin:product.horaFin
       };
       set(ref(database, "reservasMotos/" + newId), nuevaReserva);
+      setEnviando(true);
+      Swal.fire({
+        title: 'Éxito',
+        text: 'Enviado exitosamente',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
     }else{
       let ingreso = {
         anio: anio,
@@ -320,6 +335,13 @@ const Comprobante = () => {
       };
       //console.log(nuevaReserva)
       set(ref(database, "reservasMotos/" + newId), nuevaReserva);
+      setEnviando(true);
+      Swal.fire({
+        title: 'Éxito',
+        text: 'Enviado exitosamente',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
     }
     }
   };
