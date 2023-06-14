@@ -277,7 +277,7 @@ const Sitio = (props) => {
         set(ref(database, 'reservas/'+newId),nuevaReserva)
         for(let i=0;i<nuevosTiempos.length;i++){
           console.log(nuevosTiempos[i])
-          set(ref(database, 'tiempoUso/'+newId),nuevaReserva)
+          set(ref(database, 'tiempoUso/'+newId),nuevosTiempos[i])
         }
         set(ref(database, 'ingresos/'+newId),nuevoIngreso)
     } else if (cad.includes('M')) {
@@ -289,6 +289,15 @@ const Sitio = (props) => {
         .catch((error) => {
           console.error('Error al actualizar el dato:', error);
         });
+        const db = getDatabase(app);
+        const collectionRef = ref(db, "ingresos");
+        const newId = push(collectionRef).key;
+        set(ref(database, 'reservasMotos/'+newId),nuevaReserva)
+        for(let i=0;i<nuevosTiempos.length;i++){
+          console.log(nuevosTiempos[i])
+          set(ref(database, 'tiempoUso/'+newId),nuevosTiempos[i])
+        }
+        set(ref(database, 'ingresos/'+newId),nuevoIngreso)
     }
   };
   
@@ -363,7 +372,7 @@ const Sitio = (props) => {
     //setCardColor(cardColors.active)
     setMostrarCronometro(false)
     reset()
-    let fecha=new Date()
+    /*let fecha=new Date()
     let fechaAct=fecha.toDateString();
     let anio=fecha.getFullYear()
     let mes=fecha.getMonth()+1
@@ -392,7 +401,7 @@ const Sitio = (props) => {
       minutosUsados:time.m,
       segundosUsados:time.s
     }
-    set(ref(database, "tiempoUso/"+(newId)), tiempoUso);
+    set(ref(database, "tiempoUso/"+(newId)), tiempoUso);*/
   }
   
   const cancelarHabilitar=()=>{

@@ -11,6 +11,7 @@ const Comprobante = () => {
   const { comprobanteId } = useParams();
   const [product, setProduct] = useState(null);
   const [enviando, setEnviando] = useState(false);
+  const meses=[31,28,31,30,31,30,31,31,30,31,30,31]
   useEffect(() => {
     const fetchProduct = async () => {
       // Realiza una consulta a Firebase Realtime Database utilizando el ID del producto
@@ -148,7 +149,65 @@ const Comprobante = () => {
           horaFin: product.horaFin,
         };
         set(ref(database, "reservas/" + newId), nuevaReserva);
-
+        let horaIniPartida = product.horaIni.split(":");
+        let horaFinPartida = product.horaFin.split(":");
+        let fechaIniPartida=product.fechaIni.split('-')
+        let fechaFinPartida=product.fechaFin.split('-')
+        let nuevosTiempos = [];
+        if (product.horaIni < product.horaFin) {
+          for(let i=parseInt(fechaIniPartida[2]);i<meses[parseInt(fechaIniPartida[1]-1)];i++){
+            let j=i
+            if(j<10){
+             j='0'+j 
+            }
+            const nuevoTiempo = {
+              fecha:fechaIniPartida[0]+'-'+fechaIniPartida[1]+'-'+j,
+              horasUsadas: parseInt(horaFinPartida[0])-parseInt(horaIniPartida[0]),
+              minutosUsados: 0,
+              segundosUsados: 0,
+              sitioUsado: product.sitio,
+            };
+            nuevosTiempos.push(nuevoTiempo);
+          }
+          for(let i=1;i<=parseInt(fechaFinPartida[2]);i++){
+              let j=i
+              if(j<10){
+               j='0'+j 
+              }
+              const nuevoTiempo = {
+                fecha:fechaFinPartida[0]+'-'+fechaFinPartida[1]+'-'+j,
+                horasUsadas: parseInt(horaFinPartida[0])-parseInt(horaIniPartida[0]),
+                minutosUsados: 0,
+                segundosUsados: 0,
+                sitioUsado: product.sitio,
+              };
+              nuevosTiempos.push(nuevoTiempo);
+            }
+        } else {
+          const nuevoTiempo1 = {
+            fecha: product.fechaIni,
+            horasUsadas: 24 - parseInt(horaFinPartida[0]),
+            minutosUsados: 0,
+            segundosUsados: 0,
+            sitioUsado: product.sitio,
+          };
+          const nuevoTiempo2 = {
+            fecha: product.fechaFin,
+            horasUsadas: parseInt(horaIniPartida[0]),
+            minutosUsados: 0,
+            segundosUsados: 0,
+            sitioUsado: product.sitio,
+          };
+          nuevosTiempos.push(nuevoTiempo1);
+          nuevosTiempos.push(nuevoTiempo2);
+        }
+        for(let i=0;i<nuevosTiempos.length;i++){
+          const db = getDatabase(app);
+        const collectionRef = ref(db, "tiempoUso");
+        const newIdT = push(collectionRef).key;
+          console.log(nuevosTiempos[i])
+          set(ref(database, 'tiempoUso/'+newIdT),nuevosTiempos[i])
+        }
         setEnviando(true);
         Swal.fire({
           title: "Éxito",
@@ -204,21 +263,40 @@ const Comprobante = () => {
         };
         //console.log(nuevaReserva)
         set(ref(database, "reservas/" + newId), nuevaReserva);
-        let tiempoUso={}
-        let horaIniPartida=product.horaIni.split(':')
-        let horaFinPartida=product.horaFin.split(':')
-        if(product.fechaIni===product.fechaFin){
-          tiempoUso={
-            fecha:product.fechaIni,
-            horasUsadas:diferenciaHoras(parseInt(horaIniPartida[0]),parseInt(horaFinPartida[0])),
-            minutosUsados:parseInt(parseInt(horaFinPartida[1])-parseInt(horaIniPartida[1])),
-            segundosUsados:parseInt(horaIniPartida[2]),
-            sitioUsado:product.sitio
-          }
-        }else{
-
+        let horaIniPartida = product.horaIni.split(":");
+        let horaFinPartida = product.horaFin.split(":");
+        let nuevosTiempos = [];
+        if (product.fechaIni === product.fechaFin) {
+          const nuevoTiempo = {
+            fecha: product.fechaIni,
+            horasUsadas: parseInt(horaFinPartida[0])-parseInt(horaIniPartida[0]),
+            minutosUsados: 0,
+            segundosUsados: 0,
+            sitioUsado: product.sitio,
+          };
+          nuevosTiempos.push(nuevoTiempo);
+        } else {
+          const nuevoTiempo1 = {
+            fecha: product.fechaIni,
+            horasUsadas: 24 - parseInt(horaFinPartida[0]),
+            minutosUsados: 0,
+            segundosUsados: 0,
+            sitioUsado: product.sitio,
+          };
+          const nuevoTiempo2 = {
+            fecha: product.fechaFin,
+            horasUsadas: parseInt(horaIniPartida[0]),
+            minutosUsados: 0,
+            segundosUsados: 0,
+            sitioUsado: product.sitio,
+          };
+          nuevosTiempos.push(nuevoTiempo1);
+          nuevosTiempos.push(nuevoTiempo2);
         }
-        set(ref(database, "tiempoUso/" + newId), tiempoUso);
+        for(let i=0;i<nuevosTiempos.length;i++){
+          console.log(nuevosTiempos[i])
+          set(ref(database, 'tiempoUso/'+newId),nuevaReserva)
+        }
         setEnviando(true);
         Swal.fire({
           title: "Éxito",
@@ -345,19 +423,23 @@ const Comprobante = () => {
         };
         //console.log(nuevaReserva)
         set(ref(database, "reservasMotos/" + newId), nuevaReserva);
-        let tiempoUso={}
-        let horaIniPartida=product.horaIni.split(':')
-        let horaFinPartida=product.horaFin.split(':')
-        if(product.fechaIni===product.fechaFin){
-          tiempoUso={
-            fecha:product.fechaIni,
-            horasUsadas:diferenciaHoras(parseInt(horaIniPartida[0]),parseInt(horaFinPartida[0])),
-            minutosUsados:parseInt(parseInt(horaFinPartida[1])-parseInt(horaIniPartida[1])),
-            segundosUsados:parseInt(horaIniPartida[2]),
-            sitioUsado:product.sitio
-          }
-        }else{
-          
+        let tiempoUso = {};
+        let horaIniPartida = product.horaIni.split(":");
+        let horaFinPartida = product.horaFin.split(":");
+        if (product.fechaIni === product.fechaFin) {
+          tiempoUso = {
+            fecha: product.fechaIni,
+            horasUsadas: diferenciaHoras(
+              parseInt(horaIniPartida[0]),
+              parseInt(horaFinPartida[0])
+            ),
+            minutosUsados: parseInt(
+              parseInt(horaFinPartida[1]) - parseInt(horaIniPartida[1])
+            ),
+            segundosUsados: parseInt(horaIniPartida[2]),
+            sitioUsado: product.sitio,
+          };
+        } else {
         }
         set(ref(database, "tiempoUso/" + newId), tiempoUso);
         setEnviando(true);
@@ -370,11 +452,11 @@ const Comprobante = () => {
       }
     }
   };
-  const diferenciaHoras=(horaIniRes,horaFinRes)=>{
-    if(horaFinRes>horaIniRes){
-      return horaFinRes-horaIniRes
+  const diferenciaHoras = (horaIniRes, horaFinRes) => {
+    if (horaFinRes > horaIniRes) {
+      return horaFinRes - horaIniRes;
     }
-  }
+  };
   const tiempoLimite = () => {
     let array = product.horaIni.split(":");
     let tiempoLimite = parseInt(product.horaIni.split(":")[0]);
