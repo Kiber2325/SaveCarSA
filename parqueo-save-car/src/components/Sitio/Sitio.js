@@ -175,7 +175,93 @@ const Sitio = (props) => {
     let cad = props.nombre;
     let cadRecortada = cad.slice(1);
     const nuevaData = { nombre: props.nombre, estado: estadoSitio, color: nuevoColor };
-  
+    let fechaAhora=new Date()
+    let hora=fechaAhora.getHours();let minutos=fechaAhora.getMinutes();
+    let horaFin=hora+tarHora
+    if(hora<10){
+      hora='0'+hora
+    }
+    if(minutos<10){
+      minutos='0'+minutos
+    }
+    let anio=fechaAhora.getFullYear();let mes=(fechaAhora.getMonth()+1);let dia=fechaAhora.getDate();
+    let diaFin=fechaAhora.getDate()
+    if(horaFin>23){
+      horaFin=horaFin%24
+      diaFin=diaFin+1
+    }
+    if(horaFin<10){
+      horaFin='0'+horaFin
+    }
+    if(mes<10){
+      mes='0'+mes
+    }
+    if(dia<10){
+      dia='0'+dia
+    }
+    let horaExacta=hora+':'+minutos+':00'
+    let fechaExacta=anio+'-'+mes+'-'+dia
+    let horaExactaFin=horaFin+':'+minutos+':00'
+    let fechaExactaFin=anio+'-'+mes+'-'+diaFin
+    const nuevaReserva={nombreSitio:props.nombre,
+      estado: "ocupado",
+          color: nuevoColor,
+          ciCliente: values.ci,
+          nombreApellido: values.ci,
+          celularCliente: values.celular,
+          placaDelAuto: values.placa,
+          periodo: 'corto',
+          fechaIni: fechaExacta,
+          fechaFin: fechaExactaFin,
+          horaIni: horaExacta,
+          horaFin: horaExactaFin,
+    }
+    console.log(nuevaReserva)
+    let nuevosTiempos=[]
+    if(fechaExacta===fechaExactaFin){
+      const nuevoTiempo={
+        fecha:fechaExacta,
+        horasUsadas:parseInt(tarHora),
+        minutosUsados:0,
+        segundosUsados:0,
+        sitioUsado:props.nombre
+      }
+      nuevosTiempos.push(nuevoTiempo)
+    }else{
+      const nuevoTiempo1={
+        fecha:fechaExacta,
+        horasUsadas:24-parseInt(hora),
+        minutosUsados:0,
+        segundosUsados:0,
+        sitioUsado:props.nombre
+      }
+      const nuevoTiempo2={
+        fecha:fechaExactaFin,
+        horasUsadas:parseInt(horaFin),
+        minutosUsados:0,
+        segundosUsados:0,
+        sitioUsado:props.nombre
+      }
+      nuevosTiempos.push(nuevoTiempo1)
+      nuevosTiempos.push(nuevoTiempo2)
+    }
+    
+    let fechaDividida=fechaExacta.split('-')
+    const nuevoIngreso={
+      anio: parseInt(fechaDividida[0]),
+      mes: parseInt(fechaDividida[1]),
+      fecha: parseInt(fechaDividida[2]),
+      dia: parseInt(fechaDividida[2]),
+      monto: tarHor,
+      fechaActual: fechaAhora.toDateString(),
+      ciCliente: values.ci,
+      nombreApellido: values.ci,
+      celularCliente: values.celular,
+      placaDelAuto: values.placa,
+      lugarUsado: props.nombre,
+      tipo: "Ocupación",
+    }
+    console.log(nuevoIngreso)
     if (cad.includes('A')) {
       const dataRef = ref(database, 'sitiosAutos/' + cadRecortada);
       set(dataRef, nuevaData)
@@ -185,6 +271,15 @@ const Sitio = (props) => {
         .catch((error) => {
           console.error('Error al actualizar el dato:', error);
         });
+        const db = getDatabase(app);
+        const collectionRef = ref(db, "ingresos");
+        const newId = push(collectionRef).key;
+        set(ref(database, 'reservas/'+newId),nuevaReserva)
+        for(let i=0;i<nuevosTiempos.length;i++){
+          console.log(nuevosTiempos[i])
+          set(ref(database, 'tiempoUso/'+newId),nuevaReserva)
+        }
+        set(ref(database, 'ingresos/'+newId),nuevoIngreso)
     } else if (cad.includes('M')) {
       const dataRef = ref(database, 'sitiosMotos/' + cadRecortada);
       set(dataRef, nuevaData)
@@ -217,12 +312,12 @@ const Sitio = (props) => {
       let validarCelular=!validarInputCelular(values.celular,true,alertaCelular,regexNumber,7,8)
       let validar=validarPlaca&&validarCi&&validarCelular
       if(validar===true){
-        setModalEstado(false)
+        //setModalEstado(false)
         setEstado('ocupado')
         confirmarReserva('ocupado','#0050C8')
         //setCardColor(cardColors.completed)
-        setMostrarCronometro(true)
-        start()
+        //setMostrarCronometro(true)
+        //start()
       }
     }else if(accSel==='reservar'){
       let validarPlaca=!validarInputPlaca(values.placa,true,alertaPlaca,regexPlaca)
