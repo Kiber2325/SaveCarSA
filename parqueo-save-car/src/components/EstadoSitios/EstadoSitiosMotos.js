@@ -27,7 +27,7 @@ const EstadoSitiosMotos = () => {
     }
   
     function getDataReserva() {
-      onValue(ref(database, "reservas"), (snapshot) => {
+      onValue(ref(database, "reservasMotos"), (snapshot) => {
         const dataObj = snapshot.val();
         if (dataObj) {
           const dataReserva = Object.values(dataObj);

@@ -6,9 +6,11 @@ import jsPDF from "jspdf";
 //import { initializeApp } from 'firebase/app';
 
 import { app, database } from "../../conexion/firebase";
+import Swal from "sweetalert2";
 const Comprobante = () => {
   const { comprobanteId } = useParams();
   const [product, setProduct] = useState(null);
+  const [enviando, setEnviando] = useState(false);
   useEffect(() => {
     const fetchProduct = async () => {
       // Realiza una consulta a Firebase Realtime Database utilizando el ID del producto
@@ -30,6 +32,12 @@ const Comprobante = () => {
     return Math.floor(Math.random() * max);
   }
   const descargarPDF = () => {
+    Swal.fire({
+      title: 'Éxito',
+      text: 'Se descargo su comprobante',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
     const doc = new jsPDF();
     console.log(product);
     // Agrega contenido al PDF
@@ -62,6 +70,8 @@ const Comprobante = () => {
   };
   //reserva
   const confirmarReserva = () => {
+    setEnviando(true);
+   
     //let cad = product.sitio;
     //let cadRecortada = cad.slice(1);
     /*const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
@@ -79,6 +89,7 @@ const Comprobante = () => {
     let mes = fecha.getMonth() + 1;
     let dia = fecha.getDate();
     let diaSemana = fecha.getDay();
+    
     if (product.periodo !== undefined) {
       let ingreso = {
         anio: anio,
@@ -135,6 +146,14 @@ const Comprobante = () => {
         horaFin:product.horaFin
       };
       set(ref(database, "reservas/" + newId), nuevaReserva);
+      
+      Swal.fire({
+        title: 'Éxito',
+        text: 'Enviado exitosamente',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
+      
       console.log('eh')
     }else{
       let ingreso = {
@@ -184,6 +203,8 @@ const Comprobante = () => {
       };
       //console.log(nuevaReserva)
       set(ref(database, "reservas/" + newId), nuevaReserva);
+      
+    
     }
   };
   const tiempoLimite = () => {
@@ -301,7 +322,7 @@ const Comprobante = () => {
         </p>
       </div>
       <div className="botonesComprobante">
-        <button className="botonComprobante" onClick={confirmarReserva}>
+        <button className="botonComprobante" onClick={confirmarReserva} disabled={enviando}>
           Enviar comprobante
         </button>
         <button className="botonComprobante" onClick={descargarPDF}>
