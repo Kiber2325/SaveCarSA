@@ -260,13 +260,22 @@ const SitioRerservaMoto = (props) => {
           let encontrado=false
           let horaIniMesDia='06:00:00';let horaFinMesDia='22:00:00'
           for(let i=0;i<reservasFechaIniFin.length&&encontrado===false;i++){
+            if(reservasFechaIniFin[i].fechaIni===reservasFechaIniFin[i].fechaFin){
+              console.log(reservasFechaIniFin[i].horaIni>=horaIniMesDia)
             if(reservasFechaIniFin[i].horaIni>=horaIniMesDia&&reservasFechaIniFin[i].horaFin<=horaFinMesDia){
               encontrado=true
+            }else if(reservasFechaIniFin[i].horaIni>=horaIniMesDia&&reservasFechaIniFin[i].horaIni<=horaFinMesDia){
+              encontrado=true
+            }else if(reservasFechaIniFin[i].horaFin<=horaFinMesDia&&reservasFechaIniFin[i].horaFin>=horaIniMesDia){
+              encontrado=true
+            }
             }else if(reservasFechaIniFin[i].fechaIni<reservasFechaIniFin[i].fechaFin){
-              if(reservasFechaIniFin[i].fechaFin>=fechaIni&&reservasFechaIniFin[i].horaFin>=horaIniMesDia){
+              if(reservasFechaIniFin[i].fechaFin>=fechaIni&&reservasFechaIniFin[i].horaFin>horaIniMesDia){
+                //console.log('toy')
                 encontrado=true
-              }else if(reservasFechaIniFin[i].fechaIni<=fechaFin&&reservasFechaIniFin[i].horaIni<=horaFinMesDia){
+              }else if(reservasFechaIniFin[i].fechaIni<=fechaFin&&reservasFechaIniFin[i].horaIni<horaFinMesDia){
                 encontrado=true
+                //console.log('toy')
               }
             } 
           }
