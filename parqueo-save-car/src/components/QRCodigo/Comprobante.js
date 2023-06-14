@@ -62,6 +62,7 @@ const Comprobante = () => {
   };
   //reserva
   const confirmarReserva = () => {
+    if(product.tipoVehiculo==='Auto'||product.tipoVehiculo===undefined){
     //let cad = product.sitio;
     //let cadRecortada = cad.slice(1);
     /*const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
@@ -184,6 +185,119 @@ const Comprobante = () => {
       };
       //console.log(nuevaReserva)
       set(ref(database, "reservas/" + newId), nuevaReserva);
+    }
+    }else if(product.tipoVehiculo==='Moto'){
+      let fecha = new Date();
+    let fechaAct = fecha.toDateString();
+    let anio = fecha.getFullYear();
+    let mes = fecha.getMonth() + 1;
+    let dia = fecha.getDate();
+    let diaSemana = fecha.getDay();
+    if (product.periodo !== undefined) {
+      let ingreso = {
+        anio: anio,
+        mes: mes,
+        fecha: dia,
+        dia: diaSemana,
+        monto: product.monto,
+        fechaActual: fechaAct,
+        ciCliente: product.ciCliente,
+        nombreApellido: product.nombreapellido,
+        celularCliente: product.celular,
+        placaDelAuto: product.placa,
+        lugarUsado: product.sitio,
+        tipo: "Reserva Mensual",
+      };
+      /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
+      const nuevaData = {
+        nombre: product.sitio,
+        estado: "reservado mes",
+        color: "#808080",
+        ciCliente: product.ciCliente,
+        nombreApellido: product.nombreapellido,
+        celularCliente: product.celular,
+        placaDelAuto: product.placa,
+        periodo:product.periodo,
+        fechaIni:product.fechaIni,
+        fechaFin:product.fechaFin,
+        horaIni:product.horaInicio,
+        horaFin:product.horaFin
+      };
+      set(dataRef, nuevaData)
+        .then(() => {
+          console.log("Dato actualizado correctamente");
+        })
+        .catch((error) => {
+          console.error("Error al actualizar el dato:", error);
+        });*/
+      const db = getDatabase(app);
+      const collectionRef = ref(db, "ingresos");
+      const newId = push(collectionRef).key;
+      set(ref(database, "ingresos/" + newId), ingreso);
+      const nuevaReserva = {
+        nombreSitio: product.sitio,
+        estado: "reserva mes "+product.periodo,
+        color: "#808080",
+        ciCliente: product.ciCliente,
+        nombreApellido: product.nombreapellido,
+        celularCliente: product.celular,
+        placaDelAuto: product.placa,
+        periodo:product.periodo,
+        fechaIni:product.fechaIni,
+        fechaFin:product.fechaFin,
+        horaIni:product.horaIni,
+        horaFin:product.horaFin
+      };
+      set(ref(database, "reservasMotos/" + newId), nuevaReserva);
+    }else{
+      let ingreso = {
+        anio: anio,
+        mes: mes,
+        fecha: dia,
+        dia: diaSemana,
+        monto: product.monto,
+        fechaActual: fechaAct,
+        ciCliente: product.ciCliente,
+        nombreApellido: product.nombreapellido,
+        celularCliente: product.celular,
+        placaDelAuto: product.placa,
+        lugarUsado: product.sitio,
+        tipo: "Reserva",
+      };
+      /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
+      const nuevaData = {
+        nombre: product.sitio,
+        estado: "reservado",
+        color: "#FC6901",
+      };
+      set(dataRef, nuevaData)
+        .then(() => {
+          console.log("Dato actualizado correctamente");
+        })
+        .catch((error) => {
+          console.error("Error al actualizar el dato:", error);
+        });*/
+      const db = getDatabase(app);
+      const collectionRef = ref(db, "ingresos");
+      const newId = push(collectionRef).key;
+      set(ref(database, "ingresos/" + newId), ingreso);
+      const nuevaReserva = {
+        nombreSitio: product.sitio,
+        estado: "reservado",
+        color: "#FC6901",
+        ciCliente: product.ciCliente,
+        nombreApellido: product.nombreapellido,
+        celularCliente: product.celular,
+        placaDelAuto: product.placa,
+        periodo:'corto',
+        fechaIni:product.fechaIni,
+        fechaFin:product.fechaFin,
+        horaIni:product.horaIni,
+        horaFin:product.horaFin
+      };
+      //console.log(nuevaReserva)
+      set(ref(database, "reservasMotos/" + newId), nuevaReserva);
+    }
     }
   };
   const tiempoLimite = () => {
