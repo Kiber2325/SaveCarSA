@@ -35,7 +35,7 @@ const Sitio = (props) => {
   const reservas = props.horarioReserva;
   const [tarHor,setTarHor]=useState(3)
   const [tarHora,setTarHora]=useState(1)
-  const [horaInicioReserva,setHoraInicioReserva]=useState('')
+  //const [horaInicioReserva,setHoraInicioReserva]=useState('')
   const onChange = (e)=>{
     setValues({ ...values, [e.target.name]: e.target.value });
   }
@@ -471,9 +471,9 @@ const Sitio = (props) => {
       setTarHora(24)
     }
   }
-  const onChangeHoraInicioReserva=(e)=>{
+  /*const onChangeHoraInicioReserva=(e)=>{
     setHoraInicioReserva(e.target.value)
-  }
+  }*/
   const resumeTemp = () => startTemp();
   useEffect(() => {
     const timer = setInterval(() => {
@@ -540,7 +540,10 @@ const Sitio = (props) => {
       if(props.estado==='deshabilitado'){
         setEstado(props.estado)
         setColor(props.color)
-      }*/
+      }*/if(props.estado==='deshabilitado'){
+        setEstado(props.estado)
+        setColor(props.color)
+      }
     }, 1000); // Actualizar la hora cada segundo
 
     return () => {
@@ -609,7 +612,7 @@ const Sitio = (props) => {
               <option value='10'>4 a 12 horas(10 Bs)</option>
               <option value='15'>12 a 24 horas(15 Bs)</option>
             </select>}
-            {celular&&<input type="time" value={horaInicioReserva} onChange={onChangeHoraInicioReserva} name="horaInicioReserva"/>}
+            
           </ModalBody>
           <div className='modalFooter'>
           <ModalFooter>
