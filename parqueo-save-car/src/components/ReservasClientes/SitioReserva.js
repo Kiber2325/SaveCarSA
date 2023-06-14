@@ -8,6 +8,8 @@ const SitioReserva = (props) => {
   const [estadoSitio, setEstadoSitio] = useState(props.estado);
   const [color, setColor] = useState(props.color);
   const reservas = props.horarioReserva;
+
+  
   const cambiarEstado = () => {
     let estadoSitio2 = estadoSitio;
     console.log(estadoSitio2)
@@ -818,6 +820,8 @@ const SitioReserva = (props) => {
     props.color,
     props.periodo,fechaIniD,reservas,props.estado
   ]);
+
+  // .----------------------------------------------------------------------------------------------
   return (
     <div>
       <div

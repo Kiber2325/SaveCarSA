@@ -9,8 +9,9 @@
 }
 
 .sitioM{
-    width: 90px;
-    height: 130px;
+    text-align: center;
+    width: 125px;
+    height: 160px;
     cursor: pointer;
     margin: 10px;
     border-radius: 1rem;
