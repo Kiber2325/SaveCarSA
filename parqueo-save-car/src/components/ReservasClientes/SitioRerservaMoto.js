@@ -258,7 +258,7 @@ const SitioRerservaMoto = (props) => {
         console.log(reservasFechaIniFin)
         if(periodo==='dia'){
           let encontrado=false
-          let horaIniMesDia='06:00';let horaFinMesDia='22:00'
+          let horaIniMesDia='06:00:00';let horaFinMesDia='22:00:00'
           for(let i=0;i<reservasFechaIniFin.length&&encontrado===false;i++){
             if(reservasFechaIniFin[i].horaIni>=horaIniMesDia&&reservasFechaIniFin[i].horaFin<=horaFinMesDia){
               encontrado=true
@@ -280,13 +280,13 @@ const SitioRerservaMoto = (props) => {
           }
         }else if(periodo==='noche'){
           let encontrado=false
-          let horaIniMesNoche='22:00';let horaFinMesNoche='06:00'
+          let horaIniMesNoche='22:00:00';let horaFinMesNoche='06:00:00'
           for(let i=0;i<reservasFechaIniFin.length&&encontrado===false;i++){
             if(reservasFechaIniFin[i].fechaIni<reservasFechaIniFin[i].fechaFin){
               if(reservasFechaIniFin[i].horaIni===reservasFechaIniFin[i].horaFin){
-                if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<='23:59'){
+                if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<='23:59:59'){
                   encontrado=true
-                }else if(reservasFechaIniFin[i].horaIni>='00:00'&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
+                }else if(reservasFechaIniFin[i].horaIni>='00:00:00'&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
                   encontrado=true
                 }
               }else if(reservasFechaIniFin[i].horaIni>reservasFechaIniFin[i].horaFin){
@@ -295,9 +295,9 @@ const SitioRerservaMoto = (props) => {
                 }
               }
             }else if(reservasFechaIniFin[i].fechaIni===reservasFechaIniFin[i].fechaFin){
-              if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<='23:59'){
+              if(reservasFechaIniFin[i].horaIni>=horaIniMesNoche&&reservasFechaIniFin[i].horaFin<='23:59:59'){
                 encontrado=true
-              }else if(reservasFechaIniFin[i].horaIni>='00:00'&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
+              }else if(reservasFechaIniFin[i].horaIni>='00:00:00'&&reservasFechaIniFin[i].horaFin<=horaFinMesNoche){
                 encontrado=true
               }
             }

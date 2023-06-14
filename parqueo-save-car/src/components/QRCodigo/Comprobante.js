@@ -32,7 +32,7 @@ const Comprobante = () => {
     return Math.floor(Math.random() * max);
   }
   const descargarPDF = () => {
-   
+   //formatoFecha()
     const doc = new jsPDF();
     console.log(product);
     // Agrega contenido al PDF
@@ -49,14 +49,16 @@ const Comprobante = () => {
       product.celular +
       "\nMonto pagado: " +
       product.monto +
-      " Bs.\nFecha del transacción: " +
-      tiempoLimite() +
-      "\nHora de inicio reserva: " +
-      product.hora +
-      "\nHora límite de la reserva: " +
-      formatoFecha() +
-      "\n¡Atención! debes llegar antes a ocupar el sitio reservado antes de la hora de" +
-      "\nfinalización de la reserva, de lo contrario perderá su reserva.\n¡Gracias por la compra! Recuerda que debes enviar el comprobante\npara confirmar la reserva.";
+      " Bs.\nFecha de inicio de la reserva: " +
+      product.fechaIni +
+      " \nFecha de finalización de la reserva: " +
+      product.fechaFin+
+      "\nHora de inicio de la reserva: " +
+      product.horaIni +
+      "\nHora de finalización de la reserva: " +
+      product.horaFin +
+      "\n¡Atención! debes ocupar el sitio a la fecha y hora indicada" +
+      "\nfinalización de la reserva, de lo contrario perderá su reserva.\n¡Gracias por la reserva! Recuerda que debes enviar el comprobante\npara confirmar la reserva.";
     doc.text(info, 10, 10);
     //doc.addImage(getQRCodeDataUrl(), 'PNG', 10, 20, 50, 50);
 
@@ -370,7 +372,7 @@ const Comprobante = () => {
     }
     return res + "";
   };
-  const formatoFecha = () => {
+  /*const formatoFecha = () => {
     let array = product.fecha.split(" ");
     return (
       traducirDia(array[0]) +
@@ -430,7 +432,7 @@ const Comprobante = () => {
     }
     return mesTraducido;
   };
-
+*/
   return (
     <div className="recibo">
       <div>
@@ -442,20 +444,19 @@ const Comprobante = () => {
         <p>Monto pagado: {product.monto},0 Bs.</p>
         {//<p>Fecha: {formatoFecha()}</p>
         }
-        <p>Hora de inicio de la reserva: {product.horaIni}</p>
-        {!product.periodo&&<p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>}
+        {false&&<p>Hora de inicio de la reserva: {product.horaIni}</p>}
+        {false&&<p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>}
         {product.fechaIni && <p>Fecha de inicio: {product.fechaIni}</p>}
         {product.fechaFin && <p>Fecha de finalización: {product.fechaFin}</p>}
         {product.periodo && <p>Periodo escogido: Mes {product.periodo}</p>}
-        {product.horaInicio && <p>Hora de ingreso: {product.horaIni} </p>}
+        {product.horaIni && <p>Hora de ingreso: {product.horaIni} </p>}
         {product.horaFin && <p>Hora de finalización: {product.horaFin} </p>}
         <p>
-          ¡Atención! debes llegar antes a ocupar el sitio reservado antes de la
-          hora de finalización de la reserva, de lo contrario perderá su
+          ¡Atención! debes ocupar el sitio a la fecha y hora indicada, de lo contrario perderá su
           reserva.
         </p>
         <p>
-          ¡Gracias por la compra! Recuerda que debes enviar el comprobante para
+          ¡Gracias por la reserva! Recuerda que debes enviar el comprobante para
           confirmar la reserva.
         </p>
       </div>
