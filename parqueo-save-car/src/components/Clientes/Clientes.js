@@ -25,9 +25,10 @@ const Clientes = () => {
   const controlarMensaje = (e) => {
     setMensaje(e.target.value);
   };
-  const enviarMensaje = (e) => {
-    e.preventDefault();
-    enviarMensajeNum(60372091);
+  const enviarMensaje = (cel) => {
+    // e.preventDefault();
+    // enviarMensajeNum(60372091);
+    enviarMensajeNum(cel);
   };
   const enviarMensajeNum = (cel) => {
     let phoneNumber = "+591" + cel;
@@ -73,7 +74,7 @@ const Clientes = () => {
                   <td className='datoIngreso'>{cliente.estado}</td>
                   <td className='datoIngreso'>
                     <input className='mensajeWhats' onChange={(e)=>controlarMensaje(e)}/><></>
-                    <button className='contWhats' onClick={(e)=>enviarMensaje(e)}> Enviar <i class="bi bi-whatsapp"></i></button>
+                    <button className='contWhats' onClick={()=>enviarMensaje(cliente.celular)}> Enviar <i class="bi bi-whatsapp"></i></button>
                   </td>
                 </tr>
               ))}
