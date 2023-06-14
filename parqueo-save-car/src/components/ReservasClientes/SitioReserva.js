@@ -15,7 +15,7 @@ const SitioReserva = (props) => {
       setModalEstado(true);
       console.log(estadoSitio);
     } else if (estadoSitio2 === "reserva mes completo"||estadoSitio2==='reservado'||
-    estadoSitio2 === "reserva mes noche"||estadoSitio2 === "reserva mes dia") {
+    estadoSitio2 === "reserva mes noche"||estadoSitio2 === "reserva mes dia"||estadoSitio2 === "ocupado") {
       console.log(reservas);
        setModalEstado(true);
       // console.log(estadoSitio);

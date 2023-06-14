@@ -312,7 +312,7 @@ const Sitio = (props) => {
       let validarCelular=!validarInputCelular(values.celular,true,alertaCelular,regexNumber,7,8)
       let validar=validarPlaca&&validarCi&&validarCelular
       if(validar===true){
-        //setModalEstado(false)
+        setModalEstado(false)
         setEstado('ocupado')
         confirmarReserva('ocupado','#0050C8')
         //setCardColor(cardColors.completed)
