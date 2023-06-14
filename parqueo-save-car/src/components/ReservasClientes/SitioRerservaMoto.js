@@ -4,7 +4,7 @@ import EntradaInput from "../Sitio/EntradasModal/EntradaInput";
 import QrCodigo from "../QRCodigo/QrCodigo";
 import { ref, set } from "firebase/database";
 import { database } from "../../conexion/firebase";
-const SitioReserva = (props) => {
+const SitioRerservaMoto = (props) => {
   const [estadoSitio, setEstadoSitio] = useState(props.estado);
   const [color, setColor] = useState(props.color);
   const reservas = props.horarioReserva;
@@ -75,7 +75,7 @@ const SitioReserva = (props) => {
     nombreapellido: "",
   });
   const [tipo, setTipo] = useState("reservaD");
-  const [tarRes, setTarRes] = useState(400.0);
+  const [tarRes, setTarRes] = useState(200.0);
   const [tarHor,setTarHor]=useState(3)
   const [tarHora,setTarHora]=useState(1)
   const [periodo, setPeriodo] = useState("dia");
@@ -546,7 +546,7 @@ const SitioReserva = (props) => {
           horaIni:horaInicioReserva+':00',
           horaFin:calcularHoraFin(parseInt(tarHora),hour,parseInt(horaActual[1]))+':00',  
           monto: tarHor,
-          tipoVehiculo: 'Auto'
+          tipoVehiculo: 'Moto'
         };
         let idUnico =
           values.placa +
@@ -621,7 +621,7 @@ const SitioReserva = (props) => {
           horaIni: horaInicio,
           horaFin: horaFin,
           monto: parseFloat(tarRes),
-          tipoVehiculo: 'Auto'
+          tipoVehiculo: 'Moto'
         };
         let idUnico =
           values.placa +
@@ -672,15 +672,15 @@ const SitioReserva = (props) => {
   };
   const tarifaReserva = (newTarifa) => {
     setTarRes(newTarifa);
-    if (newTarifa === "400") {
+    if (newTarifa === "200") {
       setPeriodo("dia");
       setHoraInicio("06:00:00");
       setHoraFin("22:00:00");
-    } else if (newTarifa === "300") {
+    } else if (newTarifa === "150") {
       setPeriodo("noche");
       setHoraInicio("22:00:00");
       setHoraFin("06:00:00");
-    } else if (newTarifa === "600") {
+    } else if (newTarifa === "300") {
       setPeriodo("completo");
       setHoraInicio("00:00:00");
       setHoraFin("23:59:00");
@@ -847,9 +847,9 @@ const SitioReserva = (props) => {
           <br />
           {mostrarFechaIni && (
             <select onChange={(e) => tarifaReserva(e.target.value)}>
-              <option value={400.0}>Mes Día (06:00-22:00) 400 Bs.</option>
-              <option value={300.0}>Mes Noche (22:00-06:00) 300 Bs.</option>
-              <option value={600.0}>Mes Completo (24:00 horas) 600 Bs.</option>
+              <option value={200.0}>Mes Día (06:00-22:00) 200 Bs.</option>
+              <option value={150.0}>Mes Noche (22:00-06:00) 150 Bs.</option>
+              <option value={300.0}>Mes Completo (24:00 horas) 300 Bs.</option>
             </select>
           )}
           <EntradaInput
@@ -1008,4 +1008,4 @@ const SitioReserva = (props) => {
   );
 };
 
-export default SitioReserva;
+export default SitioRerservaMoto;

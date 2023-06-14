@@ -33,6 +33,7 @@ import AcercaDe from "../components/AcercaDeNosotros/acercaDe";
 import SitiosMotos from "../components/SitiosMotos/SitiosMotos";
 import EstadoSitios from "../components/EstadoSitios/EstadoSitios";
 import AutosMotos from "../components/SitioAutosMotos/AutosMotos";
+import ReservasClienteMoto from "../components/ReservasClientes/ReservasClienteMoto";
 import EstadoSitiosMotos from "../components/EstadoSitios/EstadoSitiosMotos";
 import AutosMotosAdmin from "../components/EstadoSitios/AutosMotosAdmin";
 
@@ -73,6 +74,7 @@ const Redipath =() =>{
 
             <Route path="/Clientes" element={<Clientes/>}/>
             <Route path="/ReservasCliente" element={<ReservasCliente/>}/>
+            <Route path="/Motos" element={<ReservasClienteMoto/>}/>
             <Route path="/ReservasClienteMensual" element={<ReservaMensualCliente/>}/>
             <Route path="/comprobante/:comprobanteId" element={<Comprobante/>}/>
             
