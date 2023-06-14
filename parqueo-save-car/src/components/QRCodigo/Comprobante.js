@@ -32,7 +32,7 @@ const Comprobante = () => {
     return Math.floor(Math.random() * max);
   }
   const descargarPDF = () => {
-   //formatoFecha()
+    //formatoFecha()
     const doc = new jsPDF();
     console.log(product);
     // Agrega contenido al PDF
@@ -52,7 +52,7 @@ const Comprobante = () => {
       " Bs.\nFecha de inicio de la reserva: " +
       product.fechaIni +
       " \nFecha de finalización de la reserva: " +
-      product.fechaFin+
+      product.fechaFin +
       "\nHora de inicio de la reserva: " +
       product.horaIni +
       "\nHora de finalización de la reserva: " +
@@ -65,22 +65,18 @@ const Comprobante = () => {
     // Guarda el PDF
     doc.save("comprobante.pdf");
     Swal.fire({
-      title: 'Éxito',
-      text: 'Se descargo su comprobante',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
+      title: "Éxito",
+      text: "Se descargo su comprobante",
+      icon: "success",
+      confirmButtonText: "Aceptar",
     });
   };
   //reserva
   const confirmarReserva = () => {
-
-    
-
-    if(product.tipoVehiculo==='Auto'||product.tipoVehiculo===undefined){
-
-    //let cad = product.sitio;
-    //let cadRecortada = cad.slice(1);
-    /*const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
+    if (product.tipoVehiculo === "Auto" || product.tipoVehiculo === undefined) {
+      //let cad = product.sitio;
+      //let cadRecortada = cad.slice(1);
+      /*const dataRef = ref(database, 'sitiosAutos/'+cadRecortada);
       const nuevaData={nombre:product.sitio, estado:'reservado',color:'#FC6901'}
       set(dataRef, nuevaData)
       .then(() => {
@@ -89,159 +85,29 @@ const Comprobante = () => {
       .catch((error) => {
         console.error('Error al actualizar el dato:', error);
       });*/
-    let fecha = new Date();
-    let fechaAct = fecha.toDateString();
-    let anio = fecha.getFullYear();
-    let mes = fecha.getMonth() + 1;
-    let dia = fecha.getDate();
-    let diaSemana = fecha.getDay();
-    
-    if (product.periodo !== undefined) {
-      let ingreso = {
-        anio: anio,
-        mes: mes,
-        fecha: dia,
-        dia: diaSemana,
-        monto: product.monto,
-        fechaActual: fechaAct,
-        ciCliente: product.ciCliente,
-        nombreApellido: product.nombreapellido,
-        celularCliente: product.celular,
-        placaDelAuto: product.placa,
-        lugarUsado: product.sitio,
-        tipo: "Reserva Mensual",
-      };
-      /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
-      const nuevaData = {
-        nombre: product.sitio,
-        estado: "reservado mes",
-        color: "#808080",
-        ciCliente: product.ciCliente,
-        nombreApellido: product.nombreapellido,
-        celularCliente: product.celular,
-        placaDelAuto: product.placa,
-        periodo:product.periodo,
-        fechaIni:product.fechaIni,
-        fechaFin:product.fechaFin,
-        horaIni:product.horaInicio,
-        horaFin:product.horaFin
-      };
-      set(dataRef, nuevaData)
-        .then(() => {
-          console.log("Dato actualizado correctamente");
-        })
-        .catch((error) => {
-          console.error("Error al actualizar el dato:", error);
-        });*/
-      const db = getDatabase(app);
-      const collectionRef = ref(db, "ingresos");
-      const newId = push(collectionRef).key;
-      set(ref(database, "ingresos/" + newId), ingreso);
-      const nuevaReserva = {
-        nombreSitio: product.sitio,
-        estado: "reserva mes "+product.periodo,
-        color: "#808080",
-        ciCliente: product.ciCliente,
-        nombreApellido: product.nombreapellido,
-        celularCliente: product.celular,
-        placaDelAuto: product.placa,
-        periodo:product.periodo,
-        fechaIni:product.fechaIni,
-        fechaFin:product.fechaFin,
-        horaIni:product.horaIni,
-        horaFin:product.horaFin
-      };
-      set(ref(database, "reservas/" + newId), nuevaReserva);
-      setEnviando(true);
-      Swal.fire({
-        title: 'Éxito',
-        text: 'Enviado exitosamente',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-      });
-      
-      console.log('eh')
-    }else{
-      let ingreso = {
-        anio: anio,
-        mes: mes,
-        fecha: dia,
-        dia: diaSemana,
-        monto: product.monto,
-        fechaActual: fechaAct,
-        ciCliente: product.ciCliente,
-        nombreApellido: product.nombreapellido,
-        celularCliente: product.celular,
-        placaDelAuto: product.placa,
-        lugarUsado: product.sitio,
-        tipo: "Reserva",
-      };
-      /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
-      const nuevaData = {
-        nombre: product.sitio,
-        estado: "reservado",
-        color: "#FC6901",
-      };
-      set(dataRef, nuevaData)
-        .then(() => {
-          console.log("Dato actualizado correctamente");
-        })
-        .catch((error) => {
-          console.error("Error al actualizar el dato:", error);
-        });*/
-      const db = getDatabase(app);
-      const collectionRef = ref(db, "ingresos");
-      const newId = push(collectionRef).key;
-      set(ref(database, "ingresos/" + newId), ingreso);
-      const nuevaReserva = {
-        nombreSitio: product.sitio,
-        estado: "reservado",
-        color: "#FC6901",
-        ciCliente: product.ciCliente,
-        nombreApellido: product.nombreapellido,
-        celularCliente: product.celular,
-        placaDelAuto: product.placa,
-        periodo:'corto',
-        fechaIni:product.fechaIni,
-        fechaFin:product.fechaFin,
-        horaIni:product.horaIni,
-        horaFin:product.horaFin
-      };
-      //console.log(nuevaReserva)
-      set(ref(database, "reservas/" + newId), nuevaReserva);
-      setEnviando(true);
-      Swal.fire({
-        title: 'Éxito',
-        text: 'Enviado exitosamente',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-      });
-      
-    
-    }
-    }else if(product.tipoVehiculo==='Moto'){
       let fecha = new Date();
-    let fechaAct = fecha.toDateString();
-    let anio = fecha.getFullYear();
-    let mes = fecha.getMonth() + 1;
-    let dia = fecha.getDate();
-    let diaSemana = fecha.getDay();
-    if (product.periodo !== undefined) {
-      let ingreso = {
-        anio: anio,
-        mes: mes,
-        fecha: dia,
-        dia: diaSemana,
-        monto: product.monto,
-        fechaActual: fechaAct,
-        ciCliente: product.ciCliente,
-        nombreApellido: product.nombreapellido,
-        celularCliente: product.celular,
-        placaDelAuto: product.placa,
-        lugarUsado: product.sitio,
-        tipo: "Reserva Mensual",
-      };
-      /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
+      let fechaAct = fecha.toDateString();
+      let anio = fecha.getFullYear();
+      let mes = fecha.getMonth() + 1;
+      let dia = fecha.getDate();
+      let diaSemana = fecha.getDay();
+
+      if (product.periodo !== undefined) {
+        let ingreso = {
+          anio: anio,
+          mes: mes,
+          fecha: dia,
+          dia: diaSemana,
+          monto: product.monto,
+          fechaActual: fechaAct,
+          ciCliente: product.ciCliente,
+          nombreApellido: product.nombreapellido,
+          celularCliente: product.celular,
+          placaDelAuto: product.placa,
+          lugarUsado: product.sitio,
+          tipo: "Reserva Mensual",
+        };
+        /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
       const nuevaData = {
         nombre: product.sitio,
         estado: "reservado mes",
@@ -263,48 +129,49 @@ const Comprobante = () => {
         .catch((error) => {
           console.error("Error al actualizar el dato:", error);
         });*/
-      const db = getDatabase(app);
-      const collectionRef = ref(db, "ingresos");
-      const newId = push(collectionRef).key;
-      set(ref(database, "ingresos/" + newId), ingreso);
-      const nuevaReserva = {
-        nombreSitio: product.sitio,
-        estado: "reserva mes "+product.periodo,
-        color: "#808080",
-        ciCliente: product.ciCliente,
-        nombreApellido: product.nombreapellido,
-        celularCliente: product.celular,
-        placaDelAuto: product.placa,
-        periodo:product.periodo,
-        fechaIni:product.fechaIni,
-        fechaFin:product.fechaFin,
-        horaIni:product.horaIni,
-        horaFin:product.horaFin
-      };
-      set(ref(database, "reservasMotos/" + newId), nuevaReserva);
-      setEnviando(true);
-      Swal.fire({
-        title: 'Éxito',
-        text: 'Enviado exitosamente',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-      });
-    }else{
-      let ingreso = {
-        anio: anio,
-        mes: mes,
-        fecha: dia,
-        dia: diaSemana,
-        monto: product.monto,
-        fechaActual: fechaAct,
-        ciCliente: product.ciCliente,
-        nombreApellido: product.nombreapellido,
-        celularCliente: product.celular,
-        placaDelAuto: product.placa,
-        lugarUsado: product.sitio,
-        tipo: "Reserva",
-      };
-      /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
+        const db = getDatabase(app);
+        const collectionRef = ref(db, "ingresos");
+        const newId = push(collectionRef).key;
+        set(ref(database, "ingresos/" + newId), ingreso);
+        const nuevaReserva = {
+          nombreSitio: product.sitio,
+          estado: "reserva mes " + product.periodo,
+          color: "#808080",
+          ciCliente: product.ciCliente,
+          nombreApellido: product.nombreapellido,
+          celularCliente: product.celular,
+          placaDelAuto: product.placa,
+          periodo: product.periodo,
+          fechaIni: product.fechaIni,
+          fechaFin: product.fechaFin,
+          horaIni: product.horaIni,
+          horaFin: product.horaFin,
+        };
+        set(ref(database, "reservas/" + newId), nuevaReserva);
+
+        setEnviando(true);
+        Swal.fire({
+          title: "Éxito",
+          text: "Enviado exitosamente",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        });
+      } else {
+        let ingreso = {
+          anio: anio,
+          mes: mes,
+          fecha: dia,
+          dia: diaSemana,
+          monto: product.monto,
+          fechaActual: fechaAct,
+          ciCliente: product.ciCliente,
+          nombreApellido: product.nombreapellido,
+          celularCliente: product.celular,
+          placaDelAuto: product.placa,
+          lugarUsado: product.sitio,
+          tipo: "Reserva",
+        };
+        /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
       const nuevaData = {
         nombre: product.sitio,
         estado: "reservado",
@@ -317,36 +184,197 @@ const Comprobante = () => {
         .catch((error) => {
           console.error("Error al actualizar el dato:", error);
         });*/
-      const db = getDatabase(app);
-      const collectionRef = ref(db, "ingresos");
-      const newId = push(collectionRef).key;
-      set(ref(database, "ingresos/" + newId), ingreso);
-      const nuevaReserva = {
-        nombreSitio: product.sitio,
-        estado: "reservado",
-        color: "#FC6901",
+        const db = getDatabase(app);
+        const collectionRef = ref(db, "ingresos");
+        const newId = push(collectionRef).key;
+        set(ref(database, "ingresos/" + newId), ingreso);
+        const nuevaReserva = {
+          nombreSitio: product.sitio,
+          estado: "reservado",
+          color: "#FC6901",
+          ciCliente: product.ciCliente,
+          nombreApellido: product.nombreapellido,
+          celularCliente: product.celular,
+          placaDelAuto: product.placa,
+          periodo: "corto",
+          fechaIni: product.fechaIni,
+          fechaFin: product.fechaFin,
+          horaIni: product.horaIni,
+          horaFin: product.horaFin,
+        };
+        //console.log(nuevaReserva)
+        set(ref(database, "reservas/" + newId), nuevaReserva);
+        let tiempoUso={}
+        let horaIniPartida=product.horaIni.split(':')
+        let horaFinPartida=product.horaFin.split(':')
+        if(product.fechaIni===product.fechaFin){
+          tiempoUso={
+            fecha:product.fechaIni,
+            horasUsadas:diferenciaHoras(parseInt(horaIniPartida[0]),parseInt(horaFinPartida[0])),
+            minutosUsados:parseInt(parseInt(horaFinPartida[1])-parseInt(horaIniPartida[1])),
+            segundosUsados:parseInt(horaIniPartida[2]),
+            sitioUsado:product.sitio
+          }
+        }else{
+
+        }
+        set(ref(database, "tiempoUso/" + newId), tiempoUso);
+        setEnviando(true);
+        Swal.fire({
+          title: "Éxito",
+          text: "Enviado exitosamente",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        });
+      }
+    } else if (product.tipoVehiculo === "Moto") {
+      let fecha = new Date();
+      let fechaAct = fecha.toDateString();
+      let anio = fecha.getFullYear();
+      let mes = fecha.getMonth() + 1;
+      let dia = fecha.getDate();
+      let diaSemana = fecha.getDay();
+      if (product.periodo !== undefined) {
+        let ingreso = {
+          anio: anio,
+          mes: mes,
+          fecha: dia,
+          dia: diaSemana,
+          monto: product.monto,
+          fechaActual: fechaAct,
+          ciCliente: product.ciCliente,
+          nombreApellido: product.nombreapellido,
+          celularCliente: product.celular,
+          placaDelAuto: product.placa,
+          lugarUsado: product.sitio,
+          tipo: "Reserva Mensual",
+        };
+        /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
+      const nuevaData = {
+        nombre: product.sitio,
+        estado: "reservado mes",
+        color: "#808080",
         ciCliente: product.ciCliente,
         nombreApellido: product.nombreapellido,
         celularCliente: product.celular,
         placaDelAuto: product.placa,
-        periodo:'corto',
+        periodo:product.periodo,
         fechaIni:product.fechaIni,
         fechaFin:product.fechaFin,
-        horaIni:product.horaIni,
+        horaIni:product.horaInicio,
         horaFin:product.horaFin
       };
-      //console.log(nuevaReserva)
-      set(ref(database, "reservasMotos/" + newId), nuevaReserva);
-      setEnviando(true);
-      Swal.fire({
-        title: 'Éxito',
-        text: 'Enviado exitosamente',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-      });
-    }
+      set(dataRef, nuevaData)
+        .then(() => {
+          console.log("Dato actualizado correctamente");
+        })
+        .catch((error) => {
+          console.error("Error al actualizar el dato:", error);
+        });*/
+        const db = getDatabase(app);
+        const collectionRef = ref(db, "ingresos");
+        const newId = push(collectionRef).key;
+        set(ref(database, "ingresos/" + newId), ingreso);
+        const nuevaReserva = {
+          nombreSitio: product.sitio,
+          estado: "reserva mes " + product.periodo,
+          color: "#808080",
+          ciCliente: product.ciCliente,
+          nombreApellido: product.nombreapellido,
+          celularCliente: product.celular,
+          placaDelAuto: product.placa,
+          periodo: product.periodo,
+          fechaIni: product.fechaIni,
+          fechaFin: product.fechaFin,
+          horaIni: product.horaIni,
+          horaFin: product.horaFin,
+        };
+        set(ref(database, "reservasMotos/" + newId), nuevaReserva);
+        setEnviando(true);
+        Swal.fire({
+          title: "Éxito",
+          text: "Enviado exitosamente",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        });
+      } else {
+        let ingreso = {
+          anio: anio,
+          mes: mes,
+          fecha: dia,
+          dia: diaSemana,
+          monto: product.monto,
+          fechaActual: fechaAct,
+          ciCliente: product.ciCliente,
+          nombreApellido: product.nombreapellido,
+          celularCliente: product.celular,
+          placaDelAuto: product.placa,
+          lugarUsado: product.sitio,
+          tipo: "Reserva",
+        };
+        /*const dataRef = ref(database, "sitiosAutos/" + cadRecortada);
+      const nuevaData = {
+        nombre: product.sitio,
+        estado: "reservado",
+        color: "#FC6901",
+      };
+      set(dataRef, nuevaData)
+        .then(() => {
+          console.log("Dato actualizado correctamente");
+        })
+        .catch((error) => {
+          console.error("Error al actualizar el dato:", error);
+        });*/
+        const db = getDatabase(app);
+        const collectionRef = ref(db, "ingresos");
+        const newId = push(collectionRef).key;
+        set(ref(database, "ingresos/" + newId), ingreso);
+        const nuevaReserva = {
+          nombreSitio: product.sitio,
+          estado: "reservado",
+          color: "#FC6901",
+          ciCliente: product.ciCliente,
+          nombreApellido: product.nombreapellido,
+          celularCliente: product.celular,
+          placaDelAuto: product.placa,
+          periodo: "corto",
+          fechaIni: product.fechaIni,
+          fechaFin: product.fechaFin,
+          horaIni: product.horaIni,
+          horaFin: product.horaFin,
+        };
+        //console.log(nuevaReserva)
+        set(ref(database, "reservasMotos/" + newId), nuevaReserva);
+        let tiempoUso={}
+        let horaIniPartida=product.horaIni.split(':')
+        let horaFinPartida=product.horaFin.split(':')
+        if(product.fechaIni===product.fechaFin){
+          tiempoUso={
+            fecha:product.fechaIni,
+            horasUsadas:diferenciaHoras(parseInt(horaIniPartida[0]),parseInt(horaFinPartida[0])),
+            minutosUsados:parseInt(parseInt(horaFinPartida[1])-parseInt(horaIniPartida[1])),
+            segundosUsados:parseInt(horaIniPartida[2]),
+            sitioUsado:product.sitio
+          }
+        }else{
+          
+        }
+        set(ref(database, "tiempoUso/" + newId), tiempoUso);
+        setEnviando(true);
+        Swal.fire({
+          title: "Éxito",
+          text: "Enviado exitosamente",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        });
+      }
     }
   };
+  const diferenciaHoras=(horaIniRes,horaFinRes)=>{
+    if(horaFinRes>horaIniRes){
+      return horaFinRes-horaIniRes
+    }
+  }
   const tiempoLimite = () => {
     let array = product.horaIni.split(":");
     let tiempoLimite = parseInt(product.horaIni.split(":")[0]);
@@ -442,18 +470,19 @@ const Comprobante = () => {
         <p>Placa del auto del Cliente: {product.placa}</p>
         <p>Número celular del cliente: {product.celular}</p>
         <p>Monto pagado: {product.monto},0 Bs.</p>
-        {//<p>Fecha: {formatoFecha()}</p>
+        {
+          //<p>Fecha: {formatoFecha()}</p>
         }
-        {false&&<p>Hora de inicio de la reserva: {product.horaIni}</p>}
-        {false&&<p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>}
+        {false && <p>Hora de inicio de la reserva: {product.horaIni}</p>}
+        {false && <p>Hora de finalizacion de la reserva: {tiempoLimite()}</p>}
         {product.fechaIni && <p>Fecha de inicio: {product.fechaIni}</p>}
         {product.fechaFin && <p>Fecha de finalización: {product.fechaFin}</p>}
         {product.periodo && <p>Periodo escogido: Mes {product.periodo}</p>}
         {product.horaIni && <p>Hora de ingreso: {product.horaIni} </p>}
         {product.horaFin && <p>Hora de finalización: {product.horaFin} </p>}
         <p>
-          ¡Atención! debes ocupar el sitio a la fecha y hora indicada, de lo contrario perderá su
-          reserva.
+          ¡Atención! debes ocupar el sitio a la fecha y hora indicada, de lo
+          contrario perderá su reserva.
         </p>
         <p>
           ¡Gracias por la reserva! Recuerda que debes enviar el comprobante para
@@ -461,7 +490,11 @@ const Comprobante = () => {
         </p>
       </div>
       <div className="botonesComprobante">
-        <button className="botonComprobante" onClick={confirmarReserva} disabled={enviando}>
+        <button
+          className="botonComprobante"
+          onClick={confirmarReserva}
+          disabled={enviando}
+        >
           Enviar comprobante
         </button>
         <button className="botonComprobante" onClick={descargarPDF}>
