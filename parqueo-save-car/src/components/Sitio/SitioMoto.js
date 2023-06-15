@@ -1526,6 +1526,9 @@ const SitioMoto = (props) => {
       if (props.estado === "deshabilitado") {
         setEstadoSitio(props.estado);
         setColor(props.color);
+      }else{
+        setColor('#00FF38')
+              setEstadoSitio('disponible')
       }
     }, 1000); // Actualizar la hora cada segundo
 
@@ -1546,12 +1549,12 @@ const SitioMoto = (props) => {
   ]);
   const habilitarSitio=()=>{
     let cad = props.nombre;
-        let cadRecortada = cad.slice(1);
-        console.log(cadRecortada);
-        update(ref(database, "sitiosMotos/" + cadRecortada), {
-          color: "#00FF38",
-          estado: "disponible",
-        });
+    let cadRecortada = cad.slice(1);
+    console.log(cadRecortada);
+    update(ref(database, "sitiosMotos/" + cadRecortada), {
+      color: "#00FF38",
+      estado: "disponible",
+    });
         setModalEstadoOcupado(false);
   }
   return (
