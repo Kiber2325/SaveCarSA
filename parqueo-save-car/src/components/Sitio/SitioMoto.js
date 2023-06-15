@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import EntradaInput from "../Sitio/EntradasModal/EntradaInput";
 import QrCodigo from "../QRCodigo/QrCodigo";
-import { ref, set } from "firebase/database";
-import { database } from "../../conexion/firebase";
-const SitioRerservaMoto = (props) => {
+import { getDatabase, push, ref, set, update} from "firebase/database";
+import { app, database } from "../../conexion/firebase";
+import './Sitio.css'
+const SitioMoto = (props) => {
   const [estadoSitio, setEstadoSitio] = useState(props.estado);
   const [color, setColor] = useState(props.color);
   const reservas = props.horarioReserva;
@@ -67,17 +68,26 @@ const SitioRerservaMoto = (props) => {
   const [mostrarErrorFechaIni,setMostrarErrorFechaIni]=useState(false)
   const [errorFechaIniD,setErrorFechaIniD]=useState('')
   const [mostrarErrorFechaIniD,setMostrarErrorFechaIniD]=useState(false)
+  const [errorFechaIniO,setErrorFechaIniO]=useState('')
+  const [mostrarErrorFechaIniO,setMostrarErrorFechaIniO]=useState(false)
   // const  [tipo, setTipo]=useState('')
+  const [ocuRes,setOcuRes]=useState(true)
+  const [ocuparHorarios,setOcuparHorarios]=useState(true)
+  const [motivo,setMotivo]=useState(false)
+  const [mensajeMotivo,setMensajeMotivo]=useState('');
+  const [mostrarMensajeMotivo,setMostrarMensajeMotivo]=useState(false);
   const [values, setValues] = useState({
     placa: "",
     ci: "",
     celular: "",
     nombreapellido: "",
   });
-  const [tipo, setTipo] = useState("reservaD");
+  const [tipo, setTipo] = useState("ocupar");
   const [tarRes, setTarRes] = useState(200.0);
   const [tarHor,setTarHor]=useState(3)
   const [tarHora,setTarHora]=useState(1)
+  const [tarHorO,setTarHorO]=useState(3)
+  const [tarHoraO,setTarHoraO]=useState(1)
   const [periodo, setPeriodo] = useState("dia");
   const [horaInicio, setHoraInicio] = useState("06:00:00");
   const [horaFin, setHoraFin] = useState("22:00:00");
@@ -102,6 +112,27 @@ const SitioRerservaMoto = (props) => {
     setFechaIni('')
     setFechaIniD('')
   };
+  const validarInputMotivo=(contenido,mostrar,mensajeAlerta,regla,min,max)=>{
+    let esInvalido=false;
+    let tam=contenido.length
+      if(!contenido.trim()){
+        setMostrarMensajeMotivo(mostrar)
+        setMensajeMotivo('El campo no puede estar vacío')
+        esInvalido=true
+      }else if(tam<min||tam>max){
+        setMostrarMensajeMotivo(mostrar)
+        setMensajeMotivo('El campo tiene límite mínimo de '+min+' carácteres y un máximo de '+max+ 'carácteres')
+        esInvalido=true
+      }else if(!regla.test(contenido)){
+        setMostrarMensajeMotivo(mostrar)
+        setMensajeMotivo(mensajeAlerta)
+        esInvalido=true
+      }else{
+        setMostrarMensajeMotivo(false)
+        //setMensajeMotivo(null)
+      }
+    return esInvalido;
+  }
   const validarInputPlaca = (
     contenido,
     mostrar,
@@ -460,6 +491,92 @@ const SitioRerservaMoto = (props) => {
     console.log(filtradoHora)*/
     return esInvalido;
   };
+  const validarFechaIniO=()=>{
+    let esInvalido = false;
+    /*if (fechaIniD.length === 0) {
+      esInvalido = true;
+    }*/
+    let dateNow = new Date();
+    let horas = dateNow.getHours();
+    let minutos = dateNow.getMinutes();
+    let segundos = dateNow.getSeconds();
+    console.log(tarHorO)
+    let horaFin = calcularHoraFin(parseInt(tarHoraO), horas, minutos);
+    if (horas < 10) {
+      horas = "0" + horas;
+    }
+    if (minutos < 10) {
+      minutos = "0" + minutos;
+    }
+    if (segundos < 10) {
+      segundos = "0" + segundos;
+    }
+    let horaCompleta = horas + ":" + minutos + ":" + segundos;
+    horaFin=horaFin+':'+segundos
+    console.log(horaCompleta)
+    console.log(horaFin)
+    console.log(reservas)
+    let anio=dateNow.getFullYear()
+    let mes=dateNow.getMonth()+1
+    let dia=dateNow.getDate()
+    if(mes<10){
+        mes='0'+mes
+    }
+    if(dia<10){
+        dia='0'+dia
+    }
+    let fechaAhora=anio+'-'+mes+'-'+dia
+    console.log(fechaAhora)
+    for (let i = 0; i < reservas.length && esInvalido === false; i++) { 
+      if (tipo === "ocupar") {
+        if (
+            fechaAhora >= reservas[i].fechaIni &&
+            fechaAhora <= reservas[i].fechaFin
+        ) {
+            console.log('ocupar')
+          if (reservas[i].horaIni > reservas[i].horaFin) {
+            if ((horaCompleta >= reservas[i].horaIni || horaFin<reservas[i].horaFin)) {
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniO(true)
+              setErrorFechaIniO(men)
+              console.log(horaCompleta)
+              console.log(horaFin)
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
+              esInvalido = true;
+            } else {
+              console.log("Reserva  correcta");
+            }
+          }else{
+            if ((horaCompleta >= reservas[i].horaIni && horaCompleta<=reservas[i].horaFin)) {
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(horaInicioReserva)
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
+              esInvalido = true;
+            } else if(horaFin>=reservas[i].horaIni && horaFin<=reservas[i].horaFin){
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(horaFin+':00')
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
+              esInvalido = true;
+            } else{
+              console.log("Reserva  correcta");
+            }
+          }
+        }
+      }
+    }
+    console.log(esInvalido)
+    return esInvalido;
+  }
   const calcularHoraFin = (aumento,horas, minutos) => {
     horas=horas+aumento
     if (horas > 23) {
@@ -473,9 +590,138 @@ const SitioRerservaMoto = (props) => {
     }
     return horas + ":" + minutos ;
   };
-  const ejecutarAccion = () => {
+    const confirmarReserva = (estadoSitio, nuevoColor,periodo,estadoReserva,tipoReserva) => {
+        let cad = props.nombre;
+        let cadRecortada = cad.slice(1);
+        const nuevaData = { nombre: props.nombre, estado: estadoSitio, color: nuevoColor };
+        let fechaAhora=new Date()
+        let hora=fechaAhora.getHours();let minutos=fechaAhora.getMinutes();
+        let horaFin=hora+tarHora
+        if(hora<10){
+          hora='0'+hora
+        }
+        if(minutos<10){
+          minutos='0'+minutos
+        }
+        let anio=fechaAhora.getFullYear();let mes=(fechaAhora.getMonth()+1);let dia=fechaAhora.getDate();
+        let diaFin=fechaAhora.getDate()
+        if(horaFin>23){
+          horaFin=horaFin%24
+          diaFin=diaFin+1
+        }
+        if(horaFin<10){
+          horaFin='0'+horaFin
+        }
+        if(mes<10){
+          mes='0'+mes
+        }
+        if(dia<10){
+          dia='0'+dia
+        }
+        let horaExacta=hora+':'+minutos+':00'
+        let fechaExacta=anio+'-'+mes+'-'+dia
+        let horaExactaFin=horaFin+':'+minutos+':00'
+        let fechaExactaFin=anio+'-'+mes+'-'+diaFin
+        const nuevaReserva={nombreSitio:props.nombre,
+          estado: estadoReserva,
+              color: nuevoColor,
+              ciCliente: values.ci,
+              nombreApellido: values.ci,
+              celularCliente: values.celular,
+              placaDelAuto: values.placa,
+              periodo: periodo,
+              fechaIni: fechaExacta,
+              fechaFin: fechaExactaFin,
+              horaIni: horaExacta,
+              horaFin: horaExactaFin,
+        }
+        console.log(nuevaReserva)
+        let nuevosTiempos=[]
+        if(fechaExacta===fechaExactaFin){
+          const nuevoTiempo={
+            fecha:fechaExacta,
+            horasUsadas:parseInt(tarHora),
+            minutosUsados:0,
+            segundosUsados:0,
+            sitioUsado:props.nombre
+          }
+          nuevosTiempos.push(nuevoTiempo)
+        }else{
+          const nuevoTiempo1={
+            fecha:fechaExacta,
+            horasUsadas:24-parseInt(hora),
+            minutosUsados:0,
+            segundosUsados:0,
+            sitioUsado:props.nombre
+          }
+          const nuevoTiempo2={
+            fecha:fechaExactaFin,
+            horasUsadas:parseInt(horaFin),
+            minutosUsados:0,
+            segundosUsados:0,
+            sitioUsado:props.nombre
+          }
+          nuevosTiempos.push(nuevoTiempo1)
+          nuevosTiempos.push(nuevoTiempo2)
+        }
+        
+        let fechaDividida=fechaExacta.split('-')
+        const nuevoIngreso={
+          anio: parseInt(fechaDividida[0]),
+          mes: parseInt(fechaDividida[1]),
+          fecha: parseInt(fechaDividida[2]),
+          dia: parseInt(fechaDividida[2]),
+          monto: tarHor,
+          fechaActual: fechaAhora.toDateString(),
+          ciCliente: values.ci,
+          nombreApellido: values.ci,
+          celularCliente: values.celular,
+          placaDelAuto: values.placa,
+          lugarUsado: props.nombre,
+          tipo: tipoReserva,
+        }
+        console.log(nuevoIngreso)
+        if (cad.includes('A')) {
+          const dataRef = ref(database, 'sitiosAutos/' + cadRecortada);
+          set(dataRef, nuevaData)
+            .then(() => {
+              console.log('Dato actualizado correctamente');
+            })
+            .catch((error) => {
+              console.error('Error al actualizar el dato:', error);
+            });
+            const db = getDatabase(app);
+            const collectionRef = ref(db, "ingresos");
+            const newId = push(collectionRef).key;
+            set(ref(database, 'reservas/'+newId),nuevaReserva)
+            for(let i=0;i<nuevosTiempos.length;i++){
+              console.log(nuevosTiempos[i])
+              set(ref(database, 'tiempoUso/'+newId),nuevosTiempos[i])
+            }
+            set(ref(database, 'ingresos/'+newId),nuevoIngreso)
+        } else if (cad.includes('M')) {
+          const dataRef = ref(database, 'sitiosMotos/' + cadRecortada);
+          set(dataRef, nuevaData)
+            .then(() => {
+              console.log('Dato actualizado correctamente');
+            })
+            .catch((error) => {
+              console.error('Error al actualizar el dato:', error);
+            });
+            const db = getDatabase(app);
+            const collectionRef = ref(db, "ingresos");
+            const newId = push(collectionRef).key;
+            set(ref(database, 'reservasMotos/'+newId),nuevaReserva)
+            for(let i=0;i<nuevosTiempos.length;i++){
+              console.log(nuevosTiempos[i])
+              set(ref(database, 'tiempoUso/'+newId),nuevosTiempos[i])
+            }
+            set(ref(database, 'ingresos/'+newId),nuevoIngreso)
+        }
+      };
+  const ejecutarAccion = (tiempoReal) => {
     //formato
-    //const regexAll = /^[0-9A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    const regexAll = /^[0-9A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     const regexCar = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     const regexNumber = /^[0-9]+$/;
     const regexPlaca = /^[0-9A-ZÑÁÉÍÓÚÜ\s]+$/;
@@ -484,7 +730,46 @@ const SitioRerservaMoto = (props) => {
     let alertaCi = "Solo se permiten carácteres numéricos";
     let alertaNombre = "Solo se permiten carácteres alfabéticos";
     let alertaCelular = "Solo se permiten carácteres numéricos";
-    if (tipo === "reservaD") {
+    let alertaMotivo='Solo se permiten carácteres alfanuméricos'
+    if(tipo==='ocupar'){
+        let validarPlaca = !validarInputPlaca(
+            values.placa,
+            true,
+            alertaPlaca,
+            regexPlaca
+          );
+          let validarCi = !validarInputCi(values.ci, true, alertaCi, regexNumber);
+          let validarNombre = !validarInputNombre(
+            values.nombreapellido,
+            true,
+            alertaNombre,
+            regexCar
+          );
+          let validarCelular = !validarInputCelular(
+            values.celular,
+            true,
+            alertaCelular,
+            regexNumber
+          );
+          let validarFechaIniDiO = !validarFechaIniO();
+          let validar =
+            validarPlaca &&
+            validarCi &&
+            validarNombre &&
+            validarCelular &&
+            validarFechaIniDiO;
+          console.log(validar)
+          console.log(tarHora)
+          if(validar === true){
+            if(tiempoReal==='qr'){
+                setModalEstado(false);
+            }else if(tiempoReal==='momento'){
+                //setModalEstado(false);
+                console.log('ocupacion  correcta')
+                confirmarReserva('ocupado','#0050C8','corto',"ocupado","Ocupación")
+            }
+          }
+    }else if (tipo === "reservaD") {
       let validarPlaca = !validarInputPlaca(
         values.placa,
         true,
@@ -517,7 +802,7 @@ const SitioRerservaMoto = (props) => {
       console.log(fechaIniD)
       if (validar === true) {
         setModalEstado(false);
-        setEstadoSitio("reservado");
+        //setEstadoSitio("reservado");
         //setCardColor(cardColors.reservado)
         let fecha = new Date();
         let hora = fecha.getTime();
@@ -654,6 +939,16 @@ const SitioRerservaMoto = (props) => {
         setModalQr(true);
         quitarMensajesError()
       }
+    } else if (tipo === "deshabilitar"){
+        if(!validarInputMotivo(values.motivo,true,alertaMotivo,regexAll,3,50)){
+            //setModalEstado(false)
+            //setEstado('deshabilitado')
+            let cad=props.nombre
+            let cadRecortada = cad.slice(1);
+            console.log(cadRecortada)
+            update(ref(database, 'sitiosMotos/'+cadRecortada),{color:'#BC0000',estado:'deshabilitado'})
+            //setCardColor(cardColors.inactive)
+          }
     }
   };
   //QR
@@ -670,20 +965,39 @@ const SitioRerservaMoto = (props) => {
   const [fechaIni, setFechaIni] = useState("");
   const [mostrarFechaIni, setMostrarFechaIni] = useState(false);
   const [fechaIniD, setFechaIniD] = useState("");
-  const [mostrarFechaIniD, setMostrarFechaIniD] = useState(true);
+  const [mostrarFechaIniD, setMostrarFechaIniD] = useState(false);
   const [horaInicioReserva,setHoraInicioReserva]=useState('')
   const tipoReserva = (opcion) => {
     setTipo(opcion);
     //setValues(values.tipo)
-    if (opcion === "reservaM") {
+    if (opcion === "ocupar") {
+        setOcuparHorarios(true)
+        setOcuRes(true)
+        setMostrarFechaIni(false);
+      setMostrarFechaIniD(false);
+      setMotivo(false)
+    }else if (opcion === "reservaM") {
+        setOcuRes(true)
+        setOcuparHorarios(false)
       console.log(values.fechaIni);
       setMostrarFechaIni(true);
       setMostrarFechaIniD(false);
+      setMotivo(false)
     } else if (opcion === "reservaD") {
+        setOcuRes(true)
+        setOcuparHorarios(false)
       console.log(opcion);
       setMostrarFechaIni(false);
       setMostrarFechaIniD(true);
-    }
+      setMotivo(false)
+    }else if (opcion === "deshabilitar") {
+        console.log(opcion);
+        setOcuparHorarios(false)
+        setOcuRes(false)
+        setMostrarFechaIni(false);
+        setMostrarFechaIniD(false);
+        setMotivo(true)
+      }
   };
   const tarifaReserva = (newTarifa) => {
     setTarRes(newTarifa);
@@ -712,6 +1026,19 @@ const SitioRerservaMoto = (props) => {
       setTarHora(12)
     }else if(horaElegida===15){
       setTarHora(24)
+    }
+  }
+  const tarifaHorariaO=(newTarifaHoraria)=>{
+    let horaElegida=parseInt(newTarifaHoraria)
+    setTarHorO(horaElegida)
+    if(horaElegida===3){
+      setTarHoraO(1)
+    }else if(horaElegida===6){
+      setTarHoraO(4)
+    }else if(horaElegida===10){
+      setTarHoraO(12)
+    }else if(horaElegida===15){
+      setTarHoraO(24)
     }
   }
   const [fechaFin, setFechaFin] = useState("");
@@ -835,7 +1162,8 @@ const SitioRerservaMoto = (props) => {
   return (
     <div>
       <div
-        className="sitioM"
+        
+        className={props.nombre.includes('A') ? 'sitio' : props.nombre.includes('M') ? 'sitioM' : 'sitio'}
         onClick={cambiarEstado}
         style={{ backgroundColor: color }}
       >
@@ -856,8 +1184,10 @@ const SitioRerservaMoto = (props) => {
         <ModalBody>
           <label>Definir tipo de reserva que desea realizar:</label>
           <select onChange={(e) => tipoReserva(e.target.value)}>
+            <option value="ocupar" selected>Ocupar</option>
             <option value="reservaD">Reserva diaria</option>
             <option value="reservaM">Reserva mensual</option>
+            <option value="deshabilitar">Deshabilitar</option>
           </select>
           <br />
           {mostrarFechaIni && (
@@ -867,34 +1197,48 @@ const SitioRerservaMoto = (props) => {
               <option value={300.0}>Mes Completo (24:00 horas) 300 Bs.</option>
             </select>
           )}
-          <EntradaInput
+          {ocuRes&&<EntradaInput
             titulo="Placa"
             nombre="placa"
             cambio={onChange}
             mostrarMensaje={mostrarMensajePlaca}
             mensaje={mensajePlaca}
-          />
-          <EntradaInput
+          />}
+          {ocuRes&&<EntradaInput
             titulo="CI"
             nombre="ci"
             cambio={onChange}
             mostrarMensaje={mostrarMensajeCi}
             mensaje={mensajeCi}
-          />
-          <EntradaInput
+          />}
+          {ocuRes&&<EntradaInput
             titulo="Nombres y Apellidos"
             nombre="nombreapellido"
             cambio={onChange}
             mostrarMensaje={mostrarMensajeNombre}
             mensaje={mensajeNombre}
-          />
-          <EntradaInput
+          />}
+          {ocuRes&&<EntradaInput
             titulo="Celular"
             nombre="celular"
             cambio={onChange}
             mostrarMensaje={mostrarMensajeCelular}
             mensaje={mensajeCelular}
-          />
+          />}
+          {motivo&&<EntradaInput
+              titulo="Motivo"
+              nombre='motivo'
+              cambio={onChange}
+              mostrarMensaje={mostrarMensajeMotivo}
+              mensaje={mensajeMotivo}
+            />}
+          {ocuparHorarios&&<select onChange={(e) => tarifaHorariaO(e.target.value)}> 
+              <option value='3'>0 a 1 hora(3 Bs)</option>
+              <option value='6'>1 a 4 horas(6 Bs)</option>
+              <option value='10'>4 a 12 horas(10 Bs)</option>
+              <option value='15'>12 a 24 horas(15 Bs)</option>
+            </select>}
+            {mostrarErrorFechaIniO&&<div className="mensajeErrorFormModal">{errorFechaIniO}</div>}
           {mostrarFechaIniD && <label>Definir fecha de la reserva:</label>}
           {mostrarFechaIniD && (
             <input
@@ -951,7 +1295,17 @@ const SitioRerservaMoto = (props) => {
                 Cancelar
               </Button>
               <Button
-                onClick={ejecutarAccion}
+                onClick={()=>ejecutarAccion('qr')}
+                className="botonModal"
+                style={{
+                  ...StyleSheet.buttonModal,
+                  padding: "6px 26px",
+                }}
+              >
+                Generar QR
+              </Button>
+              <Button
+                onClick={()=>ejecutarAccion('momento')}
                 className="botonModal"
                 style={{
                   ...StyleSheet.buttonModal,
@@ -1023,4 +1377,4 @@ const SitioRerservaMoto = (props) => {
   );
 };
 
-export default SitioRerservaMoto;
+export default SitioMoto;

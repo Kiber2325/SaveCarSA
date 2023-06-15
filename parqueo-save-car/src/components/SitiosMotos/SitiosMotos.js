@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './SitiosMotos.css';
-import Sitio from '../Sitio/Sitio';
 
 import {  ref, onValue } from "firebase/database";
 import { database } from '../../conexion/firebase';
 import Footers from '../Footer/Footer';
 import Navar from '../Navbar/Navar';
+import SitioMoto from '../Sitio/SitioMoto';
 //import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 //import ShowSitios from './componentes/ShowSitios';
@@ -45,7 +45,7 @@ const horariosReserva=(sitioDesignado)=>{
     <h1 className='titu'> Parqueo de Motos <i class="fa-solid fa-motorcycle"></i></h1>
     <div className='cuerpo'>
         {dataArr.map((sitio)=>(
-    <Sitio
+    <SitioMoto
       nombre={sitio.nombre}
       estado={sitio.estado}
       color={sitio.color}
