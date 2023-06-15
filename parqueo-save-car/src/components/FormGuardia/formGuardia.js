@@ -7,10 +7,16 @@ import FotoGuardia from '../FotoGuardia/FotoGuardia';
 import { Link, useNavigate } from 'react-router-dom';
 import Footers from '../Footer/Footer';
 import Navlogin from '../Login/Navlogin';
+import { push, ref, set } from 'firebase/database';
+import { database } from '../../conexion/firebase';
+import Swal from 'sweetalert2';
  
  const FormGuardia = () => {
   const [FormularioEnviado, cambiarFormularioEnviado ] = useState(false)
   const navigate=useNavigate();
+
+
+
   
    return (
    <>    
@@ -96,13 +102,39 @@ import Navlogin from '../Login/Navlogin';
           return errores;
       }}
 
-      onSubmit={(valores, {resetForm})=>{
-        resetForm()
-        console.log("formulario enviado");
-        cambiarFormularioEnviado(true)
-        setTimeout(()=> cambiarFormularioEnviado(false),4000)
-        navigate('/Home')
-      }}> 
+      onSubmit={(valores, {resetForm}) => {
+         // Generar un nuevo ID único para la entrada
+         const guardiasRef = ref(database, 'Guardias');
+         const nuevaGuardiaRef = push(guardiasRef); // Generar una nueva referencia con un nuevo ID
+         const nuevoID = nuevaGuardiaRef.key; // Obtener el nuevo ID generado
+         
+         console.log(nuevoID); // Imprimir el nuevo ID generado
+       
+         // Agregar los valores del formulario al arreglo en Firebase
+         const nuevaEntrada = {
+           id: nuevoID,
+           ...valores
+         };
+         console.log(nuevaEntrada);
+         set(ref(database, `Guardias/${nuevoID}`), nuevaEntrada)
+           .then(() => {
+             console.log('Datos de guardia registrados correctamente');
+             resetForm();
+             cambiarFormularioEnviado(true);
+             setTimeout(() => cambiarFormularioEnviado(false), 4000);
+             Swal.fire({
+               title: 'Enviado',
+               text: 'Se registró exitosamente',
+               icon: 'success',
+               confirmButtonText: 'Aceptar'
+             });
+             navigate('/Home');
+           })
+           .catch((error) => {
+             console.error('Error al registrar los datos del guardia:', error);
+           });
+       }}
+       > 
       
        {({ values, errors, touched, handleSubmit, handleChange, handleBlur })=>(
         <form onSubmit={handleSubmit}>
