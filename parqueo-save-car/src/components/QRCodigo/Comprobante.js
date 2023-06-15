@@ -150,6 +150,15 @@ const Comprobante = () => {
           horaIni: product.horaIni,
           horaFin: product.horaFin,
         };
+        let nombre_apelli=product.nombreapellido.split(' ')
+        const valuesClie={
+          ciCliente:product.ciCliente,
+          nombre:nombre_apelli[0],
+          apellido:nombre_apelli[1],
+          celular:product.celular,
+          estado:'activo'
+        }
+        set(ref(database, "clientesMensuales/"+(product.ciCliente)), valuesClie);
         set(ref(database, "reservas/" + newId), nuevaReserva);
         let horaIniPartida = product.horaIni.split(":");
         let horaFinPartida = product.horaFin.split(":");
@@ -385,6 +394,15 @@ const Comprobante = () => {
           horaIni: product.horaIni,
           horaFin: product.horaFin,
         };
+        let nombre_apelli=product.nombreapellido.split(' ')
+        const valuesClie={
+          ciCliente:product.ciCliente,
+          nombre:nombre_apelli[0],
+          apellido:nombre_apelli[1],
+          celular:product.celular,
+          estado:'activo'
+        }
+        set(ref(database, "clientesMensuales/"+(product.ciCliente)), valuesClie);
         set(ref(database, "reservasMotos/" + newId), nuevaReserva);
         setEnviando(true);
         Swal.fire({

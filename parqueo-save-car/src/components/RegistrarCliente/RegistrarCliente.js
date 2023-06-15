@@ -368,17 +368,37 @@ verificacion  de errores  */
         estado:'activo'
       }
       set(ref(database, "clientesMensuales/"+(ci)), values);
-      
-    const dataRef = ref(database, 'sitiosAutos/'+lugar.slice(1));
-    const nuevaData={nombre:lugar, estado:'reservadoMensual', color:'#317E8B'}
-    set(dataRef, nuevaData)
-    .then(() => {
-      console.log('Dato actualizado correctamente');
-    })
-    .catch((error) => {
-      console.error('Error al actualizar el dato:', error);
-    });
-     
+      let fecha=new Date()
+      let anio=fecha.getFullYear()
+      let mes=fecha.getMonth()+1
+      let dia=fecha.getDate()
+      let mesFinal=mes+1
+if(mes<10){
+  mes='0'+mes
+}
+if(dia<10){
+  dia='0'+dia
+}
+if(mesFinal<10){
+  mesFinal='0'+mesFinal
+}
+let fechaIni=anio+'-'+mes+'-'+dia
+let fechaFin=anio+'-'+mesFinal+'-'+dia
+const nuevaReserva = {
+  nombreSitio: lugar,
+  estado: 'reserva mes completo',
+  color: '#808080',
+  ciCliente: values.ciCliente,
+  nombreApellido: values.nombre+values.apellido,
+  celularCliente: values.celular,
+  placaDelAuto: values.matricula,
+  periodo: 'completo',
+  fechaIni: fechaIni,
+  fechaFin: fechaFin,
+  horaIni: '00:00:00',
+  horaFin: '23:59:00',
+};
+set(ref(database, "reservas/" + values.ciCliente+values.nombre),nuevaReserva)
     }
   }
   //cancelar con sweet alert

@@ -1309,7 +1309,7 @@ const Sitio = (props) => {
       if (
         !validarInputMotivo(values.motivo, true, alertaMotivo, regexAll, 3, 50)
       ) {
-        //setModalEstado(false)
+        setModalEstado(false)
         //setEstado('deshabilitado')
         let cad = props.nombre;
         let cadRecortada = cad.slice(1);
@@ -1544,6 +1544,16 @@ const Sitio = (props) => {
     reservas,
     props.estado,
   ]);
+  const habilitarSitio=()=>{
+    let cad = props.nombre;
+        let cadRecortada = cad.slice(1);
+        console.log(cadRecortada);
+        update(ref(database, "sitiosAutos/" + cadRecortada), {
+          color: "#00FF38",
+          estado: "disponible",
+        });
+        setModalEstadoOcupado(false);
+  }
   return (
     <div>
       <div
@@ -1749,6 +1759,17 @@ const Sitio = (props) => {
             }}
           >
             Cerrar
+          </button>
+          <button
+            onClick={habilitarSitio}
+            className="botonModal"
+            style={{
+              ...StyleSheet.buttonModal,
+              padding: "6px 26px",
+              border: "none",
+            }}
+          >
+            Habilitar
           </button>
         </ModalFooter>
       </Modal>
