@@ -1302,7 +1302,7 @@ const Sitio = (props) => {
           quitarMensajesError();
         } else if (tiempoReal === "momento") {
             setModalEstado(false)
-            confirmarReservaMensual('#808080','reserva mes','Reserva Mensual')
+            confirmarReservaMensual('#808080','reserva mes ','Reserva Mensual')
         }
       }
     } else if (tipo === "deshabilitar") {
