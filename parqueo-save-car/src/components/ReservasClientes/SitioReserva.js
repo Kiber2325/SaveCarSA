@@ -283,11 +283,13 @@ const SitioReserva = (props) => {
           }
           if(encontrado===false){
             console.log('Reserva mes dia correcta')
+            esInvalido=encontrado
           }else{
             let men='Ya existe una reserva en este periodo'
             console.log(men)
             setMostrarErrorFechaIni(true)
             setErrorFechaIni(men)
+            esInvalido=encontrado
           }
         }else if(periodo==='noche'){
           let encontrado=false
@@ -315,20 +317,24 @@ const SitioReserva = (props) => {
           }
           if(encontrado===false){
             console.log('Reserva mes noche correcta')
+            esInvalido=encontrado
           }else{
             let men='Ya existe una reserva en este periodo'
             console.log(men)
             setMostrarErrorFechaIni(true)
             setErrorFechaIni(men)
+            esInvalido=encontrado
           }
         }else if(periodo==='completo'){
           if(reservasFechaIniFin.length===0){
             console.log('reserva mensual completa correcta')
+            esInvalido=false
           }else{
             let men='Ya existe una reserva en este periodo de mes completo'
             console.log(men)
             setMostrarErrorFechaIni(true)
             setErrorFechaIni(men)
+            esInvalido=true
           }
         }/*
         if (
