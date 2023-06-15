@@ -77,11 +77,11 @@ const IngresosAnio = () => {
       dia = dias.sun;
     } else if (diaAEvaluar === "Mon") {
       dia = dias.mon;
-    } else if (diaAEvaluar === "Thu") {
+    } else if (diaAEvaluar === "Tue") {
       dia = dias.thu;
     } else if (diaAEvaluar === "Wed") {
       dia = dias.wed;
-    } else if (diaAEvaluar === "Tue") {
+    } else if (diaAEvaluar === "Thu") {
       dia = dias.tue;
     } else if (diaAEvaluar === "Fri") {
       dia = dias.fri;

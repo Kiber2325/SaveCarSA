@@ -44,6 +44,8 @@ const Comprobante = () => {
       product.sitio +
       "\nCI del cliente: " +
       product.ciCliente +
+      "\nNombres y apellidos del cliente: " +
+      product.nombreapellido +
       "\nPlaca del auto del cliente: " +
       product.placa +
       "\nCelular del cliente:" +
@@ -247,7 +249,7 @@ const Comprobante = () => {
         const collectionRef = ref(db, "ingresos");
         const newId = push(collectionRef).key;
         set(ref(database, "ingresos/" + newId), ingreso);
-        const nuevaReserva = {
+        let nuevaReserva = {
           nombreSitio: product.sitio,
           estado: "reservado",
           color: "#FC6901",
@@ -261,6 +263,22 @@ const Comprobante = () => {
           horaIni: product.horaIni,
           horaFin: product.horaFin,
         };
+        if(product.tipo!==undefined){
+          nuevaReserva= {
+            nombreSitio: product.sitio,
+            estado: "ocupado",
+            color: "#0050C8",
+            ciCliente: product.ciCliente,
+            nombreApellido: product.nombreapellido,
+            celularCliente: product.celular,
+            placaDelAuto: product.placa,
+            periodo: "corto",
+            fechaIni: product.fechaIni,
+            fechaFin: product.fechaFin,
+            horaIni: product.horaIni,
+            horaFin: product.horaFin,
+          };
+        }
         //console.log(nuevaReserva)
         set(ref(database, "reservas/" + newId), nuevaReserva);
         let horaIniPartida = product.horaIni.split(":");

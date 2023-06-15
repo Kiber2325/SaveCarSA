@@ -1095,6 +1095,7 @@ const SitioMoto = (props) => {
             horaFin: horaFin,
             monto: tarHor,
             tipoVehiculo: "Moto",
+            tipo:'ocupacion'
           };
           let idUnico =
             values.placa +
