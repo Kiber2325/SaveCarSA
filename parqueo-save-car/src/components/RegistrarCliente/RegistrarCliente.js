@@ -385,19 +385,21 @@ if(mesFinal<10){
 let fechaIni=anio+'-'+mes+'-'+dia
 let fechaFin=anio+'-'+mesFinal+'-'+dia
 const nuevaReserva = {
+  
   nombreSitio: lugar,
   estado: 'reserva mes completo',
   color: '#808080',
   ciCliente: values.ciCliente,
   nombreApellido: values.nombre+values.apellido,
   celularCliente: values.celular,
-  placaDelAuto: values.matricula,
+  placaDelAuto: "AAAA123",
   periodo: 'completo',
   fechaIni: fechaIni,
   fechaFin: fechaFin,
   horaIni: '00:00:00',
   horaFin: '23:59:00',
 };
+console.log(nuevaReserva);
 set(ref(database, "reservas/" + values.ciCliente+values.nombre),nuevaReserva)
     }
   }
