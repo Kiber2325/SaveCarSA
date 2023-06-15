@@ -1586,7 +1586,7 @@ const Sitio = (props) => {
           </ModalHeader>
         </div>
         <ModalBody>
-          <label>Definir tipo de reserva que desea realizar:</label>
+          <label>Seleccione la acción que desea realizar:</label>
           <select onChange={(e) => tipoReserva(e.target.value)}>
             <option value="ocupar" selected>
               Ocupar
