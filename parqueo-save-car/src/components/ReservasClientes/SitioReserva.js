@@ -821,9 +821,6 @@ const SitioReserva = (props) => {
       if(props.estado==='deshabilitado'){
         setEstadoSitio(props.estado)
         setColor(props.color)
-      }else{
-        setColor('#00FF38')
-              setEstadoSitio('disponible')
       }
     }, 1000); // Actualizar la hora cada segundo
 
