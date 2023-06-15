@@ -772,6 +772,15 @@ const SitioMoto = (props) => {
           console.log(nuevaReserva)
           console.log(nuevosTiempos)
           console.log(nuevoIngreso)
+          const db = getDatabase(app);
+      const collectionRef = ref(db, "ingresos");
+      const newId = push(collectionRef).key;
+      set(ref(database, "reservasMotos/" + newId), nuevaReserva);
+      for (let i = 0; i < nuevosTiempos.length; i++) {
+        console.log(nuevosTiempos[i]);
+        set(ref(database, "tiempoUso/" + newId), nuevosTiempos[i]);
+      }
+      set(ref(database, "ingresos/" + newId), nuevoIngreso);
   }
   const confirmarReserva=(estadoSitio,
     nuevoColor,
@@ -1291,7 +1300,7 @@ const SitioMoto = (props) => {
           setModalQr(true);
           quitarMensajesError();
         } else if (tiempoReal === "momento") {
-            //setModalEstado(false)
+            setModalEstado(false)
             confirmarReservaMensual('#808080','reserva mes','Reserva Mensual')
         }
       }
