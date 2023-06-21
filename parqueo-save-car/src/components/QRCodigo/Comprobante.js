@@ -322,7 +322,7 @@ const Comprobante = () => {
         }
         for(let i=0;i<nuevosTiempos.length;i++){
           console.log(nuevosTiempos[i])
-          set(ref(database, 'tiempoUso/'+newId),nuevaReserva)
+          set(ref(database, 'tiempoUso/'+newId),nuevosTiempos[i])
         }
         setEnviando(true);
         Swal.fire({
