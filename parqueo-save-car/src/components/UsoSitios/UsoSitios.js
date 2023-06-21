@@ -180,15 +180,30 @@ const UsoSitios = () => {
           </thead>
           <tbody>
             {datosFiltrados.map((uso) => (
+              <>
               <tr>
-                <td className="datoIngreso">{uso.nombreSitio}</td>
-                <td className="datoIngreso">{uso.cantidadDias}</td>
-                <td className="datoIngreso">{uso.tiempoUsado}</td>
-                <td className="datoIngreso">
+                <td className="datoIngresos" style={{backgroundColor:'aqua'}}>{uso.nombreSitio}</td>
+                <td className="datoIngresos" style={{backgroundColor:'aqua'}}>{uso.cantidadDias}</td>
+                <td className="datoIngresos" style={{backgroundColor:'aqua'}}>{uso.tiempoUsado}</td>
+                <td className="datoIngresos" style={{backgroundColor:'aqua'}}>
                   {uso.porcentajeUsado.toFixed(2)} %
                 </td>
               </tr>
+              <tr>
+                        <th  className="cabeceraTiempoSitio1">Fecha</th>
+                        <th  className="cabeceraTiempoSitio1">Hora inicio</th>
+                        <th  className="cabeceraTiempoSitio1">Hora finalización</th>
+              </tr>
+              {dataArr.filter((datSit=>datSit.sitioUsado===uso.nombreSitio && datSit.fecha>=filtrado.fechaIni&& datSit.fecha<=filtrado.fechaFin)).map((datFil)=>
+                <tr>
+                  <td className="datoIngreso">{datFil.fecha}</td>
+                  <td className="datoIngreso">{datFil.horaIni}</td>
+                  <td className="datoIngreso">{datFil.horaFin}</td>
+                </tr>
+              )}
+              </>
             ))}
+            
           </tbody>
         </table>
         
