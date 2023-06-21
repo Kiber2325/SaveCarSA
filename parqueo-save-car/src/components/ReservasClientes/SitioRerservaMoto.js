@@ -81,6 +81,8 @@ const SitioRerservaMoto = (props) => {
   const [periodo, setPeriodo] = useState("dia");
   const [horaInicio, setHoraInicio] = useState("06:00:00");
   const [horaFin, setHoraFin] = useState("22:00:00");
+  const [reservaEntradas,setReservaEntradas]=useState(true)
+  const [tablaReservas,setTablaReservas]=useState(false)
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -418,7 +420,7 @@ const SitioRerservaMoto = (props) => {
               console.log(reservas[i].horaFin)
               console.log(men)
               esInvalido = true;
-            } else if(horaFin+':00'>=reservas[i].horaIni && horaFin+':00'<=reservas[i].horaFin){
+            } else if(horaFin+':00'<reservas[i].horaIni && horaFin+':00'<reservas[i].horaFin){
               let men = "Ya existe una reserva en esta fecha y hora";
               setMostrarErrorFechaIniD(true)
               setErrorFechaIniD(men)
@@ -427,7 +429,13 @@ const SitioRerservaMoto = (props) => {
               console.log(reservas[i].horaFin)
               console.log(men)
               esInvalido = true;
-            } else{
+            } else if(horaFin+':00'>reservas[i].horaIni && horaFin+':00'<=reservas[i].horaFin){
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(men)
+              esInvalido = true;
+            }else{
               console.log(horaInicioReserva)
               console.log(horaFin)
               console.log(reservas[i].horaIni)
@@ -677,12 +685,22 @@ const SitioRerservaMoto = (props) => {
     //setValues(values.tipo)
     if (opcion === "reservaM") {
       console.log(values.fechaIni);
+      setReservaEntradas(true)
       setMostrarFechaIni(true);
       setMostrarFechaIniD(false);
+      setTablaReservas(false)
     } else if (opcion === "reservaD") {
       console.log(opcion);
+      setReservaEntradas(true)
       setMostrarFechaIni(false);
       setMostrarFechaIniD(true);
+      setTablaReservas(false)
+    } else if (opcion === "reservas") {
+      console.log(opcion);
+      setReservaEntradas(false)
+      setMostrarFechaIni(false);
+      setMostrarFechaIniD(false);
+      setTablaReservas(true)
     }
   };
   const tarifaReserva = (newTarifa) => {
@@ -858,6 +876,7 @@ const SitioRerservaMoto = (props) => {
           <select onChange={(e) => tipoReserva(e.target.value)}>
             <option value="reservaD">Reserva diaria</option>
             <option value="reservaM">Reserva mensual</option>
+            <option value="reservas">Reservas realizadas</option>
           </select>
           <br />
           {mostrarFechaIni && (
@@ -867,34 +886,34 @@ const SitioRerservaMoto = (props) => {
               <option value={300.0}>Mes Completo (24:00 horas) 300 Bs.</option>
             </select>
           )}
-          <EntradaInput
+          {reservaEntradas&&<EntradaInput
             titulo="Placa"
             nombre="placa"
             cambio={onChange}
             mostrarMensaje={mostrarMensajePlaca}
             mensaje={mensajePlaca}
-          />
-          <EntradaInput
+          />}
+          {reservaEntradas&&<EntradaInput
             titulo="CI"
             nombre="ci"
             cambio={onChange}
             mostrarMensaje={mostrarMensajeCi}
             mensaje={mensajeCi}
-          />
-          <EntradaInput
+          />}
+          {reservaEntradas&&<EntradaInput
             titulo="Nombres y Apellidos"
             nombre="nombreapellido"
             cambio={onChange}
             mostrarMensaje={mostrarMensajeNombre}
             mensaje={mensajeNombre}
-          />
-          <EntradaInput
+          />}
+          {reservaEntradas&&<EntradaInput
             titulo="Celular"
             nombre="celular"
             cambio={onChange}
             mostrarMensaje={mostrarMensajeCelular}
             mensaje={mensajeCelular}
-          />
+          />}
           {mostrarFechaIniD && <label>Definir fecha de la reserva:</label>}
           {mostrarFechaIniD && (
             <input
@@ -935,6 +954,27 @@ const SitioRerservaMoto = (props) => {
           )}
           
           {mostrarErrorFechaIni&&<div className="mensajeErrorFormModal">{errorFechaIni}</div>}
+          {tablaReservas&&<label>Reservas realizadas en este sitio</label>}
+          {tablaReservas&&<table class="table table-bordered">
+              <thead >
+                <tr className="cabeceraClientes">
+                  <th className="cabeceraTablaClientes" scope="col">Fecha Inicio</th>
+                  <th className="cabeceraTablaClientes" scope="col">Fecha Fin</th>
+                  <th className="cabeceraTablaClientes" scope="col">Hora Inicio</th>
+                  <th className="cabeceraTablaClientes" scope="col">Hora Fin</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reservas.map((reserva)=>(
+                  <tr>
+                    <th className="datoIngreso">{reserva.fechaIni}</th>
+                    <th className="datoIngreso">{reserva.fechaFin}</th>
+                    <th className="datoIngreso">{reserva.horaIni}</th>
+                    <th className="datoIngreso">{reserva.horaFin}</th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>}
           {false && currentTime}
         </ModalBody>
         <div className="modalFooter">

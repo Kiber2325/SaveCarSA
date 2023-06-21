@@ -77,6 +77,7 @@ const Sitio = (props) => {
   const [mostrarErrorFechaIniO, setMostrarErrorFechaIniO] = useState(false);
   // const  [tipo, setTipo]=useState('')
   const [ocuRes, setOcuRes] = useState(true);
+  const [tablaReservas,setTablaReservas]=useState(false)
   const [ocuparHorarios, setOcuparHorarios] = useState(true);
   const [motivo, setMotivo] = useState(false);
   const [mensajeMotivo, setMensajeMotivo] = useState("");
@@ -541,23 +542,26 @@ const Sitio = (props) => {
               console.log(reservas[i].horaFin);
               console.log(men);
               esInvalido = true;
-            } else if (
-              horaFin + ":00" >= reservas[i].horaIni &&
-              horaFin + ":00" <= reservas[i].horaFin
-            ) {
+            } else if(horaFin+':00'<reservas[i].horaIni && horaFin+':00'<reservas[i].horaFin){
               let men = "Ya existe una reserva en esta fecha y hora";
-              setMostrarErrorFechaIniD(true);
-              setErrorFechaIniD(men);
-              console.log(horaFin + ":00");
-              console.log(reservas[i].horaIni);
-              console.log(reservas[i].horaFin);
-              console.log(men);
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(horaFin+':00')
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
               esInvalido = true;
-            } else {
-              console.log(horaInicioReserva);
-              console.log(horaFin);
-              console.log(reservas[i].horaIni);
-              console.log(reservas[i].horaFin);
+            } else if(horaFin+':00'>reservas[i].horaIni && horaFin+':00'<=reservas[i].horaFin){
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(men)
+              esInvalido = true;
+            }else{
+              console.log(horaInicioReserva)
+              console.log(horaFin)
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
               console.log("Reserva  correcta");
             }
           }
@@ -1347,6 +1351,7 @@ const Sitio = (props) => {
       setMostrarFechaIni(false);
       setMostrarFechaIniD(false);
       setMotivo(false);
+      setTablaReservas(false)
     } else if (opcion === "reservaM") {
       setOcuRes(true);
       setOcuparHorarios(false);
@@ -1354,6 +1359,7 @@ const Sitio = (props) => {
       setMostrarFechaIni(true);
       setMostrarFechaIniD(false);
       setMotivo(false);
+      setTablaReservas(false)
     } else if (opcion === "reservaD") {
       setOcuRes(true);
       setOcuparHorarios(false);
@@ -1361,6 +1367,7 @@ const Sitio = (props) => {
       setMostrarFechaIni(false);
       setMostrarFechaIniD(true);
       setMotivo(false);
+      setTablaReservas(false)
     } else if (opcion === "deshabilitar") {
       console.log(opcion);
       setOcuparHorarios(false);
@@ -1368,6 +1375,14 @@ const Sitio = (props) => {
       setMostrarFechaIni(false);
       setMostrarFechaIniD(false);
       setMotivo(true);
+      setTablaReservas(false)
+    } else if(opcion==='reservas'){
+      setOcuparHorarios(false);
+      setOcuRes(false)
+      setMostrarFechaIni(false);
+      setMostrarFechaIniD(false);
+      setMotivo(false);
+      setTablaReservas(true)
     }
   };
   const tarifaReserva = (newTarifa) => {
@@ -1591,6 +1606,7 @@ const Sitio = (props) => {
             <option value="reservaD">Reserva diaria</option>
             <option value="reservaM">Reserva mensual</option>
             <option value="deshabilitar">Deshabilitar</option>
+            <option value="reservas">Reservas realizadas</option>
           </select>
           <br />
           {mostrarFechaIni && (
@@ -1705,6 +1721,27 @@ const Sitio = (props) => {
           {mostrarErrorFechaIni && (
             <div className="mensajeErrorFormModal">{errorFechaIni}</div>
           )}
+          {tablaReservas&&<label>Reservas realizadas en este sitio</label>}
+          {tablaReservas&&<table class="table table-bordered">
+              <thead >
+                <tr className="cabeceraClientes">
+                  <th className="cabeceraTablaClientes" scope="col">Fecha Inicio</th>
+                  <th className="cabeceraTablaClientes" scope="col">Fecha Fin</th>
+                  <th className="cabeceraTablaClientes" scope="col">Hora Inicio</th>
+                  <th className="cabeceraTablaClientes" scope="col">Hora Fin</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reservas.map((reserva)=>(
+                  <tr>
+                    <th className="datoIngreso">{reserva.fechaIni}</th>
+                    <th className="datoIngreso">{reserva.fechaFin}</th>
+                    <th className="datoIngreso">{reserva.horaIni}</th>
+                    <th className="datoIngreso">{reserva.horaFin}</th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>}
           {false && currentTime}
         </ModalBody>
         <div className="modalFooter">
