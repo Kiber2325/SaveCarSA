@@ -191,6 +191,8 @@ const Comprobante = () => {
                 minutosUsados: 0,
                 segundosUsados: 0,
                 sitioUsado: product.sitio,
+                horaIni: product.horaIni,
+                horaFin: product.horaFin,
               };
               nuevosTiempos.push(nuevoTiempo);
             }
@@ -201,6 +203,8 @@ const Comprobante = () => {
             minutosUsados: 0,
             segundosUsados: 0,
             sitioUsado: product.sitio,
+            horaIni: product.horaIni,
+                horaFin: '23:59:59',
           };
           const nuevoTiempo2 = {
             fecha: product.fechaFin,
@@ -208,6 +212,8 @@ const Comprobante = () => {
             minutosUsados: 0,
             segundosUsados: 0,
             sitioUsado: product.sitio,
+            horaIni: '00:00:00',
+                horaFin: product.horaFin,
           };
           nuevosTiempos.push(nuevoTiempo1);
           nuevosTiempos.push(nuevoTiempo2);
@@ -300,6 +306,8 @@ const Comprobante = () => {
             minutosUsados: 0,
             segundosUsados: 0,
             sitioUsado: product.sitio,
+            horaIni: product.horaIni,
+                horaFin: product.horaFin,
           };
           nuevosTiempos.push(nuevoTiempo);
         } else {
@@ -309,6 +317,8 @@ const Comprobante = () => {
             minutosUsados: 0,
             segundosUsados: 0,
             sitioUsado: product.sitio,
+            horaIni: product.horaIni,
+                horaFin: product.horaFin,
           };
           const nuevoTiempo2 = {
             fecha: product.fechaFin,
@@ -316,6 +326,8 @@ const Comprobante = () => {
             minutosUsados: 0,
             segundosUsados: 0,
             sitioUsado: product.sitio,
+            horaIni: product.horaIni,
+                horaFin: product.horaFin,
           };
           nuevosTiempos.push(nuevoTiempo1);
           nuevosTiempos.push(nuevoTiempo2);
@@ -474,6 +486,8 @@ const Comprobante = () => {
             ),
             segundosUsados: parseInt(horaIniPartida[2]),
             sitioUsado: product.sitio,
+            horaIni: product.horaIni,
+                horaFin: product.horaFin,
           };
         } else {
         }
