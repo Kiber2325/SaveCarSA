@@ -9,6 +9,7 @@ import Footers from "../Footer/Footer";
 const UsoSitios = () => {
   const [dataArr, setDataArr] = useState([]);
   const [dataSitios, setDataSitios] = useState([]);
+  const [dataSitiosMotos, setDataSitiosMotos] = useState([]);
   const [filtrado, setFiltrado] = useState({
     fechaIni: "",
     fechaFin: "",
@@ -23,6 +24,9 @@ const UsoSitios = () => {
   useEffect(() => {
     getDataSitios();
   }, []);
+  useEffect(() => {
+    getDataSitiosMotos();
+  }, []);
   function getData() {
     onValue(ref(database, "tiempoUso"), (snapshot) => {
       const dataObj = snapshot.val();
@@ -35,6 +39,13 @@ const UsoSitios = () => {
       const dataObj = snapshot.val();
       const dataSitios = Object.values(dataObj);
       setDataSitios(dataSitios);
+    });
+  }
+  function getDataSitiosMotos() {
+    onValue(ref(database, "sitiosMotos"), (snapshot) => {
+      const dataObj = snapshot.val();
+      const dataSitiosMotos = Object.values(dataObj);
+      setDataSitiosMotos(dataSitiosMotos);
     });
   }  /*const calcularUso = (horas, minutos, segundos) => {
     let horasUs = horas;
@@ -63,6 +74,20 @@ const UsoSitios = () => {
     let datosFinales=[]
     for(let i=0;i<dataSitios.length;i++){
       let nombreSitio=dataSitios[i].nombre
+      let dias=calcularCantidadDias(filtrado.fechaIni,filtrado.fechaFin)
+      let tiempoTotal=dias*84600
+      let tiempoUsadoSitio=calcularTiempoUso(nombreSitio,tiemposFiltrado)
+
+      let datoFiltrado={
+        nombreSitio:nombreSitio,
+        cantidadDias:dias,
+        tiempoUsado:transformarSaH(tiempoUsadoSitio),
+        porcentajeUsado:((tiempoUsadoSitio*100.0)/tiempoTotal)
+      }
+      datosFinales.push(datoFiltrado)
+    }
+    for(let i=0;i<dataSitiosMotos.length;i++){
+      let nombreSitio=dataSitiosMotos[i].nombre
       let dias=calcularCantidadDias(filtrado.fechaIni,filtrado.fechaFin)
       let tiempoTotal=dias*84600
       let tiempoUsadoSitio=calcularTiempoUso(nombreSitio,tiemposFiltrado)

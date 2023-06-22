@@ -769,6 +769,8 @@ const Sitio = (props) => {
                 minutosUsados: 0,
                 segundosUsados: 0,
                 sitioUsado: props.nombre,
+                horaIni:horaInicio,
+                horaFin:horaFin
               };
               nuevosTiempos.push(nuevoTiempo);
             }
@@ -783,6 +785,8 @@ const Sitio = (props) => {
                   minutosUsados: 0,
                   segundosUsados: 0,
                   sitioUsado: props.nombre,
+                  horaIni:horaInicio,
+                horaFin:horaFin
                 };
                 nuevosTiempos.push(nuevoTiempo);
               }
@@ -870,6 +874,12 @@ const Sitio = (props) => {
         minutosUsados: 0,
         segundosUsados: 0,
         sitioUsado: props.nombre,
+        horaIni:horaInicioReserva + ":00",
+                horaFin:calcularHoraFin(
+                  parseInt(tarHora),
+                  hour,
+                  parseInt(horaActual[1])
+                ) + ":00"
       };
       nuevosTiempos.push(nuevoTiempo);
     } else {
@@ -879,6 +889,8 @@ const Sitio = (props) => {
         minutosUsados: 0,
         segundosUsados: 0,
         sitioUsado: props.nombre,
+        horaIni:horaInicioReserva,
+                horaFin:'23:59:59'
       };
       const nuevoTiempo2 = {
         fecha: fechaFinal,
@@ -886,6 +898,12 @@ const Sitio = (props) => {
         minutosUsados: 0,
         segundosUsados: 0,
         sitioUsado: props.nombre,
+        horaIni:'00:00:00',
+                horaFin:calcularHoraFin(
+                  parseInt(tarHora),
+                  hour,
+                  parseInt(horaActual[1])
+                ) + ":00"
       };
       nuevosTiempos.push(nuevoTiempo1);
       nuevosTiempos.push(nuevoTiempo2);
@@ -986,6 +1004,8 @@ const Sitio = (props) => {
         minutosUsados: 0,
         segundosUsados: 0,
         sitioUsado: props.nombre,
+        horaIni: horaExacta,
+      horaFin: horaExactaFin,
       };
       nuevosTiempos.push(nuevoTiempo);
     } else {
@@ -995,6 +1015,8 @@ const Sitio = (props) => {
         minutosUsados: 0,
         segundosUsados: 0,
         sitioUsado: props.nombre,
+        horaIni: horaExacta,
+      horaFin: '23:59:59',
       };
       const nuevoTiempo2 = {
         fecha: fechaExactaFin,
@@ -1002,6 +1024,8 @@ const Sitio = (props) => {
         minutosUsados: 0,
         segundosUsados: 0,
         sitioUsado: props.nombre,
+        horaIni: '00:00:00',
+      horaFin: horaExactaFin,
       };
       nuevosTiempos.push(nuevoTiempo1);
       nuevosTiempos.push(nuevoTiempo2);
