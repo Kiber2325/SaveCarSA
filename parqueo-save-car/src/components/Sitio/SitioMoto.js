@@ -409,6 +409,8 @@ const SitioMoto = (props) => {
                 ) {
                   encontrado = true;
                 }
+              }else if(reservasFechaIniFin[i].horaIni==='00:00:00'&&reservasFechaIniFin[i].horaFin==='23:59:00'){
+                encontrado=true
               }
             } else if (
               reservasFechaIniFin[i].fechaIni ===
