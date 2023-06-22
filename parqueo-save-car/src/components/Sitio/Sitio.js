@@ -563,7 +563,7 @@ const Sitio = (props) => {
               console.log(reservas[i].horaFin);
               console.log(men);
               esInvalido = true;
-            } else if(horaFin+':00'<reservas[i].horaIni && horaFin+':00'<reservas[i].horaFin){
+            } else if(horaFin+':00'>reservas[i].horaIni && horaFin+':00'<=reservas[i].horaFin){
               let men = "Ya existe una reserva en esta fecha y hora";
               setMostrarErrorFechaIniD(true)
               setErrorFechaIniD(men)
