@@ -526,7 +526,26 @@ const SitioMoto = (props) => {
               console.log(reservas[i].horaFin);
               console.log(men);
               esInvalido = true;
-            } else {
+            } else if(horaFin+':00'>reservas[i].horaIni && horaFin+':00'<'23:59:59'){
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(horaFin+':00')
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
+              esInvalido = true;
+            }else if(horaInicioReserva+':00'===horaFin+':00'){
+              if(horaInicioReserva+':00'<=reservas[i].horaIni&&horaFin+':00'>=reservas[i].horaFin){
+              let men = "Ya existe una reserva en esta fecha y hora";
+              setMostrarErrorFechaIniD(true)
+              setErrorFechaIniD(men)
+              console.log(horaFin+':00')
+              console.log(reservas[i].horaIni)
+              console.log(reservas[i].horaFin)
+              console.log(men)
+              esInvalido = true;}
+            }else {
               console.log("Reserva  correcta");
             }
           } else {
